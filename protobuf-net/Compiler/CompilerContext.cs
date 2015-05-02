@@ -107,7 +107,7 @@ namespace ProtoBuf.Compiler
             
             using (Local typedVal = new Local(ctx, type))
             {
-                if (!type.IsValueType)
+                if (!Helpers.IsValueType(type))
                 {
                     ctx.LoadValue(ctx.InputValue);
                     ctx.CastFromObject(type);
@@ -161,7 +161,7 @@ namespace ProtoBuf.Compiler
         {
             if(IsObject(type))
             { }
-            else if (type.IsValueType)
+            else if (Helpers.IsValueType(type))
             {
                 il.Emit(OpCodes.Box, type);
 #if DEBUG_COMPILE
@@ -181,7 +181,7 @@ namespace ProtoBuf.Compiler
         {
             if (IsObject(type))
             { }
-            else if (type.IsValueType)
+            else if (Helpers.IsValueType(type))
             {
                 switch (MetadataVersion)
                 {
@@ -556,7 +556,7 @@ namespace ProtoBuf.Compiler
         {
             Helpers.DebugAssert(method != null);
             CheckAccessibility(method);
-            OpCode opcode = (method.IsStatic || method.DeclaringType.IsValueType) ? OpCodes.Call : OpCodes.Callvirt;
+            OpCode opcode = (method.IsStatic || Helpers.IsValueType(method.DeclaringType)) ? OpCodes.Call : OpCodes.Callvirt;
             il.EmitCall(opcode, method, null);
 #if DEBUG_COMPILE
             Helpers.DebugWriteLine(opcode + ": " + method + " on " + method.DeclaringType);
@@ -576,7 +576,7 @@ namespace ProtoBuf.Compiler
 
         internal void WriteNullCheckedTail(Type type, IProtoSerializer tail, Compiler.Local valueFrom)
         {
-            if (type.IsValueType)
+            if (Helpers.IsValueType(type))
             {
                 Type underlyingType = null;
 #if !FX11

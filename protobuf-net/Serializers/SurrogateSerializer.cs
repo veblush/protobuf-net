@@ -75,7 +75,7 @@ namespace ProtoBuf.Serializers
                             break;
                         }
                     }
-                    if (m.IsDefined(convertAttributeType, true))
+                    if (Helpers.IsDefined(m, convertAttributeType, true))
                     {
                         op = m;
                         return true;

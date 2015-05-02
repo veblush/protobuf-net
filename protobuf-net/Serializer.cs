@@ -153,7 +153,11 @@ namespace ProtoBuf
             using (MemoryStream ms = new MemoryStream())
             {
                 Serializer.Serialize(ms, instance);
+#if DNXCORE50
+                writer.WriteBase64(ms.ToArray(), 0, (int)ms.Length);
+#else
                 writer.WriteBase64(ms.GetBuffer(), 0, (int)ms.Length);
+#endif
             }
         }
         /// <summary>

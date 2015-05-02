@@ -615,8 +615,8 @@ namespace ProtoBuf.Meta
             MetaType newType = FindWithoutAdd(type);
             if (newType != null) return newType; // return existing
             int opaqueToken = 0;
-            
-#if WINRT
+
+#if WINRT || DNXCORE50
             System.Reflection.TypeInfo typeInfo = System.Reflection.IntrospectionExtensions.GetTypeInfo(type);
             if (typeInfo.IsInterface && MetaType.ienumerable.IsAssignableFrom(typeInfo)
 #else
@@ -1827,7 +1827,7 @@ namespace ProtoBuf.Meta
 
             if (itemType != null && defaultType == null)
             {
-#if WINRT
+#if WINRT || DNXCORE50
                 System.Reflection.TypeInfo typeInfo = System.Reflection.IntrospectionExtensions.GetTypeInfo(type);
                 if (typeInfo.IsClass && !typeInfo.IsAbstract && Helpers.GetConstructor(typeInfo, Helpers.EmptyTypes, true) != null)
 #else
@@ -1838,7 +1838,7 @@ namespace ProtoBuf.Meta
                 }
                 if (defaultType == null)
                 {
-#if WINRT
+#if WINRT || DNXCORE50
                     if (typeInfo.IsInterface)
 #else
                     if (type.IsInterface)
@@ -1848,7 +1848,7 @@ namespace ProtoBuf.Meta
                         defaultType = typeof(ArrayList);
 #else
                         Type[] genArgs;
-#if WINRT
+#if WINRT || DNXCORE50
                         if (typeInfo.IsGenericType && typeInfo.GetGenericTypeDefinition() == typeof(System.Collections.Generic.IDictionary<,>)
                             && itemType == typeof(System.Collections.Generic.KeyValuePair<,>).MakeGenericType(genArgs = typeInfo.GenericTypeArguments))
 #else

@@ -17,10 +17,10 @@ namespace ProtoBuf.Serializers
         public static ParseableSerializer TryCreate(Type type, TypeModel model)
         {
             if (type == null) throw new ArgumentNullException("type");
-#if WINRT || PORTABLE
+#if WINRT || PORTABLE || DNXCORE50
             MethodInfo method = null;
             
-#if WINRT
+#if WINRT || DNXCORE50
             foreach (MethodInfo tmp in type.GetTypeInfo().GetDeclaredMethods("Parse"))
 #else
             foreach (MethodInfo tmp in type.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly))
@@ -51,7 +51,7 @@ namespace ProtoBuf.Serializers
         }
         private static MethodInfo GetCustomToString(Type type)
         {
-#if WINRT
+#if WINRT || DNXCORE50
             foreach (MethodInfo method in type.GetTypeInfo().GetDeclaredMethods("ToString"))
             {
                 if (method.IsPublic && !method.IsStatic && method.GetParameters().Length == 0) return method;

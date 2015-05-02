@@ -33,6 +33,16 @@ namespace ProtoBuf.Meta
                 result[index++] = new AttributeDataMap(attrib);
             }
             return result;
+#elif DNXCORE50
+            Type attribType = model.MapType(typeof(System.Attribute));
+            System.Collections.Generic.IList<CustomAttributeData> all = System.Linq.Enumerable.ToList(type.GetTypeInfo().CustomAttributes);
+            AttributeMap[] result = new AttributeMap[all.Count];
+            int index = 0;
+            foreach (CustomAttributeData attrib in all)
+            {
+                result[index++] = new AttributeDataMap(attrib);
+            }
+            return result;
 #else
 #if WINRT
             Attribute[] all = System.Linq.Enumerable.ToArray(type.GetTypeInfo().GetCustomAttributes(inherit));
@@ -59,6 +69,15 @@ namespace ProtoBuf.Meta
                 result[index++] = new AttributeDataMap(attrib);
             }
             return result;
+#elif DNXCORE50
+            System.Collections.Generic.IList<CustomAttributeData> all = System.Linq.Enumerable.ToList(member.CustomAttributes);
+            AttributeMap[] result = new AttributeMap[all.Count];
+            int index = 0;
+            foreach (CustomAttributeData attrib in all)
+            {
+                result[index++] = new AttributeDataMap(attrib);
+            }
+            return result;
 #else
 #if WINRT
             Attribute[] all = System.Linq.Enumerable.ToArray(member.GetCustomAttributes(inherit));
@@ -75,10 +94,19 @@ namespace ProtoBuf.Meta
         }
         public static AttributeMap[] Create(TypeModel model, Assembly assembly)
         {
-            
+
 #if FEAT_IKVM
             const bool inherit = false;
             System.Collections.Generic.IList<CustomAttributeData> all = assembly.__GetCustomAttributes(model.MapType(typeof(Attribute)), inherit);
+            AttributeMap[] result = new AttributeMap[all.Count];
+            int index = 0;
+            foreach (CustomAttributeData attrib in all)
+            {
+                result[index++] = new AttributeDataMap(attrib);
+            }
+            return result;
+#elif DNXCORE50
+            System.Collections.Generic.IList<CustomAttributeData> all = System.Linq.Enumerable.ToList(assembly.CustomAttributes);
             AttributeMap[] result = new AttributeMap[all.Count];
             int index = 0;
             foreach (CustomAttributeData attrib in all)
@@ -101,12 +129,17 @@ namespace ProtoBuf.Meta
             return result;
 #endif
         }
-#if FEAT_IKVM
+
+#if FEAT_IKVM || DNXCORE50
         private sealed class AttributeDataMap : AttributeMap
         {
             public override Type AttributeType
             {
+#if DNXCORE50
+                get { return attribute.AttributeType; }
+#else
                 get { return attribute.Constructor.DeclaringType; }
+#endif
             }
             private readonly CustomAttributeData attribute;
             public AttributeDataMap(CustomAttributeData attribute)
@@ -117,16 +150,33 @@ namespace ProtoBuf.Meta
             {
                 foreach (CustomAttributeNamedArgument arg in attribute.NamedArguments)
                 {
-                    if (string.Equals(arg.MemberInfo.Name, key, StringComparison.OrdinalIgnoreCase))
+#if DNXCORE50
+                    string name = arg.MemberName;
+#else
+                    string name = arg.MemberInfo.Name;
+#endif
+                    if (string.Equals(name, key, StringComparison.OrdinalIgnoreCase))
                     {
                         value = arg.TypedValue.Value;
                         return true;
                     }
                 }
 
-                    
-                int index = 0;
+
+
+#if DNXCORE50
+                // CoreCLR doesn't expose the parameter names / infos; need to look up the ctor
+                System.Collections.Generic.IList<CustomAttributeTypedArgument> ctorArgs = attribute.ConstructorArguments;
+                Type[] types = new Type[ctorArgs.Count];
+                for(int i = 0; i < types.Length; i++)
+                {
+                    types[i] = ctorArgs[i].ArgumentType;
+                }
+                ParameterInfo[] parameters = attribute.AttributeType.GetConstructor(types).GetParameters();
+#else
                 ParameterInfo[] parameters = attribute.Constructor.GetParameters();
+#endif
+                int index = 0;
                 foreach (CustomAttributeTypedArgument arg in attribute.ConstructorArguments)
                 {
                     if (string.Equals(parameters[index++].Name, key, StringComparison.OrdinalIgnoreCase))
@@ -141,6 +191,7 @@ namespace ProtoBuf.Meta
         }
 #else
         public abstract object Target { get; }
+
         private sealed class ReflectionAttributeMap : AttributeMap
         {
             public override object Target
@@ -186,6 +237,6 @@ namespace ProtoBuf.Meta
             }
         }
 #endif
-    }
+            }
 }
 #endif

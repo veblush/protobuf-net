@@ -70,7 +70,7 @@ namespace ProtoBuf
 #if TRACE
 #if MF
             Microsoft.SPOT.Trace.Print(message);
-#elif SILVERLIGHT || MONODROID || CF2 || WINRT || IOS || PORTABLE
+#elif SILVERLIGHT || MONODROID || CF2 || WINRT || IOS || PORTABLE || DNXCORE50
             System.Diagnostics.Debug.WriteLine(message);
 #else
             System.Diagnostics.Trace.WriteLine(message);
@@ -152,7 +152,7 @@ namespace ProtoBuf
             return float.IsInfinity(value);
 #endif
         }
-#if WINRT
+#if WINRT || DNXCORE50
         internal static MemberInfo GetInstanceMember(TypeInfo declaringType, string name)
         {
             PropertyInfo prop = declaringType.GetDeclaredProperty(name);
@@ -227,7 +227,7 @@ namespace ProtoBuf
 
         internal static bool IsSubclassOf(Type type, Type baseClass)
         {
-#if WINRT
+#if WINRT || DNXCORE50
             return type.GetTypeInfo().IsSubclassOf(baseClass);
 #else
             return type.IsSubclassOf(baseClass);
@@ -250,7 +250,7 @@ namespace ProtoBuf
             Type.EmptyTypes;
 #endif
 
-#if WINRT
+#if WINRT || DNXCORE50
         private static readonly Type[] knownTypes = new Type[] {
                 typeof(bool), typeof(char), typeof(sbyte), typeof(byte),
                 typeof(short), typeof(ushort), typeof(int), typeof(uint),
@@ -307,7 +307,7 @@ namespace ProtoBuf
 
         public static ProtoTypeCode GetTypeCode(System.Type type)
         {
-#if WINRT
+#if WINRT || DNXCORE50
             
             int idx = Array.IndexOf<Type>(knownTypes, type);
             if (idx >= 0) return knownCodes[idx];
@@ -367,16 +367,28 @@ namespace ProtoBuf
 
         internal static bool IsValueType(Type type)
         {
-#if WINRT
+#if WINRT || DNXCORE50
             return type.GetTypeInfo().IsValueType;
 #else
             return type.IsValueType;
 #endif
         }
 
+        internal static bool IsDefined(MemberInfo member, Type attributeType, bool inherited)
+        {
+#if DNXCORE50
+            foreach(CustomAttributeData attrib in member.CustomAttributes)
+            {
+                if (attrib.AttributeType == attributeType) return true;
+            }
+            return false;
+#else
+            return Attribute.IsDefined(member, attributeType, inherited);
+#endif
+        }
         internal static bool IsEnum(Type type)
         {
-#if WINRT
+#if WINRT || DNXCORE50
             return type.GetTypeInfo().IsEnum;
 #else
             return type.IsEnum;
@@ -436,7 +448,7 @@ namespace ProtoBuf
             return true;
         }
 #endif
-#if WINRT
+#if WINRT || DNXCORE50
         private static bool IsMatch(ParameterInfo[] parameters, Type[] parameterTypes)
         {
             if (parameterTypes == null) parameterTypes = EmptyTypes;
@@ -460,8 +472,9 @@ namespace ProtoBuf
         {
             if (nonPublic) return System.Linq.Enumerable.ToArray(typeInfo.DeclaredConstructors);
             return System.Linq.Enumerable.ToArray(
-                System.Linq.Enumerable.Where(typeInfo.DeclaredConstructors, x => x.IsPublic));
+                System.Linq.Enumerable.Where(typeInfo.DeclaredConstructors, CtorIsPublic));
         }
+        private static bool CtorIsPublic(ConstructorInfo ctor) { return ctor.IsPublic; }
         internal static PropertyInfo GetProperty(TypeInfo type, string name, bool nonPublic)
         {
             return type.GetDeclaredProperty(name);
@@ -541,7 +554,7 @@ namespace ProtoBuf
 
         internal static Type GetMemberType(MemberInfo member)
         {
-#if WINRT || PORTABLE
+#if WINRT || PORTABLE || DNXCORE50
             PropertyInfo prop = member as PropertyInfo;
             if (prop != null) return prop.PropertyType;
             FieldInfo fld = member as FieldInfo;

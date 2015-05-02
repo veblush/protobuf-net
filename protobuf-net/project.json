@@ -22,14 +22,28 @@
                 "System.Xml": "4.0.0.0"
             }
 
+        },
+        "dnxcore50": {
+            "compilationOptions": {
+                "allowUnsafe": true,
+                "languageVersion": "csharp2",
+                "define": [ "PLAT_XMLSERIALIZER" ] // "FEAT_COMPILER", 
+            },
+            "dependencies": {
+                "System.Text.RegularExpressions": "4.0.10-beta-*",
+                "System.Collections": "4.0.10-beta-*",
+                "System.Linq": "4.0.0-beta-*",
+                "System.Threading": "4.0.10-beta-*",
+                "System.Reflection": "4.0.10-beta-*",
+                "System.Reflection.Emit": "4.0.0-beta-*",
+                "System.Reflection.Emit.ILGeneration": "4.0.0-beta-*",
+                "System.Reflection.Emit.Lightweight": "4.0.0-beta-*",
+                "System.Reflection.TypeExtensions": "4.0.0-beta-*",
+                "System.Runtime.Extensions": "4.0.10-beta-*",
+                "System.Globalization": "4.0.10-beta-*",
+                "System.Xml.ReaderWriter": "4.0.10-beta-*",
+                "System.Diagnostics.Debug": "4.0.10-beta-*"
+            }
         }
-        //"dnxcore50": {
-        //    "dependencies": {
-        //        "System.Collections": "4.0.10-beta-22816",
-        //        "System.Linq": "4.0.0-beta-22816",
-        //        "System.Threading": "4.0.10-beta-22816",
-        //        "Microsoft.CSharp": "4.0.0-beta-22816"
-        //    }
-        //}
     }
 }
