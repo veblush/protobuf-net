@@ -27,7 +27,7 @@
             "compilationOptions": {
                 "allowUnsafe": true,
                 "languageVersion": "csharp2",
-                "define": [ "PLAT_XMLSERIALIZER" ] // "FEAT_COMPILER", 
+                "define": [ "PLAT_XMLSERIALIZER", "FEAT_COMPILER" ]
             },
             "dependencies": {
                 "System.Text.RegularExpressions": "4.0.10-beta-*",

@@ -56,9 +56,16 @@ namespace ProtoBuf.Serializers
                 ctx.LoadValue(valueFrom);
             }
             ctx.LoadReaderWriter();
-            ctx.EmitCall(ctx.MapType(typeof(ProtoReader)).GetMethod("AppendBytes"));
+            ctx.EmitCall(
+#if DNXCORE50
+                System.Reflection.TypeExtensions.GetMethod(ctx.MapType(typeof(ProtoReader)), "AppendBytes")
+#else
+                ctx.MapType(typeof(ProtoReader)).GetMethod("AppendBytes")
+#endif
+
+                );
         }
 #endif
-    }
+        }
 }
 #endif

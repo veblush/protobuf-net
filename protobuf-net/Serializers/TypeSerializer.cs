@@ -550,7 +550,7 @@ namespace ProtoBuf.Serializers
                 // pre-callbacks
                 if (HasCallbacks(TypeModel.CallbackType.BeforeDeserialize))
                 {
-                    if(ExpectedType.IsValueType)
+                    if(Helpers.IsValueType(ExpectedType))
                     {
                         EmitCallbackIfNeeded(ctx, loc, TypeModel.CallbackType.BeforeDeserialize);
                     }
@@ -695,7 +695,7 @@ namespace ProtoBuf.Serializers
                 ctx.EmitCall(ctx.MapType(typeof(BclHelpers)).GetMethod("GetUninitializedObject"));
                 ctx.Cast(forType);
             }
-            else if (constructType.IsClass && hasConstructor)
+            else if (Helpers.IsClass(constructType) && hasConstructor)
             {   // XmlSerializer style
                 ctx.EmitCtor(constructType);
             }
@@ -726,7 +726,7 @@ namespace ProtoBuf.Serializers
         private void EmitCreateIfNull(Compiler.CompilerContext ctx, Compiler.Local storage)
         {
             Helpers.DebugAssert(storage != null);
-            if (!ExpectedType.IsValueType)
+            if (!Helpers.IsValueType(ExpectedType))
             {
                 Compiler.CodeLabel afterNullCheck = ctx.DefineLabel();
                 ctx.LoadValue(storage);

@@ -92,7 +92,7 @@ namespace ProtoBuf.Serializers
         void IProtoSerializer.EmitWrite(Compiler.CompilerContext ctx, Compiler.Local valueFrom)
         {
             Type type = ExpectedType;
-            if (type.IsValueType)
+            if (Helpers.IsValueType(type))
             {   // note that for structs, we've already asserted that a custom ToString
                 // exists; no need to handle the box/callvirt scenario
                 

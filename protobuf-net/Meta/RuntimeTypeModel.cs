@@ -834,7 +834,7 @@ namespace ProtoBuf.Meta
                     throw new InvalidOperationException("No serializer available for " + mt.Type.Name);
             }
         }
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || DNXCORE50)
         internal sealed class SerializerPair : IComparable
         {
             int IComparable.CompareTo(object obj)

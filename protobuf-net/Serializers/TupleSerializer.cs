@@ -167,14 +167,13 @@ namespace ProtoBuf.Serializers
                 {
                     Type type = GetMemberType(i);
                     ctx.LoadAddress(loc, ExpectedType);
-                    switch(members[i].MemberType)
+                    MemberInfo member = members[i];
+                    if (member is FieldInfo)
                     {
-                        case MemberTypes.Field:
-                            ctx.LoadValue((FieldInfo)members[i]);
-                            break;
-                        case MemberTypes.Property:
-                            ctx.LoadValue((PropertyInfo)members[i]);
-                            break;
+                        ctx.LoadValue((FieldInfo)members[i]);
+                    } else if (member is PropertyInfo)
+                    {
+                        ctx.LoadValue((PropertyInfo)members[i]);
                     }
                     ctx.WriteNullCheckedTail(type, tails[i], null);
                 }
@@ -195,10 +194,10 @@ namespace ProtoBuf.Serializers
                         Type type = GetMemberType(i);
                         bool store = true;
                         locals[i] = new Compiler.Local(ctx, type);
-                        if (!ExpectedType.IsValueType)
+                        if (!Helpers.IsValueType(ExpectedType))
                         {
                             // value-types always read the old value
-                            if (type.IsValueType)
+                            if (Helpers.IsValueType(type))
                             {
                                 switch (Helpers.GetTypeCode(type))
                                 {
@@ -245,10 +244,10 @@ namespace ProtoBuf.Serializers
                         }
                     }
 
-                    Compiler.CodeLabel skipOld = ExpectedType.IsValueType
+                    Compiler.CodeLabel skipOld = Helpers.IsValueType(ExpectedType)
                                                         ? new Compiler.CodeLabel()
                                                         : ctx.DefineLabel();
-                    if (!ExpectedType.IsValueType)
+                    if (!Helpers.IsValueType(ExpectedType))
                     {
                         ctx.LoadAddress(objValue, ExpectedType);
                         ctx.BranchIfFalse(skipOld, false);
@@ -256,19 +255,18 @@ namespace ProtoBuf.Serializers
                     for (int i = 0; i < members.Length; i++)
                     {
                         ctx.LoadAddress(objValue, ExpectedType);
-                        switch (members[i].MemberType)
+                        MemberInfo member = members[i];
+                        if(member is FieldInfo)
                         {
-                            case MemberTypes.Field:
-                                ctx.LoadValue((FieldInfo) members[i]);
-                                break;
-                            case MemberTypes.Property:
-                                ctx.LoadValue((PropertyInfo) members[i]);
-                                break;
+                            ctx.LoadValue((FieldInfo)members[i]);
+                        } else if (member is PropertyInfo)
+                        {
+                            ctx.LoadValue((PropertyInfo)members[i]);
                         }
                         ctx.StoreValue(locals[i]);
                     }
 
-                    if (!ExpectedType.IsValueType) ctx.MarkLabel(skipOld);
+                    if (!Helpers.IsValueType(ExpectedType)) ctx.MarkLabel(skipOld);
 
                     using (Compiler.Local fieldNumber = new Compiler.Local(ctx, ctx.MapType(typeof (int))))
                     {
@@ -300,7 +298,7 @@ namespace ProtoBuf.Serializers
                             ctx.ReadNullCheckedTail(locals[i].Type, tail, oldValIfNeeded);
                             if (tail.ReturnsValue)
                             {
-                                if (locals[i].Type.IsValueType)
+                                if (Helpers.IsValueType(locals[i].Type))
                                 {
                                     ctx.StoreValue(locals[i]);
                                 }

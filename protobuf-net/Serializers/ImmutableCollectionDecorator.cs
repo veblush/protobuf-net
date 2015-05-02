@@ -203,7 +203,7 @@ namespace ProtoBuf.Serializers
                 if(AppendToCollection)
                 {
                     Compiler.CodeLabel done = ctx.DefineLabel();
-                    if(!ExpectedType.IsValueType)
+                    if(!Helpers.IsValueType(ExpectedType))
                     {
                         ctx.LoadValue(oldList);
                         ctx.BranchIfFalse(done, false); // old value null; nothing to add

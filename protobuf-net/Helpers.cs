@@ -348,7 +348,7 @@ namespace ProtoBuf
 #if FEAT_IKVM
         internal static IKVM.Reflection.Type GetUnderlyingType(IKVM.Reflection.Type type)
         {
-            if (type.IsValueType && type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Nullable`1")
+            if (Helpers.IsValueType(type) && type.IsGenericType && type.GetGenericTypeDefinition().FullName == "System.Nullable`1")
             {
                 return type.GetGenericArguments()[0];
             }
@@ -371,6 +371,31 @@ namespace ProtoBuf
             return type.GetTypeInfo().IsValueType;
 #else
             return type.IsValueType;
+#endif
+        }
+
+        internal static bool IsSealed(Type type)
+        {
+#if WINRT || DNXCORE50
+            return type.GetTypeInfo().IsSealed;
+#else
+            return type.IsSealed;
+#endif
+        }
+        internal static bool IsClass(Type type)
+        {
+#if WINRT || DNXCORE50
+            return type.GetTypeInfo().IsClass;
+#else
+            return type.IsClass;
+#endif
+        }
+        internal static bool IsInterface(Type type)
+        {
+#if WINRT || DNXCORE50
+            return type.GetTypeInfo().IsInterface;
+#else
+            return type.IsInterface;
 #endif
         }
 
@@ -459,6 +484,12 @@ namespace ProtoBuf
             }
             return true;
         }
+#if DNXCORE50
+        internal static ConstructorInfo GetConstructor(Type type, Type[] parameterTypes, bool nonPublic)
+        {
+            return GetConstructor(type == null ? null : type.GetTypeInfo(), parameterTypes, nonPublic);
+        }
+#endif
         internal static ConstructorInfo GetConstructor(TypeInfo type, Type[] parameterTypes, bool nonPublic)
         {
             foreach (ConstructorInfo ctor in type.DeclaredConstructors)
@@ -475,6 +506,12 @@ namespace ProtoBuf
                 System.Linq.Enumerable.Where(typeInfo.DeclaredConstructors, CtorIsPublic));
         }
         private static bool CtorIsPublic(ConstructorInfo ctor) { return ctor.IsPublic; }
+#if DNXCORE50
+        internal static PropertyInfo GetProperty(Type type, string name, bool nonPublic)
+        {
+            return GetProperty(type.GetTypeInfo(), name, nonPublic);
+        }
+#endif
         internal static PropertyInfo GetProperty(TypeInfo type, string name, bool nonPublic)
         {
             return type.GetDeclaredProperty(name);

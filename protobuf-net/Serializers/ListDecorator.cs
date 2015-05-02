@@ -244,12 +244,12 @@ namespace ProtoBuf.Serializers
             bool tailReturnsValue = tail.ReturnsValue;
             if (tail.RequiresOldValue)
             {
-                if (itemType.IsValueType || !tailReturnsValue)
+                if (Helpers.IsValueType(itemType) || !tailReturnsValue)
                 {
                     // going to need a variable
                     using (Compiler.Local item = new Compiler.Local(ctx, itemType))
                     {
-                        if (itemType.IsValueType)
+                        if (Helpers.IsValueType(itemType))
                         {   // initialise the struct
                             ctx.LoadAddress(item, itemType);
                             ctx.EmitCtor(itemType);

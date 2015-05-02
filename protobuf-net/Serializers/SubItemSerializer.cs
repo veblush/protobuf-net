@@ -85,7 +85,7 @@ namespace ProtoBuf.Serializers
 #if FEAT_COMPILER
         bool EmitDedicatedMethod(Compiler.CompilerContext ctx, Compiler.Local valueFrom, bool read)
         {
-#if SILVERLIGHT
+#if SILVERLIGHT || DNXCORE50
             return false;
 #else
             MethodBuilder method = ctx.GetDedicatedMethod(key, read);
@@ -97,11 +97,17 @@ namespace ProtoBuf.Serializers
                 ctx.LoadValue(valueFrom);
                 if (!read) // write requires the object for StartSubItem; read doesn't
                 {  // (if recursion-check is disabled [subtypes] then null is fine too)
-                    if (type.IsValueType || !recursionCheck) { ctx.LoadNullRef(); }
+                    if (Helpers.IsValueType(type) || !recursionCheck) { ctx.LoadNullRef(); }
                     else { ctx.CopyValue(); }
                 }
                 ctx.LoadReaderWriter();
-                ctx.EmitCall(rwType.GetMethod("StartSubItem"));
+                ctx.EmitCall(
+#if DNXCORE50
+                    System.Reflection.TypeExtensions.GetMethod(rwType, "StartSubItem")
+#else
+                    rwType.GetMethod("StartSubItem")
+#endif
+                    );
                 ctx.StoreValue(token);
 
                 // note: value already on the stack
@@ -117,16 +123,23 @@ namespace ProtoBuf.Serializers
             }            
             return true;
 #endif
-        }
+            }
         void IProtoSerializer.EmitWrite(Compiler.CompilerContext ctx, Compiler.Local valueFrom)
         {
             if (!EmitDedicatedMethod(ctx, valueFrom, false))
             {
                 ctx.LoadValue(valueFrom);
-                if (type.IsValueType) ctx.CastToObject(type);
+                if (Helpers.IsValueType(type)) ctx.CastToObject(type);
                 ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key)); // re-map for formality, but would expect identical, else dedicated method
                 ctx.LoadReaderWriter();
-                ctx.EmitCall(ctx.MapType(typeof(ProtoWriter)).GetMethod(recursionCheck ?  "WriteObject" : "WriteRecursionSafeObject"));
+                string name = recursionCheck ? "WriteObject" : "WriteRecursionSafeObject";
+                ctx.EmitCall(
+#if DNXCORE50
+                    System.Reflection.TypeExtensions.GetMethod(ctx.MapType(typeof(ProtoWriter)), name)
+#else
+                    ctx.MapType(typeof(ProtoWriter)).GetMethod(name)
+#endif
+                    );
             }
         }
         void IProtoSerializer.EmitRead(Compiler.CompilerContext ctx, Compiler.Local valueFrom)
@@ -134,14 +147,21 @@ namespace ProtoBuf.Serializers
             if (!EmitDedicatedMethod(ctx, valueFrom, true))
             {
                 ctx.LoadValue(valueFrom);
-                if (type.IsValueType) ctx.CastToObject(type);
+                if (Helpers.IsValueType(type)) ctx.CastToObject(type);
                 ctx.LoadValue(ctx.MapMetaKeyToCompiledKey(key)); // re-map for formality, but would expect identical, else dedicated method
                 ctx.LoadReaderWriter();
-                ctx.EmitCall(ctx.MapType(typeof(ProtoReader)).GetMethod("ReadObject"));
+                ctx.EmitCall(
+#if DNXCORE50
+                    System.Reflection.TypeExtensions.GetMethod(
+                        ctx.MapType(typeof(ProtoReader)), "ReadObject")
+#else
+                    ctx.MapType(typeof(ProtoReader)).GetMethod("ReadObject")
+#endif
+                );
                 ctx.CastFromObject(type);
             }
         }
 #endif
-    }
+            }
 }
 #endif
