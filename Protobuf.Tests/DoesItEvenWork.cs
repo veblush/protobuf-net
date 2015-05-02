@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Protobuf.Tests
 {
-    public class Class1
+    public class DoesItEvenWork
     {
         [Fact]
         public void Test()
