@@ -148,7 +148,7 @@ namespace Examples
                 Assert.AreEqual(oldArr[i], newArr[i], "Item " + i.ToString());
             }
         }
-
+        
         [Test, ExpectedException(typeof(NotSupportedException))]
         public void TestMultidimArray()
         {
