@@ -45,16 +45,15 @@ namespace Examples.Issues
             Assert.Equal("abc/ghi", children[1].Key);
             Assert.Equal(3, children[1].Value);
         }
-
-        public Issue297()
-        {
-            Init();
-        }
-        public void Init()
+        public static void Init()
         {
             RuntimeTypeModel.Default.Add(typeof(Node<int>), true).AddSubType(4, typeof(Node<int>.RootNode));
             RuntimeTypeModel.Default.Add(typeof(Node<MyDto>), true).AddSubType(4, typeof(Node<MyDto>.RootNode));
-            RuntimeTypeModel.Default.Add(typeof(Node<SomeNewType>), true).AddSubType(4, typeof(Node<SomeNewType>.RootNode));
+            RuntimeTypeModel.Default.Add(typeof(Node<SomeNewType>), true).AddSubType(4, typeof(Node<SomeNewType>.RootNode));    
+        }
+        static Issue297()
+        {
+            Init();
         }
 
         [Fact]
