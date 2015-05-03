@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using Test = Xunit.FactAttribute;
+using System.Linq;
+using Xunit;
 using System.Collections.Generic;
 using ProtoBuf;
 using System;
@@ -58,7 +59,7 @@ namespace Examples.Dictionary
             obj.Data[7] = "abc";
 
             var clone = Serializer.DeepClone(obj);
-            Assert.AreNotSame(obj,clone);
+            Assert.NotSame(obj,clone);
             AssertEqual(obj.Data, clone.Data);
         }
 
@@ -71,7 +72,7 @@ namespace Examples.Dictionary
             obj.Data[7] = new SimpleData(72);
 
             var clone = Serializer.DeepClone(obj);
-            Assert.AreNotSame(obj, clone);
+            Assert.NotSame(obj, clone);
             AssertEqual(obj.Data, clone.Data);
         }
 
@@ -91,13 +92,13 @@ namespace Examples.Dictionary
             IDictionary<TKey, TValue> expected,
             IDictionary<TKey, TValue> actual)
         {
-            Assert.AreNotSame(expected, actual, "Instance");
-            Assert.AreEqual(expected.Count, actual.Count, "Count");
+            Assert.NotSame(expected, actual); //, "Instance");
+            Assert.Equal(expected.Count, actual.Count); //, "Count");
             foreach (var pair in expected)
             {
                 TValue value;
-                Assert.IsTrue(actual.TryGetValue(pair.Key, out value), "Missing: " + pair.Key);
-                Assert.AreEqual(pair.Value, value, "Value: " + pair.Key);
+                Assert.True(actual.TryGetValue(pair.Key, out value)); //, "Missing: " + pair.Key);
+                Assert.Equal(pair.Value, value); //, "Value: " + pair.Key);
             }
         }
     }
@@ -115,8 +116,8 @@ namespace Examples.Dictionary
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<Dictionary<string, int>>(ms);
 
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(0, clone.Count);
+                Assert.NotNull(clone);
+                Assert.Equal(0, clone.Count);
             }
         }
         [Test]
@@ -130,9 +131,9 @@ namespace Examples.Dictionary
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<Dictionary<string, int>>(ms);
 
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(1, clone.Count);
-                Assert.AreEqual(123, clone["abc"]);
+                Assert.NotNull(clone);
+                Assert.Equal(1, clone.Count);
+                Assert.Equal(123, clone["abc"]);
             }
         }
         [Test]
@@ -146,8 +147,8 @@ namespace Examples.Dictionary
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<IDictionary<string, int>>(ms);
 
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(0, clone.Count);
+                Assert.NotNull(clone);
+                Assert.Equal(0, clone.Count);
             }
 
         }
@@ -162,9 +163,9 @@ namespace Examples.Dictionary
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<IDictionary<string, int>>(ms);
 
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(1, clone.Count);
-                Assert.AreEqual(123, clone["abc"]);
+                Assert.NotNull(clone);
+                Assert.Equal(1, clone.Count);
+                Assert.Equal(123, clone["abc"]);
             }
         }
     }
@@ -225,15 +226,15 @@ namespace Examples.Dictionary
         static void CheckNested<TInner>(IDictionary<string, TInner> data, string message)
             where TInner : IDictionary<string, string>
         {
-            Assert.IsNotNull(data, message);
-            Assert.AreEqual(2, data.Keys.Count, message);
+            Assert.NotNull(data); //, message);
+            Assert.Equal(2, data.Keys.Count); //, message);
             var inner = data["abc"];
-            Assert.AreEqual(1, inner.Keys.Count, message);
-            Assert.AreEqual(inner["def"], "ghi", message);
+            Assert.Equal(1, inner.Keys.Count); //, message);
+            Assert.Equal(inner["def"], "ghi"); //, message);
             inner = data["jkl"];
-            Assert.AreEqual(2, inner.Keys.Count, message);
-            Assert.AreEqual(inner["mno"], "pqr", message);
-            Assert.AreEqual(inner["stu"], "vwx", message);
+            Assert.Equal(2, inner.Keys.Count); //, message);
+            Assert.Equal(inner["mno"], "pqr"); //, message);
+            Assert.Equal(inner["stu"], "vwx"); //, message);
 
         }
 

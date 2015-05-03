@@ -536,11 +536,7 @@ namespace ProtoBuf
         /// <summary>
         /// Reads a double-precision number from the stream; supported wire-types: Fixed32, Fixed64
         /// </summary>
-        public
-#if !FEAT_SAFE
- unsafe
-#endif
- double ReadDouble()
+        public double ReadDouble()
         {
             switch (wireType)
             {
@@ -548,11 +544,7 @@ namespace ProtoBuf
                     return ReadSingle();
                 case WireType.Fixed64:
                     long value = ReadInt64();
-#if FEAT_SAFE
-                    return BitConverter.ToDouble(BitConverter.GetBytes(value), 0);
-#else
-                    return *(double*)&value;
-#endif
+                    return BitConverter.Int64BitsToDouble(value);
                 default:
                     throw CreateWireTypeException();
             }

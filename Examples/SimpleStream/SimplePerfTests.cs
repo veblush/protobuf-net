@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
-using NUnit.Framework;
 using ProtoBuf;
+using Xunit;
 
 namespace Examples.SimpleStream
 {
@@ -26,7 +26,7 @@ namespace Examples.SimpleStream
     [TestFixture]
     public class SimplePerfTests
     {
-        [Test]
+        [Fact]
         public void RunSimplePerfTests()
         {
             PerfTest obj = new PerfTest
@@ -44,10 +44,10 @@ namespace Examples.SimpleStream
                 byte[] raw = ms.ToArray();
                 ms.Position = 0;
                 clone = Serializer.Deserialize<PerfTest>(ms);
-                Assert.AreEqual(obj.Foo, clone.Foo, "Foo");
-                Assert.AreEqual(obj.Bar, clone.Bar, "Bar");
-                Assert.AreEqual(obj.Blop, clone.Blop, "Blop");
-                Assert.AreEqual(obj.Blip, clone.Blip, "Blip");
+                Assert.Equal(obj.Foo, clone.Foo); //, "Foo");
+                Assert.Equal(obj.Bar, clone.Bar); //, "Bar");
+                Assert.Equal(obj.Blop, clone.Blop); //, "Blop");
+                Assert.Equal(obj.Blip, clone.Blip); //, "Blip");
             }
             
 

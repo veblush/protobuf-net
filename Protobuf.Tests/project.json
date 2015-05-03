@@ -17,20 +17,35 @@
     "commands": {
         "test": "xunit.runner.dnx"
     },
-    //"compile": [ "../Examples/*.cs" ],
+    "compile": [
+        "../Examples/Diction*.cs",
+        "../Examples/Extensi*.cs",
+        "../Examples/Program.cs",
+        "../Examples/NWind/*.cs",
+        "../Examples/Ppt/*.cs",
+        "../Examples/SimpleStream/*.cs",
+        "../Examples/PEVerify.cs"
+    ],
+    "compilationOptions": { "define": [ "DNXRUNNER" ] },
     "frameworks": {
         "dnx451": {
+            "compilationOptions": { "define": [ "NET_3_0", "NET_3_5" ] },
             "frameworkAssemblies": {
-                "System.Runtime.Serialization": "4.0.0.0"
+                "System.Runtime.Serialization": "4.0.0.0",
+                "System.Data.Linq": "4.0.0.0",
+                "System.Data": "4.0.0.0",
+                "System.ServiceModel": "4.0.0.0",
+                "System.Runtime.Serialization.Formatters.Soap": "4.0.0.0",
+                "System.Linq": "4.0.0.0"
             }
         },
         "dnxcore50": {
             "dependencies": {
-                "System.Console": "4.0.0-beta-22816",
-                "System.Collections": "4.0.10-beta-22816",
-                "System.Linq": "4.0.0-beta-22816",
-                "System.Threading": "4.0.10-beta-22816",
-                "Microsoft.CSharp": "4.0.0-beta-22816"
+                "System.Console": "4.0.0-beta-*",
+                "System.Collections": "4.0.10-beta-*",
+                "System.Linq": "4.0.0-beta-*",
+                "System.Threading": "4.0.10-beta-*",
+                "Microsoft.CSharp": "4.0.0-beta-*"
             }
         }
     }

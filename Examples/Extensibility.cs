@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using NUnit.Framework;
 using ProtoBuf;
 using ProtoBuf.Meta;
+using Xunit;
 
 namespace Examples
 {
@@ -82,20 +82,20 @@ namespace Examples
     [TestFixture]
     public class Extensibility
     {
-        [Test]
+        [Fact]
         public void TestExpectedMakeFromScratchOutput()
         {
             var canHaz = new CanHazData {
                 A = "abc", B = 456.7F, C = 123
             };
-            Assert.IsTrue(Program.CheckBytes(canHaz, RuntimeTypeModel.Default, new byte[] {
+            Assert.True(Program.CheckBytes(canHaz, RuntimeTypeModel.Default, new byte[] {
                 0x0A, 0x03, 0x61, 0x62, 0x63, // abc
                 0x15, 0x9A, 0x59, 0xE4, 0x43, // 456.7F
                 0x1D, 0x7B, 0x00, 0x00, 0x00  // 123
             }));
         }
 
-        [Test]
+        [Fact]
         public void MakeFromScratch()
         {
             var model = RuntimeTypeModel.Create();
@@ -121,13 +121,13 @@ namespace Examples
                 {
                     model.Serialize(ms, obj);
                     string s = Program.GetByteString(ms.ToArray());
-                    Assert.AreEqual("0A 03 61 62 63 15 9A 59 E4 43 1D 7B 00 00 00", s, caption);
+                    Assert.Equal("0A 03 61 62 63 15 9A 59 E4 43 1D 7B 00 00 00", s); //, caption);
                     ms.Position = 0;
                     clone = (CanHazData) model.Deserialize(ms, null, typeof(CanHazData));
                 }
-                Assert.AreEqual("abc", clone.A, caption);
-                Assert.AreEqual(456.7F, clone.B, caption);
-                Assert.AreEqual(123, clone.C, caption);
+                Assert.Equal("abc", clone.A); //, caption);
+                Assert.Equal(456.7F, clone.B); //, caption);
+                Assert.Equal(123, clone.C); //, caption);
             }
             catch
             {
@@ -161,13 +161,13 @@ namespace Examples
                 Eof = "EOF"
             };
         }
-        [Test]
+        [Fact]
         public void TestRoundtripSmaller()
         {
             TestRoundTrip<SmallerObject>();
         }
 
-        [Test]
+        [Fact]
         public void TestRoundtripInterfaceBased()
         {
             TestRoundTrip<InterfaceBased>();
@@ -179,27 +179,27 @@ namespace Examples
 
             T tmp = Serializer.ChangeType<BiggerObject, T>(obj);
 
-            Assert.AreEqual(obj.Bof, tmp.Bof, "dehydrate");
-            Assert.AreEqual(obj.Eof, tmp.Eof, "dehydrate");
+            Assert.Equal(obj.Bof, tmp.Bof); //, "dehydrate");
+            Assert.Equal(obj.Eof, tmp.Eof); //, "dehydrate");
 
             BiggerObject clone = Serializer.ChangeType<T, BiggerObject>(tmp);
 
-            Assert.AreEqual(obj.Bof, clone.Bof, "rehydrate");
-            Assert.AreEqual(obj.Eof, clone.Eof, "rehydrate");
-            Assert.AreEqual(obj.SomeDouble, clone.SomeDouble, "rehydrate");
-            Assert.AreEqual(obj.SomeFloat, clone.SomeFloat, "rehydrate");
-            Assert.AreEqual(obj.SomeInt32, clone.SomeInt32, "rehydrate");
-            Assert.AreEqual(obj.SomeString, clone.SomeString, "rehydrate");
-            Assert.IsTrue(Program.ArraysEqual(obj.SomeBlob, clone.SomeBlob), "rehydrate");
+            Assert.Equal(obj.Bof, clone.Bof); //, "rehydrate");
+            Assert.Equal(obj.Eof, clone.Eof); //, "rehydrate");
+            Assert.Equal(obj.SomeDouble, clone.SomeDouble); //, "rehydrate");
+            Assert.Equal(obj.SomeFloat, clone.SomeFloat); //, "rehydrate");
+            Assert.Equal(obj.SomeInt32, clone.SomeInt32); //, "rehydrate");
+            Assert.Equal(obj.SomeString, clone.SomeString); //, "rehydrate");
+            Assert.True(Program.ArraysEqual(obj.SomeBlob, clone.SomeBlob)); //, "rehydrate");
         }
 
-        [Test]
+        [Fact]
         public void TestReadExtendedSmallerObject()
         {
             TestReadExt<SmallerObject>();
         }
 
-        [Test]
+        [Fact]
         public void TestReadExtendedInterfaceBased()
         {
             TestReadExt<InterfaceBased>();
@@ -215,19 +215,19 @@ namespace Examples
             
             float val;
             bool hasValue = Extensible.TryGetValue<float>(small, 3, out val);
-            Assert.IsTrue(hasValue, "has value");
-            Assert.AreEqual(obj.SomeFloat, val, "float value");
+            Assert.True(hasValue, "has value");
+            Assert.Equal(obj.SomeFloat, val); //, "float value");
 
             hasValue = Extensible.TryGetValue<float>(small, 1000, out val);
-            Assert.IsFalse(hasValue, "no value");
-            Assert.AreEqual(default(float), val);
+            Assert.False(hasValue, "no value");
+            Assert.Equal(default(float), val);
         }
 
         static byte[] GetExtensionBytes(IExtensible obj)
         {
-            Assert.IsNotNull(obj, "null extensible");
+            Assert.NotNull(obj); //, "null extensible");
             IExtension extn = obj.GetExtensionObject(false);
-            Assert.IsNotNull(extn, "no extension object");
+            Assert.NotNull(extn); //, "no extension object");
             Stream s = extn.BeginQuery();
             try
             {
@@ -241,12 +241,12 @@ namespace Examples
             }
         }
 
-        [Test]
+        [Fact]
         public void TestWriteExtendedSmaller()
         {
             TestWriteExt<SmallerObject>();
         }
-        [Test]
+        [Fact]
         public void TestWriteExtendedInterfaceBased()
         {
             TestWriteExt<InterfaceBased>();
@@ -258,52 +258,64 @@ namespace Examples
             Extensible.AppendValue<float>(obj, 3, SOME_VALUE);
 
             byte[] raw = GetExtensionBytes(obj);
-            Assert.AreEqual(5, raw.Length, "Extension Length");
-            Assert.AreEqual((3 << 3) | 5, raw[0], "Prefix (3 Fixed32)");
+            Assert.Equal(5, raw.Length); //, "Extension Length");
+            Assert.Equal((3 << 3) | 5, raw[0]); //, "Prefix (3 Fixed32)");
             byte[] tmp = BitConverter.GetBytes(SOME_VALUE);
             if (!BitConverter.IsLittleEndian) Array.Reverse(tmp);
-            Assert.AreEqual(tmp[0], raw[1], "Float32 Byte 0");
-            Assert.AreEqual(tmp[1], raw[2], "Float32 Byte 1");
-            Assert.AreEqual(tmp[2], raw[3], "Float32 Byte 2");
-            Assert.AreEqual(tmp[3], raw[4], "Float32 Byte 3");
+            Assert.Equal(tmp[0], raw[1]); //, "Float32 Byte 0");
+            Assert.Equal(tmp[1], raw[2]); //, "Float32 Byte 1");
+            Assert.Equal(tmp[2], raw[3]); //, "Float32 Byte 2");
+            Assert.Equal(tmp[3], raw[4]); //, "Float32 Byte 3");
 
             float readBack = Extensible.GetValue<float>(obj, 3);
-            Assert.AreEqual(SOME_VALUE, readBack, "read back");
+            Assert.Equal(SOME_VALUE, readBack); //, "read back");
 
             BiggerObject big = Serializer.ChangeType<T, BiggerObject>(obj);
 
-            Assert.AreEqual(SOME_VALUE, big.SomeFloat, "deserialize");
+            Assert.Equal(SOME_VALUE, big.SomeFloat); //, "deserialize");
         }
 
-        [Test, ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void TestReadShouldUsePropertySmaller()
         {
-            TestReadShouldUseProperty<SmallerObject>();
+            Assert.Throws(typeof(ArgumentException), () =>
+            {
+                TestReadShouldUseProperty<SmallerObject>();
+            });
         }
 
-        [Test, ExpectedException(typeof(ArgumentException))]
+        [Fact]
         public void TestReadShouldUsePropertyInterfaceBased()
         {
-            TestReadShouldUseProperty<InterfaceBased>();
+            Assert.Throws(typeof(ArgumentException), () =>
+            {
+                TestReadShouldUseProperty<InterfaceBased>();
+            });
         }
 
         static void TestReadShouldUseProperty<T>() where T : IExtTest, IExtensible, new()
         {
             T obj = new T { Bof = "hi" };
             string hi = Extensible.GetValue<string>(obj,1);
-            Assert.AreEqual("hi", hi);
+            Assert.Equal("hi", hi);
         }
 
-        [Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void TestReadInvalidTagSmaller()
         {
-            TestReadInvalidTag<SmallerObject>();
+            Assert.ThrowsAny<ArgumentOutOfRangeException>(() =>
+            {
+                TestReadInvalidTag<SmallerObject>();
+            });
         }
 
-        [Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [Fact]
         public void TestReadInvalidTagInterfaceBased()
         {
-            TestReadInvalidTag<InterfaceBased>();
+            Assert.ThrowsAny<ArgumentOutOfRangeException>(() =>
+            {
+                TestReadInvalidTag<InterfaceBased>();
+            });
         }
 
         static void TestReadInvalidTag<T>() where T : IExtTest, IExtensible, new()
@@ -311,15 +323,21 @@ namespace Examples
             T obj = new T {Bof = "hi"};
             string hi = Extensible.GetValue<string>(obj, 0);
         }
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestReadNullSmaller()
         {
-            TestReadNull<SmallerObject>();
+            Assert.ThrowsAny<ArgumentNullException>(() =>
+            {
+                TestReadNull<SmallerObject>();
+            });
         }
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestReadNullInterfaceBased()
         {
-            TestReadNull<InterfaceBased>();
+            Assert.ThrowsAny<ArgumentNullException>(() =>
+            {
+                TestReadNull<InterfaceBased>();
+            });
         }
 
         static void TestReadNull<T>() where T : IExtTest, IExtensible, new()
@@ -327,15 +345,20 @@ namespace Examples
             string hi = Extensible.GetValue<string>(null, 1);
         }
 
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestWriteNullSmaller()
         {
-            TestWriteNull<SmallerObject>();
+            Assert.ThrowsAny<ArgumentNullException>(() => {
+                TestWriteNull<SmallerObject>();
+            });
         }
-        [Test, ExpectedException(typeof(ArgumentNullException))]
+        [Fact]
         public void TestWriteNullInterfaceBased()
         {
-            TestWriteNull<InterfaceBased>();
+            Assert.ThrowsAny<ArgumentNullException>(() =>
+            {
+                TestWriteNull<InterfaceBased>();
+            });
         }
         static void TestWriteNull<T>() where T : IExtTest, IExtensible, new()
         {

@@ -12,8 +12,8 @@ namespace Examples
     class Program
     {
         static void Main() {
-            Console.WriteLine("CLR: " + Environment.Version);
-            new NWindTests().PerfTestDb();
+            //Console.WriteLine("CLR: " + Environment.Version);
+            //new NWindTests().PerfTestDb();
         }
         static void Main2() {
             SimpleStreamDemo demo = new SimpleStreamDemo();

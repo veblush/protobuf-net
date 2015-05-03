@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+#if !DNXCORE50
 using System.Data.Linq.Mapping;
+#endif
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using ProtoBuf;
@@ -18,7 +20,7 @@ namespace ProtoSharp.Core
 }
 namespace DAL
 {
-    
+
 
     [ProtoContract, DataContract, Serializable]
     public class DatabaseCompat
@@ -55,7 +57,7 @@ namespace DAL
             Orders = new List<OrderCompat>();
         }
 
-        #region ISerializable Members
+#region ISerializable Members
 #if REMOTING
         protected DatabaseCompatRem(SerializationInfo info, StreamingContext context)
             : this()
@@ -67,9 +69,9 @@ namespace DAL
             Serializer.Serialize <DatabaseCompatRem>(info, this);
         }
 #endif
-        #endregion
+#endregion
 
-        #region IXmlSerializable Members
+#region IXmlSerializable Members
 
 #if PLAT_XMLSERIALIZER
         System.Xml.Schema.XmlSchema IXmlSerializable.GetSchema()
@@ -87,9 +89,9 @@ namespace DAL
             Serializer.Serialize(writer, this);            
         }
 #endif
-        #endregion
+#endregion
     }
-    
+
     [DataContract(), Serializable]
     public partial class OrderCompat
     {
@@ -125,9 +127,11 @@ namespace DAL
 
         private List<OrderLineCompat> _Lines = new List<OrderLineCompat>();
 
-        #region Extensibility Method Definitions
+#region Extensibility Method Definitions
         partial void OnLoaded();
+#if !DNXCORE50
         partial void OnValidate(System.Data.Linq.ChangeAction action);
+#endif
         partial void OnCreated();
         partial void OnOrderIDChanging(int value);
         partial void OnOrderIDChanged();
@@ -157,14 +161,15 @@ namespace DAL
         partial void OnShipPostalCodeChanged();
         partial void OnShipCountryChanging(string value);
         partial void OnShipCountryChanged();
-        #endregion
+#endregion
 
         public OrderCompat()
         {
             this.Initialize();
         }
-
+#if !DNXCORE50
         [Column(Storage = "_OrderID", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+#endif
         [DataMember(Order = 1), Tag(1)]
         public int OrderID
         {
@@ -185,7 +190,9 @@ namespace DAL
             }
         }
 
+#if !DNXCORE50
         [Column(Storage = "_CustomerID", DbType = "NChar(5)")]
+#endif
         [DataMember(Order = 2), Tag(2)]
         public string CustomerID
         {
@@ -205,8 +212,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_EmployeeID", DbType = "Int")]
+#endif
         [DataMember(Order = 3), Tag(3)]
         public System.Nullable<int> EmployeeID
         {
@@ -227,7 +235,9 @@ namespace DAL
             }
         }
 
+#if !DNXCORE50
         [Column(Storage = "_OrderDate", DbType = "DateTime")]
+#endif
         [DataMember(Order = 4), Tag(4), ProtoMember(4, DataFormat = Database.SubObjectFormat)]
         public System.Nullable<System.DateTime> OrderDate
         {
@@ -247,8 +257,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_RequiredDate", DbType = "DateTime")]
+#endif
         [DataMember(Order = 5), Tag(5), ProtoMember(5, DataFormat = Database.SubObjectFormat)]
         public System.Nullable<System.DateTime> RequiredDate
         {
@@ -268,8 +279,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShippedDate", DbType = "DateTime")]
+#endif
         [DataMember(Order = 6), Tag(6), ProtoMember(6, DataFormat = Database.SubObjectFormat)]
         public System.Nullable<System.DateTime> ShippedDate
         {
@@ -289,8 +301,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipVia", DbType = "Int")]
+#endif
         [DataMember(Order = 7), Tag(7)]
         public System.Nullable<int> ShipVia
         {
@@ -310,8 +323,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_Freight", DbType = "Money")]
+#endif
         [DataMember(Order = 8), Tag(8), ProtoMember(8, DataFormat = Database.SubObjectFormat)]
         public System.Nullable<decimal> Freight
         {
@@ -331,8 +345,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipName", DbType = "NVarChar(40)")]
+#endif
         [DataMember(Order = 9), Tag(9)]
         public string ShipName
         {
@@ -352,8 +367,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipAddress", DbType = "NVarChar(60)")]
+#endif
         [DataMember(Order = 10), Tag(10)]
         public string ShipAddress
         {
@@ -373,8 +389,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipCity", DbType = "NVarChar(15)")]
+#endif
         [DataMember(Order = 11), Tag(11)]
         public string ShipCity
         {
@@ -394,8 +411,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipRegion", DbType = "NVarChar(15)")]
+#endif
         [DataMember(Order = 12), Tag(12)]
         public string ShipRegion
         {
@@ -415,8 +433,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ShipPostalCode", DbType = "NVarChar(10)")]
+#endif
         [DataMember(Order = 13), Tag(13)]
         public string ShipPostalCode
         {
@@ -437,7 +456,9 @@ namespace DAL
             }
         }
 
+#if !DNXCORE50
         [Column(Storage = "_ShipCountry", DbType = "NVarChar(15)")]
+#endif
         [DataMember(Order = 14), Tag(14)]
         public string ShipCountry
         {
@@ -458,7 +479,9 @@ namespace DAL
             }
         }
 
+#if !DNXCORE50
         [Association(Name = "Order_Order_Detail", Storage = "_Lines", OtherKey = "OrderID")]
+#endif
         [DataMember(Order = 15, EmitDefaultValue = false), Tag(15), ProtoMember(15, DataFormat = Database.SubObjectFormat)]
         [XmlArray]
         public List<OrderLineCompat> Lines
@@ -494,27 +517,36 @@ namespace DAL
             OnCreated();
         }
 
+#if !DNXCORE50
         [OnDeserializing()]
+
         [System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
         public void OnDeserializing(StreamingContext context)
         {
             this.Initialize();
         }
+#endif
 
+#if !DNXCORE50
         [OnSerializing()]
         [System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
         public void OnSerializing(StreamingContext context)
         {
         }
+#endif
 
+#if !DNXCORE50
         [OnSerialized()]
         [System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
         public void OnSerialized(StreamingContext context)
         {
         }
+#endif
     }
 
+#if !DNXCORE50
     [Table(Name = "dbo.[Order Details]")]
+#endif
     [DataContract(), Serializable]
     public partial class OrderLineCompat
     {
@@ -529,9 +561,11 @@ namespace DAL
 
         private float _Discount;
 
-        #region Extensibility Method Definitions
+#region Extensibility Method Definitions
         partial void OnLoaded();
+#if !DNXCORE50
         partial void OnValidate(System.Data.Linq.ChangeAction action);
+#endif
         partial void OnCreated();
         partial void OnOrderIDChanging(int value);
         partial void OnOrderIDChanged();
@@ -543,14 +577,16 @@ namespace DAL
         partial void OnQuantityChanged();
         partial void OnDiscountChanging(float value);
         partial void OnDiscountChanged();
-        #endregion
+#endregion
 
         public OrderLineCompat()
         {
             this.Initialize();
         }
 
+#if !DNXCORE50
         [Column(Storage = "_OrderID", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+#endif
         [DataMember(Order = 1), Tag(1)]
         public int OrderID
         {
@@ -563,8 +599,9 @@ namespace DAL
                 this._OrderID = value;
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_ProductID", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+#endif
         [DataMember(Order = 2), Tag(2)]
         public int ProductID
         {
@@ -585,7 +622,9 @@ namespace DAL
             }
         }
 
+#if !DNXCORE50
         [Column(Storage = "_UnitPrice", DbType = "Money NOT NULL")]
+#endif
         [DataMember(Order = 3), Tag(3), ProtoMember(3, DataFormat = Database.SubObjectFormat)]
         public decimal UnitPrice
         {
@@ -605,8 +644,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_Quantity", DbType = "SmallInt NOT NULL")]
+#endif
         [DataMember(Order = 4), Tag(4)]
         public short Quantity
         {
@@ -626,8 +666,9 @@ namespace DAL
                 }
             }
         }
-
+#if !DNXCORE50
         [Column(Storage = "_Discount", DbType = "Real NOT NULL")]
+#endif
         [DataMember(Order = 5), Tag(5)]
         public float Discount
         {
@@ -648,15 +689,15 @@ namespace DAL
             }
         }
 
-        
+
         protected virtual void SendPropertyChanging()
         {
-            
+
         }
 
         protected virtual void SendPropertyChanged(String propertyName)
         {
-            
+
         }
 
         private void Initialize()
@@ -664,11 +705,14 @@ namespace DAL
             OnCreated();
         }
 
+#if !DNXCORE50
         [OnDeserializing()]
+
         [System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
         public void OnDeserializing(StreamingContext context)
         {
             this.Initialize();
         }
+#endif
     }
 }

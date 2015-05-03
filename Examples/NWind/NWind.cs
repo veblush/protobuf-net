@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+#if !DNXCORE50
 using System.Data.Linq;
+#endif
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using NUnit.Framework;
 using ProtoBuf;
 using ProtoSharp.Core;
 using Serializer = ProtoBuf.Serializer;
 using Examples;
 using System.Diagnostics;
 using ProtoBuf.Meta;
+using Xunit;
 
 /*namespace ProtoBuf.Meta
 {
@@ -30,11 +32,12 @@ using ProtoBuf.Meta;
 }*/
 namespace DAL
 {
+
     [ProtoContract, DataContract, Serializable]
     public class Database
     {
         public const DataFormat SubObjectFormat = DataFormat.Default;
-
+#if !DNXCORE50
         [ProtoMember(1, DataFormat=Database.SubObjectFormat), Tag(1), DataMember(Order=1)]
         public List<Order> Orders { get; private set; }
 
@@ -42,21 +45,32 @@ namespace DAL
         {
             Orders = new List<Order>();
         }
+#endif
+
     }
+
+
     [TestFixture]
     public class NWindTests
     {
+#if DNXRUNNER
+        public const string NWindProtoBinPath = @"../Tools/nwind.proto.bin";
+#else
+        public const string NWindProtoBinPath = @"NWind\nwind.proto.bin";
+#endif
         public static T LoadDatabaseFromFile<T>(TypeModel model)
             where T : class,new()
         {
+
             // otherwise...
-            using (Stream fs = File.OpenRead(@"NWind\nwind.proto.bin"))
+            using (Stream fs = File.OpenRead(NWindProtoBinPath))
             {
                 return (T)model.Deserialize(fs, null, typeof(T));
             }
         }
-        
-        [Test]
+
+#if !DNXCORE50
+        [Fact]
         public void LoadTestDefaultModel()
         {
             Database db = LoadDatabaseFromFile<Database>(RuntimeTypeModel.Default);
@@ -64,12 +78,12 @@ namespace DAL
 
         }
 
-        [Test]
+        [Fact]
         public void LoadTestCustomModel()
         {
             var model = TypeModel.Create();
             Database db;
-            
+
             db = LoadDatabaseFromFile<Database>(model);
             DbMetrics("Database", db);
 
@@ -77,7 +91,7 @@ namespace DAL
             db = LoadDatabaseFromFile<Database>(model);
             DbMetrics("Database", db);
 
-            
+
             db = LoadDatabaseFromFile<Database>(model.Compile());
             DbMetrics("Database", db);
 
@@ -85,11 +99,12 @@ namespace DAL
             PEVerify.AssertValid("NWindModel.dll");
             DbMetrics("Database", db);
         }
+#endif
 
-        [Test]
+        [Fact]
         public void PerfTestDb()
         {
-            byte[] blob = File.ReadAllBytes(@"NWind\nwind.proto.bin");
+            byte[] blob = File.ReadAllBytes(NWindProtoBinPath);
             using (MemoryStream ms = new MemoryStream(blob))
             {
                 var model = TypeModel.Create();
@@ -109,14 +124,19 @@ namespace DAL
                 Console.WriteLine(watch.ElapsedMilliseconds);
                 if(Debugger.IsAttached)
                 {
+#if DNXCORE50
+                    Console.WriteLine("(press return)");
+                    Console.ReadLine();
+#else
                     Console.WriteLine("(press any key)");
                     Console.ReadKey();
+#endif
                 }
 
             }
         }
 
-        [Test]
+        [Fact]
         public void TestProtoGen()
         {
             // just show it can do *something*!
@@ -125,6 +145,7 @@ namespace DAL
 
         }
 
+#if !DNXCORE50
         static void DbMetrics(string caption, Database database)
         {
             int orders = database.Orders.Count;
@@ -138,13 +159,16 @@ namespace DAL
                 caption, orders, lines, totalQty, totalValue);
 
         }
+#endif
         static Database ReadFromFile(string path)
         {
             Database database;
             using (Stream fs = File.OpenRead(path))
             {
                 database = Serializer.Deserialize<Database>(fs);
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
             return database;
         }
@@ -153,18 +177,23 @@ namespace DAL
             using (Stream fs = File.Create(path))
             {
                 Serializer.Serialize(fs, database);
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
         }
-        static Database ReadFromDatabase(NorthwindDataContext ctx) {
+#if !DNXCORE50
+        static Database ReadFromDatabase(NorthwindDataContext ctx)
+        {
             Database db = new Database();
-        
+
             DataLoadOptions opt = new DataLoadOptions();
             opt.AssociateWith<Order>(order => order.Lines);
             ctx.LoadOptions = opt;
             db.Orders.AddRange(ctx.Orders);
 
-            return db;            
+            return db;
         }
+#endif
     }
 }

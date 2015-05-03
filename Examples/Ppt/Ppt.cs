@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿#if !DNXCORE50
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace Examples.Ppt
@@ -28,3 +29,5 @@ namespace Examples.Ppt
     public class SearchResponse { }
   
 }
+
+#endif
