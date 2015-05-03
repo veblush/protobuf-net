@@ -6,35 +6,34 @@
 
     using ProtoBuf;
     using System.Data;
-    using NUnit.Framework;
+    using Xunit;
     using System;
     using System.ComponentModel;
     using System.IO;
 
-    [TestFixture]
     public class ComplexGenericTest
     {
-        [Test]
+        [Fact]
         public void TestX()
         {
             Query query = new X { Result = "abc" };
-            Assert.AreEqual(typeof(string), query.GetQueryType());
+            Assert.Equal(typeof(string), query.GetQueryType());
             Query clone = Serializer.DeepClone<Query>(query);
-            Assert.IsNotNull(clone);
-            Assert.AreNotSame(clone, query);
-            Assert.IsInstanceOfType(query.GetType(), clone);
-            Assert.AreEqual(((X)query).Result, ((X)clone).Result);
+            Assert.NotNull(clone);
+            Assert.NotSame(clone, query);
+            Assert.IsType(query.GetType(), clone);
+            Assert.Equal(((X)query).Result, ((X)clone).Result);
         }
-        [Test]
+        [Fact]
         public void TestY()
         {
             Query query = new Y { Result = 1234};
-            Assert.AreEqual(typeof(int), query.GetQueryType());
+            Assert.Equal(typeof(int), query.GetQueryType());
             Query clone = Serializer.DeepClone<Query>(query);
-            Assert.IsNotNull(clone);
-            Assert.AreNotSame(clone, query);
-            Assert.IsInstanceOfType(query.GetType(), clone);
-            Assert.AreEqual(((Y)query).Result, ((Y)clone).Result);
+            Assert.NotNull(clone);
+            Assert.NotSame(clone, query);
+            Assert.IsType(query.GetType(), clone);
+            Assert.Equal(((Y)query).Result, ((Y)clone).Result);
         }
         
     }
@@ -44,7 +43,7 @@
             if (query == null) throw new ArgumentNullException("query");
             foreach (Type type in query.GetType().GetInterfaces())
             {
-                if (type.IsGenericType
+                if (type.IsGenericType()
                     && type.GetGenericTypeDefinition() == typeof(IQuery<>))
                 {
                     return type.GetGenericArguments()[0];
@@ -65,7 +64,9 @@
     [ProtoInclude(21, typeof(W))]
     [ProtoInclude(22, typeof(X))]
     [ProtoInclude(23, typeof(Y))]
+#if !DNXCORE50
     [ProtoInclude(25, typeof(SpecialQuery))]
+#endif
     [ProtoContract]
     abstract class Query : IQuery
     {
@@ -78,15 +79,24 @@
 
         protected static string FormatQueryString<T>(T value)
         {
+#if DNXCORE50
+            return Convert.ToString(value, System.Globalization.CultureInfo.InvariantCulture);
+#else
             return TypeDescriptor.GetConverter(typeof(T))
                 .ConvertToInvariantString(value);
+#endif
         }
         protected static T ParseQueryString<T>(string value)
         {
+#if DNXCORE50
+            return (T)Convert.ChangeType(value, typeof(T), System.Globalization.CultureInfo.InvariantCulture);
+#else
             return (T) TypeDescriptor.GetConverter(typeof(T))
                 .ConvertFromInvariantString(value);
+#endif
         }
     }
+#if !DNXCORE50
     [ProtoContract]
     [ProtoInclude(21, typeof(Z))]
     abstract class SpecialQuery : Query, IQuery<DataSet>
@@ -115,6 +125,7 @@
             }
         }
     }
+#endif
 
     [ProtoContract]
     class W : Query, IQuery<bool>
@@ -152,8 +163,10 @@
             set { Result = ParseQueryString<int>(value); }
         }
     }
+#if !DNXCORE50
     [ProtoContract]
     class Z : SpecialQuery
     {
     }
+#endif
 }

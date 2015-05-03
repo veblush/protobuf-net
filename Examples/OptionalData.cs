@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class OptionalData
     {
         [Fact]

@@ -4,7 +4,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ListsWithInheritance
     {
         [Fact]

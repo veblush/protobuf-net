@@ -17,7 +17,7 @@ namespace Examples.SimpleStream
         public int Foo { get; set; }
     }
 
-    [TestFixture]
+    
     public class GroupedData
     {
         [Fact]

@@ -1,4 +1,4 @@
-﻿
+﻿#if PROTOGEN
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -7,13 +7,13 @@ using System.IO;
 using System.Xml;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.CodeGenerator;
 
 namespace Examples.ProtoGen
 {
-    [TestFixture]
+    
     public class Generator
     {
         public static string GetCode(params string[] args)
@@ -38,21 +38,21 @@ namespace Examples.ProtoGen
 
         }
 
-        [Test]
+        [Fact]
         public void TestPersonAsCSharp()
         {
             string csharp = GetCode(@"-i:ProtoGen\person.proto", "-p:detectMissing");
             File.WriteAllText(@"ProtoGen\person.cs", csharp);
             TestCompileCSharp(csharp);
         }
-        [Test]
+        [Fact]
         public void TestKeywords()
         {
             string csharp = GetCode(@"-i:ProtoGen\keywords.proto", "-p:detectMissing");
             File.WriteAllText(@"ProtoGen\keywords.cs", csharp);
             TestCompileCSharp(csharp);
         }
-        [Test]
+        [Fact]
         public void TestRpcAsCSharp()
         {
             string csharp = GetCode(@"-i:ProtoGen\rpc.proto", "-p:clientProxy");
@@ -66,7 +66,7 @@ namespace Examples.ProtoGen
             File.WriteAllText(@"ProtoGen\rpc.vb", vb);
             TestCompileVisualBasic(vb, @"C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.ServiceModel.dll");
         }
-        [Test]
+        [Fact]
         public void TestLITE()
         {
             string csharp = GetCode(@"-i:ProtoGen\LITE.proto");
@@ -74,7 +74,7 @@ namespace Examples.ProtoGen
             TestCompileCSharp(csharp, @"C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\System.ServiceModel.dll");
         }
 
-        [Test]
+        [Fact]
         public void TestWithBomAsCSharp()
         {
             using (StringWriter stderr = new StringWriter())
@@ -83,17 +83,17 @@ namespace Examples.ProtoGen
                 {
 
                     GetCode(stderr, @"-i:ProtoGen\WithBom.proto");
-                    Assert.Fail("Should have failed parsing WithBom.proto");
+                    Assert.Equal("##fail##", "Should have failed parsing WithBom.proto");
                 }
                 catch (ProtoParseException)
                 {
                     string s = stderr.ToString();
-                    Assert.IsTrue(s.Contains("The input file should be UTF8 without a byte-order-mark"));
+                    Assert.True(s.Contains("The input file should be UTF8 without a byte-order-mark"));
                 }
             }
         }
 
-        [Test]
+        [Fact]
         public void TestWithBomAsCSharpWriteErrorsToFile()
         {
             StringWriter stderr = new StringWriter();
@@ -102,19 +102,19 @@ namespace Examples.ProtoGen
 
                 File.WriteAllText("errors.txt", "");
                 GetCode(stderr, @"-i:ProtoGen\WithBom.proto", "-writeErrors", "-o:errors.txt");
-                Assert.Fail("Should have failed parsing WithBom.proto");
+                Assert.Equal("##fail##", "Should have failed parsing WithBom.proto");
             }
             catch (ProtoParseException)
             {
                 string s = stderr.ToString();
-                Assert.AreEqual("", s);
+                Assert.Equal("", s);
                 s = File.ReadAllText("errors.txt");
-                Assert.IsTrue(s.Contains("The input file should be UTF8 without a byte-order-mark"));
+                Assert.True(s.Contains("The input file should be UTF8 without a byte-order-mark"));
             }
         }
 
 
-        [Test]
+        [Fact]
         public void TestPersonAsVB()
         {
             string code = GetCode(@"-i:ProtoGen\person.proto", "-t:vb");
@@ -122,20 +122,20 @@ namespace Examples.ProtoGen
             TestCompileVisualBasic(code);
         }
 
-        [Test]
+        [Fact]
         public void TestPersonAsXml()
         {
             string csharp = GetCode(@"-i:ProtoGen\person.proto", "-t:xml");
             File.WriteAllText(@"ProtoGen\person.xml", csharp);
         }
 
-        [Test]
+        [Fact]
         public void TestSearchRequestAsXml()
         {
             string csharp = GetCode(@"-i:ProtoGen\searchRequest.proto", "-t:xml");
             File.WriteAllText(@"ProtoGen\searchRequest.xml", csharp);
         }
-        [Test]
+        [Fact]
         public void TestDescriptorAsXml()
         {
             string xml = GetCode(@"-i:ProtoGen\descriptor.proto", @"-i:protobuf-net.proto", "-t:xml");
@@ -143,7 +143,7 @@ namespace Examples.ProtoGen
             File.WriteAllText("descriptor.xml", xml);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsXmlToFile()
         {
             GetCode(@"-i:ProtoGen\descriptor.proto", "-o:descriptor.xml", "-t:xml");
@@ -152,24 +152,24 @@ namespace Examples.ProtoGen
             TestLoadXml(viaFile);
 
             string viaWriter = GetCode(@"-i:ProtoGen\descriptor.proto", "-t:xml");
-            Assert.AreEqual(viaFile, viaWriter);
+            Assert.Equal(viaFile, viaWriter);
         }
 
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpBasic()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", @"-i:protobuf-net.proto");
             TestCompileCSharp(code);
         }
-        [Test]
+        [Fact]
         public void TestEmptyAsCSharpBasic()
         {
             string code = GetCode(@"-i:ProtoGen\empty.proto");
             TestCompileCSharp(code);
         }
 
-        [Test]
+        [Fact]
         public void TestPersonAsCSharpCased()
         {
             string code = GetCode(@"-i:ProtoGen\person.proto", "-p:fixCase");
@@ -185,7 +185,7 @@ namespace Examples.ProtoGen
             TestCompileVisualBasic(code);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpDetectMissing()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", "-p:detectMissing");
@@ -199,35 +199,35 @@ namespace Examples.ProtoGen
             TestCompileCSharpV2(code);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpPartialMethodsLangVer3()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", "-p:partialMethods");
             TestCompileCSharpV3(code);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpPartialMethodsLangVer3DetectMissing()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", "-p:partialMethods", "-p:detectMissing");
             TestCompileCSharpV3(code);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpPartialMethodsLangVer3DetectMissingWithXml()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", "-p:partialMethods", "-p:detectMissing", "-p:xml");
             TestCompileCSharpV3(code);
         }
 
-        [Test]
+        [Fact]
         public void TestDescriptorAsCSharpPartialMethodsLangVer3DetectMissingWithDataContract()
         {
             string code = GetCode(@"-i:ProtoGen\descriptor.proto", "-p:partialMethods", "-p:detectMissing", "-p:datacontract");
             TestCompileCSharpV3(code, "System.Runtime.Serialization.dll");
         }
 
-        [Test]
+        [Fact]
         public void TestEnums()
         {
             string code = GetCode(@"-i:ProtoGen\Enums.proto"); // "-p:partialMethods", "-p:detectMissing", "-p:datacontract");
@@ -237,7 +237,7 @@ namespace Examples.ProtoGen
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
-            Assert.IsFalse(string.IsNullOrEmpty(doc.OuterXml), "xml should be non-empty");
+            Assert.False(string.IsNullOrEmpty(doc.OuterXml), "xml should be non-empty");
         }
 
         public static void TestCompileCSharp(string code, params string[] extraReferences)
@@ -317,3 +317,4 @@ namespace Examples.ProtoGen
         }
     }
 }
+#endif

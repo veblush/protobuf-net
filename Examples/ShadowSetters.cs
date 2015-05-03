@@ -7,7 +7,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ShadowSetters
     {
         [ProtoContract]

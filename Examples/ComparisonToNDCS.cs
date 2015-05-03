@@ -8,7 +8,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ComparisonToNDCS
     {
         static List<BasicDto> GetTestData()

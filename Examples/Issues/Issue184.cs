@@ -6,55 +6,75 @@ using System.Runtime.Serialization;
 using ProtoBuf.Meta;
 using System.IO;
 using ProtoBuf;
-using NUnit.Framework;
+using Xunit;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class Issue184
     {
-        [Test]
+        [Fact]
         public void CanCreateUsableEnumerableMetaType()
         {
             var model = TypeModel.Create();
             model.Add(typeof(IEnumerable<int>), false);
             model.CompileInPlace();
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Data of this type has inbuilt behaviour, and cannot be added to a model in this way: System.Decimal")]
+        [Fact]
         public void CantCreateMetaTypeForInbuilt()
         {
-            var model = TypeModel.Create();
-            model.Add(typeof(decimal), false);
-            model.CompileInPlace();
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = TypeModel.Create();
+                model.Add(typeof(decimal), false);
+                model.CompileInPlace();
+            }).Message;
+            Assert.Equal("Data of this type has inbuilt behaviour, and cannot be added to a model in this way: System.Decimal", msg);
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be subclassed")]
+        [Fact]
         public void CantSubclassLists()
         {
-            var model = TypeModel.Create();
-            model.Add(typeof(IList<int>), false).AddSubType(5, typeof(List<int>));
-            model[typeof (IList<int>)].UseConstructor = false;
-            model.CompileInPlace();
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = TypeModel.Create();
+                model.Add(typeof(IList<int>), false).AddSubType(5, typeof(List<int>));
+                model[typeof(IList<int>)].UseConstructor = false;
+                model.CompileInPlace();
+            }).Message;
+            Assert.Equal("Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be subclassed", msg);
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be used as a subclass")]
+        [Fact]
         public void ListAsSubclass()
         {
-            var m = TypeModel.Create();
-            m.Add(typeof(IMobileObject), false).AddSubType(1, typeof(A)).AddSubType(2, typeof(MobileList<int>));
-            m.CompileInPlace();
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var m = TypeModel.Create();
+                m.Add(typeof(IMobileObject), false).AddSubType(1, typeof(A)).AddSubType(2, typeof(MobileList<int>));
+                m.CompileInPlace();
+            }).Message;
+            Assert.Equal("Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be used as a subclass", msg);
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Repeated data (a list, collection, etc) has inbuilt behaviour and cannot use a surrogate")]
+        [Fact]
         public void CantSurrogateLists()
         {
-            var model = TypeModel.Create();
-            model.Add(typeof(IList<int>), false).SetSurrogate(typeof(InnocentType));
-            model.CompileInPlace();
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = TypeModel.Create();
+                model.Add(typeof(IList<int>), false).SetSurrogate(typeof(InnocentType));
+                model.CompileInPlace();
+            }).Message;
+            Assert.Equal("Repeated data (a list, collection, etc) has inbuilt behaviour and cannot use a surrogate", msg);
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be used as a surrogate")]
+        [Fact]
         public void ListAsSurrogate()
         {
-            var model = TypeModel.Create();
-            model.Add(typeof(IMobileObject), false).SetSurrogate(typeof(MobileList<int>));
-            model.CompileInPlace();
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = TypeModel.Create();
+                model.Add(typeof(IMobileObject), false).SetSurrogate(typeof(MobileList<int>));
+                model.CompileInPlace();
+            }).Message;
+            Assert.Equal("Repeated data (a list, collection, etc) has inbuilt behaviour and cannot be used as a surrogate", msg);
         }
 
 

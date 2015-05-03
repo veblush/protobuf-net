@@ -7,7 +7,7 @@ using ProtoBuf.Meta;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class TypeTests
     {
         [ProtoContract]

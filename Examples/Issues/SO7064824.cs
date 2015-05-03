@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using NUnit.Framework.SyntaxHelpers;
 using System;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 
@@ -36,33 +35,33 @@ namespace TechnologyEvaluation.Protobuf.ArrayOfBaseClassTest
         public string DerivedClassText { get; set; }
     }
 
-    [TestFixture]
-    public class ArrayOfBaseClassTests : AssertionHelper
+    
+    public class ArrayOfBaseClassTests // : AssertionHelper
     {
-        [Test] // needs dynamic handling of list itself
+        [Fact] // needs dynamic handling of list itself
         public void TestObjectArrayContainerClass()
         {
             var model = CreateModel();
             var container = new ObjectArrayContainerClass();
             container.ObjectArray = this.CreateArray();
             var cloned = (ObjectArrayContainerClass)model.DeepClone(container);
-            Expect(cloned.ObjectArray, Is.Not.Null);
+            Assert.NotNull(cloned.ObjectArray);
 
             foreach (var obj in cloned.ObjectArray)
             {
-                Expect(obj as Base, Is.Not.Null);
+                Assert.NotNull(obj as Base);
             }
 
-            Expect(cloned.ObjectArray[1] as Derived, Is.Not.Null);
+            Assert.NotNull(cloned.ObjectArray[1] as Derived);
             
             // this would be nice...
             //Expect(cloned.ObjectArray.GetType(), Is.EqualTo(typeof(Base[])));
 
             // but this is what we currently **expect**
-            Expect(cloned.ObjectArray.GetType(), Is.EqualTo(typeof(object[])));
+            Assert.Equal(typeof(object[]), cloned.ObjectArray.GetType());
         }
 
-        [Test]
+        [Fact]
         public void WrittenDataShouldBeConstant()
         {
             var container = new ObjectArrayContainerClass();
@@ -72,9 +71,9 @@ namespace TechnologyEvaluation.Protobuf.ArrayOfBaseClassTest
             model.DynamicTypeFormatting += new TypeFormatEventHandler(model_DynamicTypeFormatting);
             model.Serialize(ms, container);
 
-            string s = Convert.ToBase64String(ms.GetBuffer(), 0, (int)ms.Length);
+            string s = Convert.ToBase64String(ms.ToArray(), 0, (int)ms.Length);
             // written with r480
-            Assert.AreEqual("ChkgAUIEQmFzZVIPCg1CYXNlQ2xhc3NUZXh0CjEgAkIHRGVyaXZlZFIkogYSChBEZXJpdmVkQ2xhc3NUZXh0Cg1CYXNlQ2xhc3NUZXh0", s);
+            Assert.Equal("ChkgAUIEQmFzZVIPCg1CYXNlQ2xhc3NUZXh0CjEgAkIHRGVyaXZlZFIkogYSChBEZXJpdmVkQ2xhc3NUZXh0Cg1CYXNlQ2xhc3NUZXh0", s);
         }
         void model_DynamicTypeFormatting(object sender, TypeFormatEventArgs args)
         {
@@ -96,23 +95,27 @@ namespace TechnologyEvaluation.Protobuf.ArrayOfBaseClassTest
             }
         }
 
-        [Test, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Conflicting item/add type")]// needs dynamic handling of list itself
+        [Fact]// needs dynamic handling of list itself
         public void TestBaseClassArrayContainerClass()
         {
-            var model = CreateModel();
-            var container = new BaseClassArrayContainerClass();
-            container.BaseArray = this.CreateArray();
-            var cloned = (BaseClassArrayContainerClass)model.DeepClone(container);
-            Expect(cloned.BaseArray, Is.Not.Null);
-
-            foreach (var obj in cloned.BaseArray)
+            var msg = Assert.Throws<InvalidOperationException>(() =>
             {
-                Expect(obj as Base, Is.Not.Null);
-            }
-            Expect(cloned.BaseArray[1] as Derived, Is.Not.Null);
+                var model = CreateModel();
+                var container = new BaseClassArrayContainerClass();
+                container.BaseArray = this.CreateArray();
+                var cloned = (BaseClassArrayContainerClass)model.DeepClone(container);
+                Assert.NotNull(cloned.BaseArray);
 
-            // this would be nice...
-            Expect(cloned.BaseArray.GetType(), Is.EqualTo(typeof(Base[])), "array type");
+                foreach (var obj in cloned.BaseArray)
+                {
+                    Assert.NotNull(obj as Base);
+                }
+                Assert.NotNull(cloned.BaseArray[1] as Derived);
+
+                // this would be nice...
+                Assert.Equal(typeof(Base[]), cloned.BaseArray.GetType());
+            }).Message;
+            Assert.Equal("Conflicting item/add type", msg);
         }
 
         RuntimeTypeModel CreateModel()

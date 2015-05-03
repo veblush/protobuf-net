@@ -4,7 +4,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class Inheritance
     {
 
@@ -19,11 +19,14 @@ namespace Examples
             public A A { get; set; }
         }
         [Fact]
-        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Unexpected sub-type: Examples.Inheritance+B")]
         public void UnknownSubtypeMessage()
         {
-            var c = new C { A = new B() };
-            Serializer.DeepClone(c);
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                var c = new C { A = new B() };
+                Serializer.DeepClone(c);
+            }).Message;
+            Assert.Equal("Unexpected sub-type: Examples.Inheritance+B", msg);
         }
 
         [Fact]

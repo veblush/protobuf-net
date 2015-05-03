@@ -50,7 +50,7 @@ namespace DAL
     }
 
 
-    [TestFixture]
+    
     public class NWindTests
     {
 #if DNXRUNNER

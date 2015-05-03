@@ -4,16 +4,6 @@ using System.Linq;
 using ProtoBuf.Meta;
 using Xunit;
 using System.Reflection;
-sealed class TestFixtureAttribute : Attribute { }
-
-[Obsolete]
-sealed class ExpectedException : Attribute
-{
-    public ExpectedException(Type type) { }
-    public ExpectedException(string type) { }
-
-    public string ExpectedMessage { get; set; }
-}
 
 #if DNXCORE50
 namespace System
@@ -40,7 +30,51 @@ static class FrameworkHelpers
         return type.IsValueType;
 #endif
     }
+    public static bool IsGenericTypeDefinition(this Type type)
+    {
 #if DNXCORE50
+        return type.GetTypeInfo().IsGenericTypeDefinition;
+#else
+        return type.IsGenericTypeDefinition;
+#endif
+    }
+    public static bool IsGenericType(this Type type)
+    {
+#if DNXCORE50
+        return type.GetTypeInfo().IsGenericType;
+#else
+        return type.IsGenericType;
+#endif
+    }
+#if DNXCORE50
+    public static Type[] GetGenericArguments(this Type type)
+    {
+        return type.GetTypeInfo().GenericTypeArguments;
+    }
+#endif
+    public static Assembly Assembly(this Type type)
+    {
+#if DNXCORE50
+        return type.GetTypeInfo().Assembly;
+#else
+        return type.Assembly;
+#endif
+    }
+    public static Type BaseType(this Type type)
+    {
+
+#if DNXCORE50
+        return type.GetTypeInfo().BaseType;
+#else
+        return type.BaseType;
+#endif
+    }
+
+#if DNXCORE50
+    public static bool IsDefined(this Type type, Type attributeType, bool inherit)
+    {
+        return type.GetTypeInfo().IsDefined(attributeType);
+    }
     public static PropertyInfo GetProperty(this Type type, string name)
     {
         return type.GetRuntimeProperty(name);
@@ -49,9 +83,14 @@ static class FrameworkHelpers
     {
         return type.GetRuntimeMethods().SingleOrDefault(x => x.Name == name);
     }
+
     public static PropertyInfo[] GetProperties(this Type type)
     {
         return type.GetRuntimeProperties().ToArray();
+    }
+    public static Type[] GetInterfaces(this Type type)
+    {
+        return type.GetTypeInfo().ImplementedInterfaces.ToArray();
     }
 #endif
 }

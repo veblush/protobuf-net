@@ -181,7 +181,7 @@ namespace Examples
         string Bar { get; set; }
     }
 
-    [TestFixture]
+    
     public class Callbacks
     {
         public static void Test<T, TCreate>(bool compile = false, params Type[] extraTypes)
@@ -308,10 +308,14 @@ namespace Examples
             Test<TestInheritedImplementedAtChild, TestInheritedImplementedAtChildDerived>();
         }
 
-        [Fact, ExpectedException(typeof(ProtoException), ExpectedMessage = "Duplicate ProtoBuf.ProtoBeforeSerializationAttribute callbacks on Examples.Callbacks+DuplicateCallbacks")]
+        [Fact]
         public void TestDuplicateCallbacks()
         {
-            Serializer.Serialize(Stream.Null, new DuplicateCallbacks());
+            var msg = Assert.Throws<ProtoException>(() =>
+            {
+                Serializer.Serialize(Stream.Null, new DuplicateCallbacks());
+            }).Message;
+            Assert.Equal("Duplicate ProtoBuf.ProtoBeforeSerializationAttribute callbacks on Examples.Callbacks+DuplicateCallbacks", msg);
         }
 
         [Fact]

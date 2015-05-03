@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !DNXCORE50
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,15 +7,15 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using ProtoBuf.ServiceModel;
 
 namespace Examples.Issues
 {
-    [TestFixture]
-    public class SO10115538
+    
+    public class SO10115538 : IDisposable
     {
         public class MyService : IMyService
         {
@@ -44,7 +45,10 @@ namespace Examples.Issues
             //var client = factory.CreateChannel();
             //return client;
         }
-        [TestFixtureSetUp]
+        public SO10115538()
+        {
+            StartServer();
+        }
         public void StartServer()
         {
             try
@@ -64,8 +68,10 @@ namespace Examples.Issues
                 throw;
             }
         }
-
-        [TestFixtureTearDown]
+        public void Dispose()
+        {
+            StopServer();
+        }
         public void StopServer()
         {
             if (host != null)
@@ -87,35 +93,35 @@ namespace Examples.Issues
 
             return m;
         }
-        [Test]
+        [Fact]
         public void TestUsingMemoryStream()
         {
             Base.PrepareMetaDataForSerialization();
             var m = InventMember();
-            Assert.AreEqual("Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt", m.ToString());
+            Assert.Equal("Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt", m.ToString());
             using (var ms = new MemoryStream())
             {
                 Serializer.Serialize<Member>(ms, m);
                 Console.WriteLine(ms.Length.ToString());
                 ms.Position = 0;
                 var member2 = Serializer.Deserialize<Member>(ms);
-                Assert.AreEqual("qwertt", member2.EnteredBy);
-                Assert.AreEqual("Mike", member2.FirstName);
+                Assert.Equal("qwertt", member2.EnteredBy);
+                Assert.Equal("Mike", member2.FirstName);
 
-                Assert.AreEqual("Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt",
+                Assert.Equal("Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt",
                                 member2.ToString());
             }
         }
 
 
-        [Test]
+        [Fact]
         public void TestUsingWcf()
         {
             Base.PrepareMetaDataForSerialization();
             var m = InventMember();
             var client = GetService();
             string s = client.Test(m);
-            Assert.AreEqual("from svc: Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt", s);
+            Assert.Equal("from svc: Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt", s);
         }
 
         /// <summary>
@@ -364,3 +370,4 @@ namespace Examples.Issues
         }
 
 }
+#endif

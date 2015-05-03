@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ImmutableCollections
     {
         #region Dictionary

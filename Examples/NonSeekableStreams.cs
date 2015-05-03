@@ -10,7 +10,7 @@ using ProtoBuf.Meta;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class NonSeekableStreams
     {
 #if !DNXCORE50

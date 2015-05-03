@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
-using NUnit.Framework.SyntaxHelpers;
 using System.IO;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class Issue174cs
     {
-        [Test, ExpectedException(ExpectedMessage = "Dynamic type is not a contract-type: Boolean")]
+        [Fact]
         public void TestDynamic()
         {
-            var myVal = new TestProto { Value = true };
-            byte[] serialized;
-            using (var ms = new MemoryStream())
+            var msg = Assert.Throws<Exception>(() =>
             {
-                Serializer.Serialize(ms, myVal);
-                serialized = ms.ToArray();
-            }
-            Assert.That(serialized, Is.Not.Null);
+                var myVal = new TestProto { Value = true };
+                byte[] serialized;
+                using (var ms = new MemoryStream())
+                {
+                    Serializer.Serialize(ms, myVal);
+                    serialized = ms.ToArray();
+                }
+                Assert.NotNull(serialized);
+            }).Message;
+            Assert.Equal("Dynamic type is not a contract-type: Boolean", msg);
         }
 
         [ProtoContract]

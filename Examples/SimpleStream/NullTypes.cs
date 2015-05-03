@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Examples.SimpleStream
 {
-    [TestFixture]
+    
     public class NullTypes
     {
         [DataContract]

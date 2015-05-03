@@ -9,7 +9,7 @@ using ProtoBuf.Meta;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class Pipeline
     {
         [Fact]

@@ -4,3 +4,12 @@ bin
 obj
 *.user
 Protobuf.Tests/*.dll
+Protobuf.Tests/Data.protobuf
+Protobuf.Tests/antRules.bin
+Protobuf.Tests/big.file
+Protobuf.Tests/catRules.bin
+Protobuf.Tests/issue29.dat
+Protobuf.Tests/list.bin
+Protobuf.Tests/output.dump
+Protobuf.Tests/protoTest.txt
+Protobuf.Tests/things.bin

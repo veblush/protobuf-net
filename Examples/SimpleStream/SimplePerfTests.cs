@@ -23,7 +23,7 @@ namespace Examples.SimpleStream
         public double Blop { get; set; }
 
     }
-    [TestFixture]
+    
     public class SimplePerfTests
     {
         [Fact]

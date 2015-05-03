@@ -2,12 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO3261310
     {
 
@@ -16,7 +16,7 @@ namespace Examples.Issues
         [ProtoContract]
         public class SerializableException { }
     
-        [Test]
+        [Fact]
         public void TestBasicRoundTrip()
         {
             var item = new ProtoDictionary<string>();
@@ -24,13 +24,13 @@ namespace Examples.Issues
             item.Add("ghi", new List<UrlStatus> {UrlStatus.A, UrlStatus.B});
 
             var clone = Serializer.DeepClone(item);
-            Assert.AreEqual(2, clone.Keys.Count);
+            Assert.Equal(2, clone.Keys.Count);
             object o = clone["abc"];
-            Assert.AreEqual("def", clone["abc"].Value);
+            Assert.Equal("def", clone["abc"].Value);
             var list = (IList<UrlStatus>)clone["ghi"].Value;
-            Assert.AreEqual(2, list.Count);
-            Assert.AreEqual(UrlStatus.A, list[0]);
-            Assert.AreEqual(UrlStatus.B, list[1]);
+            Assert.Equal(2, list.Count);
+            Assert.Equal(UrlStatus.A, list[0]);
+            Assert.Equal(UrlStatus.B, list[1]);
         }
 
 
@@ -72,6 +72,7 @@ namespace Examples.Issues
                 // Do nothing
             }
 
+#if !DNXCORE50
             // NOTE: For whatever reason, this class will not correctly deserialize without this method, even though
             // the base class, Dictionary, has the SerializableAttribute. It's protected so only the framework can access it.
             protected ProtoDictionary(SerializationInfo info, StreamingContext context)
@@ -79,6 +80,7 @@ namespace Examples.Issues
             {
 
             }
+#endif
         }
         [ProtoContract]
         [ProtoInclude(1, typeof(ProtoObject<string>))]

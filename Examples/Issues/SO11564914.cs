@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO11564914
     {
-        [Test, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Are you mixing protobuf-net and protobuf-csharp-port? See http://stackoverflow.com/q/11564914; type: Examples.Issues.SO11564914+BlockHeader")]
+        [Fact]
         public void SerializeFromProtobufCSharpPortShouldGiveUsefulMessage()
         {
-            var obj = new BlockHeader();
-            Serializer.Serialize(Stream.Null, obj);
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                var obj = new BlockHeader();
+                Serializer.Serialize(Stream.Null, obj);
+            }).Message;
+            Assert.Equal("Are you mixing protobuf-net and protobuf-csharp-port? See http://stackoverflow.com/q/11564914; type: Examples.Issues.SO11564914+BlockHeader", msg);
         }
-        [Test, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Are you mixing protobuf-net and protobuf-csharp-port? See http://stackoverflow.com/q/11564914; type: Examples.Issues.SO11564914+BlockHeader")]
+        [Fact]
         public void DeserializeFromProtobufCSharpPortShouldGiveUsefulMessage()
         {
-            var obj = new BlockHeader();
-            Serializer.Deserialize<BlockHeader>(Stream.Null);
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                var obj = new BlockHeader();
+                Serializer.Deserialize<BlockHeader>(Stream.Null);
+            }).Message;
+            Assert.Equal("Are you mixing protobuf-net and protobuf-csharp-port? See http://stackoverflow.com/q/11564914; type: Examples.Issues.SO11564914+BlockHeader", msg);
         }
 
         public sealed partial class BlockHeader : GeneratedMessage<BlockHeader, BlockHeader.Builder>

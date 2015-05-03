@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using ProtoBuf;
 using ProtoBuf.Meta;
-using NUnit.Framework;
+using Xunit;
 
 namespace Examples.Issues
 {
     // note that some additional changes were needed beyond what is shown on SO
     // in order to fully test standalone compilation / PEVerify; mainly due to
     // public readonly fields, which protobuf-net will still try and mutate
-    [TestFixture] 
+     
     public class SO11705351
     {
         [ProtoContract]
@@ -88,7 +88,7 @@ namespace Examples.Issues
             assemblage.Parts.Add(part);
             return assemblage;
         }
-        [Test]
+        [Fact]
         public void Execute()
         {
             var model = GetModel();
@@ -117,17 +117,17 @@ namespace Examples.Issues
                         var assemblage = obj;
                         var whole = assemblage.Parts[0].Whole;
 
-                        Assert.AreSame(assemblage.Parts[0].Whole, whole.Parts[0].Whole, "Whole:" + caption);
-                        Assert.AreSame(assemblage.Parts[0], whole.Parts[0], "Part:" + caption);
+                        Assert.Same(assemblage.Parts[0].Whole, whole.Parts[0].Whole); //, "Whole:" + caption);
+                        Assert.Same(assemblage.Parts[0], whole.Parts[0]); //, "Part:" + caption);
                     }
                 }
             } catch(Exception ex)
             {
-                Assert.Fail(ex.Message + ":" + caption);
+                Assert.Equal("##fail##", ex.Message + ":" + caption);
             }
         }
 
-        [Test]
+        [Fact]
         public void CheckSchema()
         {
             var model = GetModel();
@@ -135,7 +135,7 @@ namespace Examples.Issues
 
             string schema = model.GetSchema(null);
 
-            Assert.AreEqual(@"package Examples.Issues;
+            Assert.Equal(@"package Examples.Issues;
 import ""bcl.proto""; // schema for protobuf-net's handling of core .NET types
 
 message Assemblage {

@@ -40,7 +40,7 @@ namespace Examples
         SerializationBinder IFormatter.Binder { get; set; }
         ISurrogateSelector IFormatter.SurrogateSelector { get; set; }
     }
-    [TestFixture]
+    
     public class TestDynamicFormatter
     {
         [Fact]

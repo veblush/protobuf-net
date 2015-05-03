@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ProtoBuf;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf.Meta;
 using System.IO;
 
@@ -44,42 +44,44 @@ namespace Examples.Issues
         [ProtoMember(1)]
         public I Unknown { get; set; }
     }
-    [TestFixture]
+    
     public class Issue185
     {
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = @"The supplied default implementation cannot be created: Examples.Issues.O
-Parameter name: constructType")]
+        [Fact]
         public void ExecuteWithConstructType()
         {
-            var m = RuntimeTypeModel.Create();
-            m.AutoCompile = false;
-            m.Add(typeof(C), false).SetSurrogate(typeof(CS));
-            m.Add(typeof(O), false).SetSurrogate(typeof(OS));
-            m.Add(typeof(I), false).ConstructType = typeof(O);
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var m = RuntimeTypeModel.Create();
+                m.AutoCompile = false;
+                m.Add(typeof(C), false).SetSurrogate(typeof(CS));
+                m.Add(typeof(O), false).SetSurrogate(typeof(OS));
+                m.Add(typeof(I), false).ConstructType = typeof(O);
 
-            var c = new C();
-            c.PopulateRun();
+                var c = new C();
+                c.PopulateRun();
 
-            Test(m, c, "Runtime");
-            m.CompileInPlace();
-            Test(m, c, "CompileInPlace");
-            Test(m.Compile(), c, "Compile");
-
+                Test(m, c, "Runtime");
+                m.CompileInPlace();
+                Test(m, c, "CompileInPlace");
+                Test(m.Compile(), c, "Compile");
+            }).Message;
+            Assert.Equal(@"The supplied default implementation cannot be created: Examples.Issues.O
+Parameter name: constructType", msg);
         }
         static void Test(TypeModel model, C c, string caption)
         {
-            Assert.AreEqual(43, c.Unknown.N, "braindead");
+            Assert.Equal(43, c.Unknown.N); //, "braindead");
             using (var ms = new MemoryStream())
             {
                 model.Serialize(ms, c);
-                Assert.Greater(1, 0, "args fail");
-                Assert.Greater(ms.Length, 0, "Nothing written");
+                Assert.True(ms.Length > 0); //, "Nothing written");
                 ms.Position = 0;
                 var c2 = (C)model.Deserialize(ms, null, typeof(C));
-                Assert.AreEqual(c.Unknown.N, c2.Unknown.N, caption);
+                Assert.Equal(c.Unknown.N, c2.Unknown.N); //, caption);
             }
         }
-        [Test]
+        [Fact]
         public void ExecuteWithSubType()
         {
             var m = RuntimeTypeModel.Create();

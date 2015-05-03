@@ -1,12 +1,13 @@
-﻿using System;
+﻿#if PROTOGEN
+using System;
 using System.Diagnostics;
 using google.protobuf;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf.CodeGenerator;
 
 namespace Examples.ProtoGen
 {
-    [TestFixture]
+    
     public class InputLoader
     {
         [Test, ExpectedException(typeof(ArgumentNullException))]
@@ -36,7 +37,7 @@ namespace Examples.ProtoGen
             InputFileLoader.Merge(files, @"ProtoGen\NoneSuch.bin", Console.Error);
         }
 
-        [Test]
+        [Fact]
         public void TestBinaryInput()
         {
             // compile .proto to .bin
@@ -44,41 +45,42 @@ namespace Examples.ProtoGen
 
             // process .bin
             FileDescriptorSet files = new FileDescriptorSet();
-            Assert.AreEqual(0, files.file.Count);
+            Assert.Equal(0, files.file.Count);
             InputFileLoader.Merge(files, @"ProtoGen\descriptor.bin", Console.Error);
-            Assert.AreEqual(1, files.file.Count);
+            Assert.Equal(1, files.file.Count);
         }
 
-        [Test]
+        [Fact]
         public void TestProtoInput()
         {
             FileDescriptorSet files = new FileDescriptorSet();
-            Assert.AreEqual(0, files.file.Count);
+            Assert.Equal(0, files.file.Count);
             InputFileLoader.Merge(files, @"ProtoGen\descriptor.proto", Console.Error);
-            Assert.AreEqual(1, files.file.Count);
+            Assert.Equal(1, files.file.Count);
         }
 
 
 
-        [Test]
+        [Fact]
         public void TestGarbageInput()
         {
             FileDescriptorSet files = new FileDescriptorSet();
             try
             {
                 InputFileLoader.Merge(files, @"ProtoGen\InputLoader.cs", Console.Error);
-                Assert.Fail("Should have barfed");
+                Assert.Equal("##fail##", "Should have barfed");
             }
             catch (ProtoParseException ex)
             {
                 bool sw = ex.Message.StartsWith("An error occurred parsing InputLoader.cs");
-                if (!sw) Assert.Fail("Expected message not found: " + ex.Message);
+                if (!sw) Assert.Equal("##fail##", "Expected message not found: " + ex.Message);
             }
             catch
             {
-                Assert.Fail("Expected ArgumentException");
+                Assert.Equal("##fail##", "Expected ArgumentException");
             }
 
         }
     }
 }
+#endif

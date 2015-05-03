@@ -63,7 +63,7 @@ namespace Examples
 
     class MyList : List<Entity> { }
 
-    [TestFixture]
+    
     public class ListTests
     {
         [Fact]
@@ -533,10 +533,14 @@ namespace Examples
             CheckLists(arr, clone);
         }
 
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Only simple data-types can use packed encoding")]
+        [Fact]
         public void TestPackedArrayString()
         {
-            Serializer.DeepClone(new ArrayOfString());
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Serializer.DeepClone(new ArrayOfString());
+            }).Message;
+            Assert.Equal("Only simple data-types can use packed encoding", msg);
         }
         [ProtoContract]
         class ArrayOfString
@@ -544,10 +548,14 @@ namespace Examples
             [ProtoMember(1, Options = MemberSerializationOptions.Packed)]
             public string[] Items { get; set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Only simple data-types can use packed encoding")]
+        [Fact]
         public void TestPackedListDateTime()
         {
-            Serializer.DeepClone(new ListOfDateTime());
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Serializer.DeepClone(new ListOfDateTime());
+            }).Message;
+            Assert.Equal("Only simple data-types can use packed encoding", msg);
         }
         [ProtoContract]
         class ListOfDateTime
@@ -555,10 +563,14 @@ namespace Examples
             [ProtoMember(1, Options = MemberSerializationOptions.Packed)]
             public List<DateTime> Items { get; set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Only simple data-types can use packed encoding")]
+        [Fact]
         public void TestPackedCustomOfSubMessage()
         {
-            Serializer.DeepClone(new CustomOfSubMessage());
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Serializer.DeepClone(new CustomOfSubMessage());
+            }).Message;
+            Assert.Equal("Only simple data-types can use packed encoding", msg);
         }
 
         [ProtoContract]

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO9408133
     {
         [ProtoContract] public class Ship
@@ -43,7 +43,7 @@ namespace Examples.Issues
             public SomeType Value { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void TestImplicitSetup()
         {
             var model = RuntimeTypeModel.Create();
@@ -61,16 +61,20 @@ namespace Examples.Issues
             Test(model, obj1, obj2, "CompileInPlace");
             Test(model.Compile(), obj1, obj2, "Compile");
         }
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "SomeType is not a valid sub-type of", MatchType = MessageMatch.Contains)]
+        [Fact]
         public void TestStupidSetup()
         {
-            var model = RuntimeTypeModel.Create();
-            model.AutoCompile = false;
-            model.Add(typeof(ResourceNode<Ship>), false).AddSubType(1, typeof(ShipResource));
-            // I did this to myself... sigh
-            model.Add(typeof(ResourceNode<SomeType>), false).AddSubType(1, typeof(SomeType));
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = RuntimeTypeModel.Create();
+                model.AutoCompile = false;
+                model.Add(typeof(ResourceNode<Ship>), false).AddSubType(1, typeof(ShipResource));
+                // I did this to myself... sigh
+                model.Add(typeof(ResourceNode<SomeType>), false).AddSubType(1, typeof(SomeType));
+            }).Message;
+            Assert.True(msg.Contains("SomeType is not a valid sub-type of"));
         }
-        [Test]
+        [Fact]
         public void TestExplicitSetup()
         {
             var model = RuntimeTypeModel.Create();
@@ -98,8 +102,8 @@ namespace Examples.Issues
                 var clone1 = (ShipResource) model.DeepClone(obj1);
                 var clone2 = (SomeResource) model.DeepClone(obj2);
 
-                Assert.AreEqual(obj1.Value.Foo, clone1.Value.Foo, caption + ":Foo");
-                Assert.AreEqual(obj2.Value.Bar, clone2.Value.Bar, caption + ":Bar");
+                Assert.Equal(obj1.Value.Foo, clone1.Value.Foo); //, caption + ":Foo");
+                Assert.Equal(obj2.Value.Bar, clone2.Value.Bar); //, caption + ":Bar");
             } catch(Exception ex)
             {
                 throw new Exception(caption + ":" + ex.Message, ex);

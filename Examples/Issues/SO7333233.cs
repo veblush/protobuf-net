@@ -1,5 +1,5 @@
 ﻿
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf.Meta;
 
 namespace Examples.Issues
@@ -8,7 +8,7 @@ namespace Examples.Issues
     using System.IO;
     using ProtoBuf;
 
-    [TestFixture]
+    
     public class SO7333233
     {
         [ProtoContract]
@@ -99,7 +99,7 @@ namespace Examples.Issues
             }
         }
 
-        [Test]
+        [Fact]
         public  void Execute()
         {
             // note these are unrelated networks, so we can use the same field-numbers
@@ -117,31 +117,36 @@ namespace Examples.Issues
             using (var fs = File.Create(@"antRules.bin"))
             {
                 ProtoBuf.Serializer.Serialize(fs, antRules);
-
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
 
             using (var fs = File.OpenRead(@"antRules.bin"))
             {
                 List<IRule<Ant>> list;
                 list = ProtoBuf.Serializer.Deserialize<List<IRule<Ant>>>(fs);
-
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
 
             using (var fs = File.Create(@"catRules.bin"))
             {
                 ProtoBuf.Serializer.Serialize(fs, catRules);
 
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
 
             using (var fs = File.OpenRead(@"catRules.bin"))
             {
                 List<IRule<Cat>> list;
                 list = ProtoBuf.Serializer.Deserialize<List<IRule<Cat>>>(fs);
-
+#if !DNXCORE50
                 fs.Close();
+#endif
             }
         }
     }

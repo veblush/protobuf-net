@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
-
+#if !DNXCORE50
 namespace Examples.Issues
 {
 
-    [TestFixture]
+    
     public class SO18650486
     {
-        [Test]
+        [Fact]
         public void Execute()
         {
             const int OuterLoop = 500;
@@ -396,3 +396,4 @@ namespace Examples.Issues
         }
     }
 }
+#endif

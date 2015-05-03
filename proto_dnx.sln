@@ -69,6 +69,187 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ppt", "Ppt", "{DD11DF36-DF5
 		Examples\Ppt\Ppt.cs = Examples\Ppt\Ppt.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issues", "Issues", "{71AB3696-3004-4091-9175-CB2935CD7197}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Issues\AssortedGoLiveRegressions.cs = Examples\Issues\AssortedGoLiveRegressions.cs
+		Examples\Issues\DeserializeExtensible.cs = Examples\Issues\DeserializeExtensible.cs
+		Examples\Issues\Issue124.cs = Examples\Issues\Issue124.cs
+		Examples\Issues\Issue152.cs = Examples\Issues\Issue152.cs
+		Examples\Issues\Issue170.cs = Examples\Issues\Issue170.cs
+		Examples\Issues\Issue174cs.cs = Examples\Issues\Issue174cs.cs
+		Examples\Issues\Issue176.cs = Examples\Issues\Issue176.cs
+		Examples\Issues\Issue184.cs = Examples\Issues\Issue184.cs
+		Examples\Issues\Issue185.cs = Examples\Issues\Issue185.cs
+		Examples\Issues\Issue191.cs = Examples\Issues\Issue191.cs
+		Examples\Issues\Issue192.cs = Examples\Issues\Issue192.cs
+		Examples\Issues\Issue199.cs = Examples\Issues\Issue199.cs
+		Examples\Issues\Issue202.cs = Examples\Issues\Issue202.cs
+		Examples\Issues\Issue203.cs = Examples\Issues\Issue203.cs
+		Examples\Issues\Issue218.cs = Examples\Issues\Issue218.cs
+		Examples\Issues\Issue222.cs = Examples\Issues\Issue222.cs
+		Examples\Issues\Issue243.cs = Examples\Issues\Issue243.cs
+		Examples\Issues\Issue26.cs = Examples\Issues\Issue26.cs
+		Examples\Issues\Issue264.cs = Examples\Issues\Issue264.cs
+		Examples\Issues\Issue265.cs = Examples\Issues\Issue265.cs
+		Examples\Issues\Issue266.cs = Examples\Issues\Issue266.cs
+		Examples\Issues\Issue27.cs = Examples\Issues\Issue27.cs
+		Examples\Issues\Issue284.cs = Examples\Issues\Issue284.cs
+		Examples\Issues\Issue29.cs = Examples\Issues\Issue29.cs
+		Examples\Issues\Issue295.cs = Examples\Issues\Issue295.cs
+		Examples\Issues\Issue297.cs = Examples\Issues\Issue297.cs
+		Examples\Issues\Issue302.cs = Examples\Issues\Issue302.cs
+		Examples\Issues\Issue303.cs = Examples\Issues\Issue303.cs
+		Examples\Issues\Issue304.cs = Examples\Issues\Issue304.cs
+		Examples\Issues\Issue306.cs = Examples\Issues\Issue306.cs
+		Examples\Issues\Issue307.cs = Examples\Issues\Issue307.cs
+		Examples\Issues\Issue310.cs = Examples\Issues\Issue310.cs
+		Examples\Issues\Issue312.cs = Examples\Issues\Issue312.cs
+		Examples\Issues\Issue316.cs = Examples\Issues\Issue316.cs
+		Examples\Issues\Issue32.cs = Examples\Issues\Issue32.cs
+		Examples\Issues\Issue329.cs = Examples\Issues\Issue329.cs
+		Examples\Issues\Issue331.cs = Examples\Issues\Issue331.cs
+		Examples\Issues\Issue354.cs = Examples\Issues\Issue354.cs
+		Examples\Issues\Issue356.cs = Examples\Issues\Issue356.cs
+		Examples\Issues\Issue367.cs = Examples\Issues\Issue367.cs
+		Examples\Issues\Issue41.cs = Examples\Issues\Issue41.cs
+		Examples\Issues\Issue45.cs = Examples\Issues\Issue45.cs
+		Examples\Issues\Issue48.cs = Examples\Issues\Issue48.cs
+		Examples\Issues\Issue54.cs = Examples\Issues\Issue54.cs
+		Examples\Issues\Issue62.cs = Examples\Issues\Issue62.cs
+		Examples\Issues\Issue70.cs = Examples\Issues\Issue70.cs
+		Examples\Issues\Issue79.cs = Examples\Issues\Issue79.cs
+		Examples\Issues\Issue80.cs = Examples\Issues\Issue80.cs
+		Examples\Issues\MB.cs = Examples\Issues\MB.cs
+		Examples\Issues\MissingBaseTypes.cs = Examples\Issues\MissingBaseTypes.cs
+		Examples\Issues\SO10115538.cs = Examples\Issues\SO10115538.cs
+		Examples\Issues\SO10841807.cs = Examples\Issues\SO10841807.cs
+		Examples\Issues\SO11034791.cs = Examples\Issues\SO11034791.cs
+		Examples\Issues\SO11080108.cs = Examples\Issues\SO11080108.cs
+		Examples\Issues\SO11317045.cs = Examples\Issues\SO11317045.cs
+		Examples\Issues\SO11564914.cs = Examples\Issues\SO11564914.cs
+		Examples\Issues\SO11641262.cs = Examples\Issues\SO11641262.cs
+		Examples\Issues\SO11656439.cs = Examples\Issues\SO11656439.cs
+		Examples\Issues\SO11657482.cs = Examples\Issues\SO11657482.cs
+		Examples\Issues\SO11705351.cs = Examples\Issues\SO11705351.cs
+		Examples\Issues\SO11730610.cs = Examples\Issues\SO11730610.cs
+		Examples\Issues\SO11871726.cs = Examples\Issues\SO11871726.cs
+		Examples\Issues\SO11896228.cs = Examples\Issues\SO11896228.cs
+		Examples\Issues\SO12040007.cs = Examples\Issues\SO12040007.cs
+		Examples\Issues\SO12475521.cs = Examples\Issues\SO12475521.cs
+		Examples\Issues\SO13162642.cs = Examples\Issues\SO13162642.cs
+		Examples\Issues\SO13275299.cs = Examples\Issues\SO13275299.cs
+		Examples\Issues\SO13783894.cs = Examples\Issues\SO13783894.cs
+		Examples\Issues\SO13802844.cs = Examples\Issues\SO13802844.cs
+		Examples\Issues\SO14020284.cs = Examples\Issues\SO14020284.cs
+		Examples\Issues\SO14048958.cs = Examples\Issues\SO14048958.cs
+		Examples\Issues\SO14436606.cs = Examples\Issues\SO14436606.cs
+		Examples\Issues\SO14532116.cs = Examples\Issues\SO14532116.cs
+		Examples\Issues\SO14540862.cs = Examples\Issues\SO14540862.cs
+		Examples\Issues\SO15794274.cs = Examples\Issues\SO15794274.cs
+		Examples\Issues\SO16756104.cs = Examples\Issues\SO16756104.cs
+		Examples\Issues\SO16797650.cs = Examples\Issues\SO16797650.cs
+		Examples\Issues\SO16803233.cs = Examples\Issues\SO16803233.cs
+		Examples\Issues\SO16838287.cs = Examples\Issues\SO16838287.cs
+		Examples\Issues\SO17040488.cs = Examples\Issues\SO17040488.cs
+		Examples\Issues\SO17245073.cs = Examples\Issues\SO17245073.cs
+		Examples\Issues\SO18277323.cs = Examples\Issues\SO18277323.cs
+		Examples\Issues\SO18650486.cs = Examples\Issues\SO18650486.cs
+		Examples\Issues\SO18663361.cs = Examples\Issues\SO18663361.cs
+		Examples\Issues\SO18695728.cs = Examples\Issues\SO18695728.cs
+		Examples\Issues\SO19161823.cs = Examples\Issues\SO19161823.cs
+		Examples\Issues\SO1930209.cs = Examples\Issues\SO1930209.cs
+		Examples\Issues\SO3083847.cs = Examples\Issues\SO3083847.cs
+		Examples\Issues\SO3101816.cs = Examples\Issues\SO3101816.cs
+		Examples\Issues\SO3261310.cs = Examples\Issues\SO3261310.cs
+		Examples\Issues\SO6109616.cs = Examples\Issues\SO6109616.cs
+		Examples\Issues\SO6115986.cs = Examples\Issues\SO6115986.cs
+		Examples\Issues\SO6127380.cs = Examples\Issues\SO6127380.cs
+		Examples\Issues\SO6174298.cs = Examples\Issues\SO6174298.cs
+		Examples\Issues\SO6230449.cs = Examples\Issues\SO6230449.cs
+		Examples\Issues\SO6407130.cs = Examples\Issues\SO6407130.cs
+		Examples\Issues\SO6476958.cs = Examples\Issues\SO6476958.cs
+		Examples\Issues\SO6478579.cs = Examples\Issues\SO6478579.cs
+		Examples\Issues\SO6505590.cs = Examples\Issues\SO6505590.cs
+		Examples\Issues\SO6651451.cs = Examples\Issues\SO6651451.cs
+		Examples\Issues\SO6671829.cs = Examples\Issues\SO6671829.cs
+		Examples\Issues\SO7064824.cs = Examples\Issues\SO7064824.cs
+		Examples\Issues\SO7078615.cs = Examples\Issues\SO7078615.cs
+		Examples\Issues\SO7120856.cs = Examples\Issues\SO7120856.cs
+		Examples\Issues\SO7218127.cs = Examples\Issues\SO7218127.cs
+		Examples\Issues\SO7219959.cs = Examples\Issues\SO7219959.cs
+		Examples\Issues\SO7333233.cs = Examples\Issues\SO7333233.cs
+		Examples\Issues\SO7347694.cs = Examples\Issues\SO7347694.cs
+		Examples\Issues\SO7654066.cs = Examples\Issues\SO7654066.cs
+		Examples\Issues\SO7686734.cs = Examples\Issues\SO7686734.cs
+		Examples\Issues\SO7719000.cs = Examples\Issues\SO7719000.cs
+		Examples\Issues\SO7727355.cs = Examples\Issues\SO7727355.cs
+		Examples\Issues\SO7793527.cs = Examples\Issues\SO7793527.cs
+		Examples\Issues\SO8093623.cs = Examples\Issues\SO8093623.cs
+		Examples\Issues\SO8466936.cs = Examples\Issues\SO8466936.cs
+		Examples\Issues\SO9144967.cs = Examples\Issues\SO9144967.cs
+		Examples\Issues\SO9151111.cs = Examples\Issues\SO9151111.cs
+		Examples\Issues\SO9151111b.cs = Examples\Issues\SO9151111b.cs
+		Examples\Issues\SO9398578.cs = Examples\Issues\SO9398578.cs
+		Examples\Issues\SO9408133.cs = Examples\Issues\SO9408133.cs
+		Examples\Issues\SO9491933.cs = Examples\Issues\SO9491933.cs
+		Examples\Issues\SurrogateForObjectUsage.cs = Examples\Issues\SurrogateForObjectUsage.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesignIdeas", "DesignIdeas", "{A4BAB4FA-7F08-46B3-B9BE-6BF170F8E761}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\DesignIdeas\Inheritance.cs = Examples\DesignIdeas\Inheritance.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ComplexGenerics", "ComplexGenerics", "{7A6EFC3D-168E-46A1-8E8F-B87A46C6E86C}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Issues\ComplexGenerics\ComplexGenericExample.cs = Examples\Issues\ComplexGenerics\ComplexGenericExample.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DetectMissing", "DetectMissing", "{3D2A5777-0070-46F5-907C-79111494BDD6}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Issues\DetectMissing\DetectMissing.cs = Examples\Issues\DetectMissing\DetectMissing.cs
+		Examples\Issues\DetectMissing\Generated.cs = Examples\Issues\DetectMissing\Generated.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issue48", "Issue48", "{E7092A44-1CC8-45F2-8F2F-45662C355EBD}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Issues\Issue48\Issue202.cs = Examples\Issues\Issue48\Issue202.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NWind", "NWind", "{73FC02E8-E5FC-40C3-8C3D-65702ACAEA85}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\NWind\CompatDb.cs = Examples\NWind\CompatDb.cs
+		Examples\NWind\DataContext.cs = Examples\NWind\DataContext.cs
+		Examples\NWind\NWind.cs = Examples\NWind\NWind.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SimpleStream", "SimpleStream", "{709FF591-1A6B-4F17-B1CF-7E4D2729B54D}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\SimpleStream\Collections.cs = Examples\SimpleStream\Collections.cs
+		Examples\SimpleStream\GroupedData.cs = Examples\SimpleStream\GroupedData.cs
+		Examples\SimpleStream\NullTypes.cs = Examples\SimpleStream\NullTypes.cs
+		Examples\SimpleStream\SimplePerfTests.cs = Examples\SimpleStream\SimplePerfTests.cs
+		Examples\SimpleStream\SimpleStreamDemo.cs = Examples\SimpleStream\SimpleStreamDemo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestNumbers", "TestNumbers", "{CDE95934-6466-47DC-83DF-7A9547586CAA}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\TestNumbers\NumberTests.cs = Examples\TestNumbers\NumberTests.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Protogen", "Protogen", "{426EAFED-86E0-44C0-8DF9-B0E0332AF05C}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\ProtoGen\Generator.cs = Examples\ProtoGen\Generator.cs
+		Examples\ProtoGen\InputLoader.cs = Examples\ProtoGen\InputLoader.cs
+		Examples\ProtoGen\OptionParser.cs = Examples\ProtoGen\OptionParser.cs
+		Examples\ProtoGen\searchRequest.cs = Examples\ProtoGen\searchRequest.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceModel", "ServiceModel", "{21A0DCE7-1EB4-4B7E-9636-5C9C31ECB96A}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\ServiceModel\WcfTest.cs = Examples\ServiceModel\WcfTest.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,5 +270,15 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DD11DF36-DF52-4F81-9F03-2CB4FEC59F4E} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{71AB3696-3004-4091-9175-CB2935CD7197} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{A4BAB4FA-7F08-46B3-B9BE-6BF170F8E761} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{7A6EFC3D-168E-46A1-8E8F-B87A46C6E86C} = {71AB3696-3004-4091-9175-CB2935CD7197}
+		{3D2A5777-0070-46F5-907C-79111494BDD6} = {71AB3696-3004-4091-9175-CB2935CD7197}
+		{E7092A44-1CC8-45F2-8F2F-45662C355EBD} = {71AB3696-3004-4091-9175-CB2935CD7197}
+		{73FC02E8-E5FC-40C3-8C3D-65702ACAEA85} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{709FF591-1A6B-4F17-B1CF-7E4D2729B54D} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{CDE95934-6466-47DC-83DF-7A9547586CAA} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{426EAFED-86E0-44C0-8DF9-B0E0332AF05C} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
+		{21A0DCE7-1EB4-4B7E-9636-5C9C31ECB96A} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
 	EndGlobalSection
 EndGlobal

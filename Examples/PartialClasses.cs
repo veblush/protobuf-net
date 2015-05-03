@@ -3,7 +3,7 @@ using Xunit;
 
 namespace ProtoBuf
 {
-    [TestFixture]
+    
     public class PartialClasses
     {
 

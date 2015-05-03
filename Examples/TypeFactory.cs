@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class TypeFactory
     {
         [Fact]

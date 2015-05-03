@@ -79,7 +79,7 @@ namespace Examples
         public string Eof { get; set; }
     }
 
-    [TestFixture]
+    
     public class Extensibility
     {
         [Fact]

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class TestAutoFields
     {
 

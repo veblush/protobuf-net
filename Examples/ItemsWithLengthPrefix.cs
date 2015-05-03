@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ItemsWithLengthPrefix
     {
         static Stream WriteData(int tag, PrefixStyle style, params int[] values)

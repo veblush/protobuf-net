@@ -1,13 +1,14 @@
-﻿using System.IO;
-using NUnit.Framework;
+﻿#if PROTOGEN
+using System.IO;
+using Xunit;
 using Examples.ProtoGen;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class Issue32
     {
-        [Test]
+        [Fact]
         public void TestGpsProtoGen()
         {
             string xml = Generator.GetCode(@"-i:ProtoGen\gps.proto", "-t:xml");
@@ -19,3 +20,4 @@ namespace Examples.Issues
         }
     }
 }
+#endif

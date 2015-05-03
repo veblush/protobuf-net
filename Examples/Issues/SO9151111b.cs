@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Examples.Issues;
-using NUnit.Framework;
+using Xunit;
 using Proto;
 using ProtoBuf.Meta;
 using Types;
@@ -13,10 +13,10 @@ using Types;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO9151111_b
     {
-        [Test]
+        [Fact]
         public void Execute()
         {
             var p = new SeniorDeveloper<bool> { Id = 1, Name = "x", Boaring = true, VeryBoaring = true };
@@ -74,23 +74,23 @@ namespace Proto
             foreach (var type in this.GetDCTypes("Types"))
             {
 
-                if (type.IsGenericTypeDefinition == false)
+                if (type.IsGenericTypeDefinition() == false)
                 {
-                    Console.WriteLine("{0}: Processing: {1} ({2})", label, type.Name, type.IsGenericTypeDefinition);
+                    Console.WriteLine("{0}: Processing: {1} ({2})", label, type.Name, type.IsGenericTypeDefinition());
                     var meta = this._modal.Add(type, false)
                                  .Add(this.GetDMProperties(type).Select(p => p.Name)
                                  .ToArray());
 
                     this.setCallbacks(meta);
 
-                    if (type.BaseType != null && type.BaseType != typeof(Object))
+                    if (type.BaseType() != null && type.BaseType() != typeof(Object))
                     {
                         List<Type> childs;
 
-                        if (!repo.TryGetValue(type.BaseType, out childs))
+                        if (!repo.TryGetValue(type.BaseType(), out childs))
                         {
                             childs = new List<Type>();
-                            repo.Add(type.BaseType, childs);
+                            repo.Add(type.BaseType(), childs);
                         }
 
                         childs.Add(type);
@@ -102,7 +102,7 @@ namespace Proto
                         if (this._modal.IsDefined(parent))
                         {
                             var metaType = _modal[parent];
-                            Assert.IsNotNull(metaType, "meta");
+                            Assert.NotNull(metaType); //, "meta");
 
                             int i = 500;
 
@@ -162,7 +162,7 @@ namespace Proto
 
         private IEnumerable<Type> GetDCTypes(string assemblyName)
         {
-            foreach (var type in typeof(SO9151111_b).Assembly.GetTypes().Where(t => t.Namespace == "Types"))
+            foreach (var type in typeof(SO9151111_b).Assembly().GetTypes().Where(t => t.Namespace == "Types"))
             {
                 if (type.IsDefined(typeof(DataContractAttribute), false))
                     yield return type;

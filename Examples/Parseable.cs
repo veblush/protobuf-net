@@ -12,7 +12,7 @@ namespace Examples
         public IPAddress Address { get; set; }
     }
 
-    [TestFixture]
+    
     public class Parseable
     {
         [Fact]

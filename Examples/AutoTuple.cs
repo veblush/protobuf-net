@@ -6,7 +6,7 @@ using ProtoBuf.Meta;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class AutoTuple
     {
         [Fact]
@@ -143,14 +143,14 @@ namespace Examples
 
             CheckBytes(model, obj, "08 7B 12 03 61 62 63", "runtime");
             dynamic clone = model.DeepClone(obj);
-            Assert.Equal(123, clone.Foo, "runtime");
-            Assert.Equal("abc", clone.Bar, "runtime");
+            Assert.Equal(123, (int)clone.Foo); //, "runtime");
+            Assert.Equal("abc", (string)clone.Bar); //, "runtime");
 
             model.CompileInPlace();
             CheckBytes(model, obj, "08 7B 12 03 61 62 63", "CompileInPlace");
             clone = model.DeepClone(obj);
-            Assert.Equal(123, clone.Foo, "CompileInPlace");
-            Assert.Equal("abc", clone.Bar, "CompileInPlace");
+            Assert.Equal(123, (int)clone.Foo); //, "CompileInPlace");
+            Assert.Equal("abc", (string)clone.Bar); //, "CompileInPlace");
 
             // note: Compile() won't work, as anon-types are internal
         }

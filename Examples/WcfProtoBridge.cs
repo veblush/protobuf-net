@@ -12,7 +12,7 @@ using ProtoBuf.Meta;
 namespace Examples
 {
     using ProtoBuf.ServiceModel;
-    [TestFixture]
+    
     public class WcfProtoBridge
     {
         [Fact]

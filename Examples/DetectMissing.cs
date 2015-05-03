@@ -48,7 +48,7 @@ namespace Examples
 
     }
 
-    [TestFixture]
+    
     public class TestDetectMissing
     {
         [Fact]

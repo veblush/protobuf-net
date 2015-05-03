@@ -44,7 +44,7 @@ namespace Examples
         public System.Guid GUID { get; set; }
     }
 
-    [TestFixture]
+    
     public class GuidTests
     {
         public static int Measure<T>(T value)

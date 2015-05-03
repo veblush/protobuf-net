@@ -9,7 +9,7 @@ using System;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ProtoGeneration
     {
         [Fact]
@@ -236,13 +236,17 @@ message KeyValuePair_String_Cat {
         [ProtoContract] public class Cat : Animal {}
 
 
-        [Fact, ExpectedException(typeof(ArgumentException), ExpectedMessage = @"The type specified is not a contract-type
-Parameter name: type")]
+        [Fact]
         public void ProtoForNonContractTypeShouldThrowException()
         {
-            var model = TypeModel.Create();
-            model.AutoAddMissingTypes = false;
-            model.GetSchema(typeof(ProtoGenerationTypes.BrokenProto.Type2));
+            var msg = Assert.Throws<ArgumentException>(() =>
+            {
+                var model = TypeModel.Create();
+                model.AutoAddMissingTypes = false;
+                model.GetSchema(typeof(ProtoGenerationTypes.BrokenProto.Type2));
+            }).Message;
+            Assert.Equal(@"The type specified is not a contract-type
+Parameter name: type", msg);
         }
 
         [Fact]
@@ -349,7 +353,7 @@ message UsesSurrogates {
         public class MyNonSurrogate { }
     }
 
-    [TestFixture]
+    
     public class InheritanceGeneration
     {
         [ProtoContract]

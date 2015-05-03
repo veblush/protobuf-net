@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class UnwrappedOuters
     {
         [Fact]

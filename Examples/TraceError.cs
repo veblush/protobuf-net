@@ -19,7 +19,7 @@ namespace Examples
 
     }
 
-    [TestFixture]
+    
     public class TraceError
     {
         [Fact]

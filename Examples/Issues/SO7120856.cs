@@ -1,15 +1,16 @@
-﻿using System;
+﻿#if !DNXCORE50
+using System;
 using System.Runtime.Serialization;
-using NUnit.Framework;
+using Xunit;
 using System.IO;
 using ProtoBuf;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO7120856
     {
-        [Test]
+        [Fact]
         public void RoundTripImmutableTypeAsTuple()
         {
             using(var ms = new MemoryStream())
@@ -18,11 +19,11 @@ namespace Examples.Issues
                 Serializer.Serialize(ms, val);
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<MyValueTypeAsTuple>(ms);
-                Assert.AreEqual(123, clone.X);
-                Assert.AreEqual(456, clone.Z);
+                Assert.Equal(123, clone.X);
+                Assert.Equal(456, clone.Z);
             }
         }
-        [Test]
+        [Fact]
         public void RoundTripImmutableTypeViaFields()
         {
             using (var ms = new MemoryStream())
@@ -31,8 +32,8 @@ namespace Examples.Issues
                 Serializer.Serialize(ms, val);
                 ms.Position = 0;
                 var clone = Serializer.Deserialize<MyValueTypeViaFields>(ms);
-                Assert.AreEqual(123, clone.X);
-                Assert.AreEqual(456, clone.Z);
+                Assert.Equal(123, clone.X);
+                Assert.Equal(456, clone.Z);
             }
         }
         [Serializable]
@@ -197,3 +198,4 @@ namespace Examples.Issues
 
     }
 }
+#endif

@@ -13,7 +13,7 @@ namespace Examples
     /// <summary>
     /// Note that these are more integration tests than unit tests...
     /// </summary>
-    [TestFixture]
+    
     public class memcached
     {
         [ProtoContract]

@@ -1,10 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ProtoBuf;
 using System.IO;
 
 namespace Examples.Issues
 {
-    [TestFixture, Ignore("not sure we want to support this")]
+    
     public class Issue70 {
 
         [ProtoContract]
@@ -16,7 +16,7 @@ namespace Examples.Issues
             public int Bar { get; set; } // test prop
         }
 
-        [Test]
+        [Fact(Skip = "not sure we want to support this")]
         public void SerializeWithLengthPrefixShouldWorkWithBase128()
         {
             var original = new Strange { Foo = "abc", Bar = 123 };
@@ -29,13 +29,13 @@ namespace Examples.Issues
                 Serializer.NonGeneric.TryDeserializeWithLengthPrefix(ms,
                     PrefixStyle.Base128, i => typeof(Strange), out obj);
                 var clone = (Strange)obj;
-                Assert.AreNotSame(original, clone);
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(original.Foo, clone.Foo, "Foo");
-                Assert.AreEqual(original.Bar, clone.Bar, "Bar");
+                Assert.NotSame(original, clone);
+                Assert.NotNull(clone);
+                Assert.Equal(original.Foo, clone.Foo); //, "Foo");
+                Assert.Equal(original.Bar, clone.Bar); //, "Bar");
             }
         }
-        [Test]
+        [Fact(Skip = "not sure we want to support this")]
         public void SerializeWithLengthPrefixShouldWorkWithFixed32()
         {
             var original = new Strange { Foo = "abc", Bar = 123 };
@@ -49,10 +49,10 @@ namespace Examples.Issues
                 Serializer.NonGeneric.TryDeserializeWithLengthPrefix(ms,
                     PrefixStyle.Fixed32, i => typeof(Strange), out obj);
                 var clone = (Strange)obj;
-                Assert.AreNotSame(original, clone);
-                Assert.IsNotNull(clone);
-                Assert.AreEqual(original.Foo, clone.Foo, "Foo");
-                Assert.AreEqual(original.Bar, clone.Bar, "Bar");
+                Assert.NotSame(original, clone);
+                Assert.NotNull(clone);
+                Assert.Equal(original.Foo, clone.Foo); //, "Foo");
+                Assert.Equal(original.Bar, clone.Bar); //, "Bar");
             }
         }
     

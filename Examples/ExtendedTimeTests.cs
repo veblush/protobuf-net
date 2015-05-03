@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class ExtendedTimeTests
     {
         [ProtoContract]

@@ -58,14 +58,17 @@ namespace Examples
         public int Charlie { get; set; }
     }
 
-    [TestFixture]
+    
     public class TagInference
     {
-        [Fact, ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void TestTagWithoutInference()
         {
-            TagDataWithoutInfer data = new TagDataWithoutInfer();
-            Serializer.DeepClone(data);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                TagDataWithoutInfer data = new TagDataWithoutInfer();
+                Serializer.DeepClone(data);
+            });
         }
 
         [Fact]

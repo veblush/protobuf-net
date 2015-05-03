@@ -1,10 +1,10 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class Issue79
     {
         [Flags]
@@ -19,7 +19,7 @@ namespace Examples.Issues
             public MyFlagsEnum SomeValue { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void ShouldRoundtripIndividualValues()
         {
             TestRoundtrip(MyFlagsEnum.None);
@@ -28,7 +28,7 @@ namespace Examples.Issues
             TestRoundtrip(MyFlagsEnum.C);
             TestRoundtrip(MyFlagsEnum.D);
         }
-        [Test]
+        [Fact]
         public void ShouldRoundtripCompositeValues()
         {
             MyFlagsEnum max = (MyFlagsEnum.A | MyFlagsEnum.B | MyFlagsEnum.C | MyFlagsEnum.D);
@@ -48,10 +48,10 @@ namespace Examples.Issues
             }
             catch (Exception ex)
             {
-                Assert.Fail(ex.Message + " serializing " + caption);
+                Assert.Equal("##fail##", ex.Message + " serializing " + caption);
                 throw;
             }
-            Assert.AreEqual(value, clone.SomeValue, caption);
+            Assert.Equal(value, clone.SomeValue); //, caption);
         }
     }
 

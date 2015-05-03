@@ -8,7 +8,7 @@ using ProtoBuf.Meta;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class PrimativeTests {
 
         [Fact]
@@ -130,11 +130,15 @@ namespace Examples
 
             Assert.Equal(new TimeSpan(4, 0, 0), ts.HowLong);
         }
-        [Fact, ExpectedException(typeof(ProtoException))]
-        public void TestInvalidTimeUnit() {
-            TimeSpanOnly ts = Program.Build<TimeSpanOnly>(0x0A, 0x04, // tag 1 string, 4 bytes
-                    0x08, 0x08, // tag 1; value: 4 (zigzag)
-                    0x10, 0x4A); // tag 2; unit: invalid
+        [Fact]
+        public void TestInvalidTimeUnit()
+        {
+            Assert.Throws<ProtoException>(() =>
+            {
+                TimeSpanOnly ts = Program.Build<TimeSpanOnly>(0x0A, 0x04, // tag 1 string, 4 bytes
+                        0x08, 0x08, // tag 1; value: 4 (zigzag)
+                        0x10, 0x4A); // tag 2; unit: invalid
+            });
         }
         [Fact]
         public void TestValidMinMax()
@@ -151,12 +155,15 @@ namespace Examples
 
             Assert.Equal(TimeSpan.MinValue, ts.HowLong);
         }
-        [Fact, ExpectedException(typeof(ProtoException))]
+        [Fact]
         public void TestInvalidMinMax()
         {
-            TimeSpanOnly ts = Program.Build<TimeSpanOnly>(0x0A, 0x04, // tag 1 string, 4 bytes
-                    0x08, 0x03, // tag 1; invalid
-                    0x10, 0x0F); // tag 2; min/max
+            Assert.Throws<ProtoException>(() =>
+            {
+                TimeSpanOnly ts = Program.Build<TimeSpanOnly>(0x0A, 0x04, // tag 1 string, 4 bytes
+                        0x08, 0x03, // tag 1; invalid
+                        0x10, 0x0F); // tag 2; min/max
+            });
         }
 
         static DateTime TestDateTime(DateTime value, out int len) {

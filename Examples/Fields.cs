@@ -9,7 +9,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class Fields
     {
         [Fact]

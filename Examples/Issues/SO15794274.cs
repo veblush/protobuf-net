@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿#if !DNXCORE50
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using System;
@@ -8,13 +9,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO15794274
     {
-        [Test, Ignore("this looks really painful; have tried sharded cache - cripples perf")]
+        [Fact(Skip="this looks really painful; have tried sharded cache - cripples perf")]
         public void Execute()
         {
-            Assert.IsTrue(Environment.Is64BitProcess, "x64");
+            Assert.True(Environment.Is64BitProcess, "x64");
 
             int numberOfTrees = 250;
             int nodesPrTree = 200000;
@@ -43,7 +44,7 @@ namespace Examples.Issues
                 int cloneChk = 0;
                 clone.AddGraph(graph, ref cloneChk);
 
-                Assert.AreEqual(origChk, cloneChk);
+                Assert.Equal(origChk, cloneChk);
             }
 
             Console.ReadLine();
@@ -225,3 +226,4 @@ namespace Examples.Issues
         }
     }
 }
+#endif

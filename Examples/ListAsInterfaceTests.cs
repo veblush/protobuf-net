@@ -25,7 +25,7 @@ namespace Examples
         IList<string> Data { get; }
     }
 
-    [TestFixture]
+    
     public class ListAsInterfaceTests
     {
         [Fact]

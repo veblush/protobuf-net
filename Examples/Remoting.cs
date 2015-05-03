@@ -69,7 +69,7 @@ namespace Examples
             Serializer.Merge<BrokenDeserEntity>(info, null);
         }
     }
-    [TestFixture]
+    
     public class RemotingTests
     {
         [Fact]

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using System.IO;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class Issue192
     {
         [ProtoContract]
@@ -20,22 +20,34 @@ namespace Examples.Issues
             public List<SomeType>[] List { get; set; }
         }
         // the important thing is that this error is identical to the one from SerializeWrappedDeepList
-        [Test, ExpectedException(typeof(NotSupportedException), ExpectedMessage = "Nested or jagged lists and arrays are not supported")]
+        [Fact]
         public void SerializeDeepList()
         {
-            var list = new List<SomeType>[] { new List<SomeType> { new SomeType() }, new List<SomeType> { new SomeType() } };
-            Serializer.Serialize(Stream.Null, list);
+            var msg = Assert.Throws<NotSupportedException>(() =>
+            {
+                var list = new List<SomeType>[] { new List<SomeType> { new SomeType() }, new List<SomeType> { new SomeType() } };
+                Serializer.Serialize(Stream.Null, list);
+            }).Message;
+            Assert.Equal("Nested or jagged lists and arrays are not supported", msg);
         }
-        [Test, ExpectedException(typeof(NotSupportedException), ExpectedMessage = "Nested or jagged lists and arrays are not supported")]
+        [Fact]
         public void DeserializeDeepList()
         {
-            Serializer.Deserialize<List<SomeType>[]>(Stream.Null);
+            var msg = Assert.Throws<NotSupportedException>(() =>
+            {
+                Serializer.Deserialize<List<SomeType>[]>(Stream.Null);
+            }).Message;
+            Assert.Equal("Nested or jagged lists and arrays are not supported", msg);
         }
-        [Test, ExpectedException(typeof(NotSupportedException), ExpectedMessage = "Nested or jagged lists and arrays are not supported")]
+        [Fact]
         public void SerializeWrappedDeepList()
         {
-            var wrapped = new Wrapper();
-            var clone = Serializer.DeepClone(wrapped);
+            var msg = Assert.Throws<NotSupportedException>(() =>
+            {
+                var wrapped = new Wrapper();
+                var clone = Serializer.DeepClone(wrapped);
+            }).Message;
+            Assert.Equal("Nested or jagged lists and arrays are not supported", msg);
         }
 
     }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class NonPublic_Compile
     {
         private static void Compile<T>()
@@ -24,10 +24,14 @@ namespace Examples
         private class PrivateType
         {
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Non-public type cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateType")]
+        [Fact]
         public void PrivateTypeShouldFail()
         {
-            Compile<PrivateType>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateType>();
+            }).Message;
+            Assert.Equal("Non-public type cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateType", msg);
         }
         private class NonPublicWrapper
         {
@@ -36,10 +40,14 @@ namespace Examples
             {
             }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Non-public type cannot be used with full dll compilation: Examples.NonPublic_Compile+NonPublicWrapper+IndirectlyPrivateType")]
+        [Fact]
         public void IndirectlyPrivateTypeShouldFail()
         {
-            Compile<NonPublicWrapper.IndirectlyPrivateType>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<NonPublicWrapper.IndirectlyPrivateType>();
+            }).Message;
+            Assert.Equal("Non-public type cannot be used with full dll compilation: Examples.NonPublic_Compile+NonPublicWrapper+IndirectlyPrivateType", msg);
         }
         [ProtoContract]
         public class PrivateCallback
@@ -47,10 +55,14 @@ namespace Examples
             [ProtoBeforeSerialization]
             private void OnDeserialize() { }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateCallback.OnDeserialize")]
+        [Fact]
         public void PrivateCallbackShouldFail()
         {
-            Compile<PrivateCallback>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateCallback>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateCallback.OnDeserialize", msg);
         }
 
         [ProtoContract]
@@ -61,10 +73,14 @@ namespace Examples
             private int Foo;
 #pragma warning restore 0169
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateField.Foo")]
+        [Fact]
         public void PrivateFieldShouldFail()
         {
-            Compile<PrivateField>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateField>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateField.Foo", msg);
         }
         [ProtoContract]
         public class PrivateProperty
@@ -72,10 +88,14 @@ namespace Examples
             [ProtoMember(1)]
             private int Foo { get; set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateProperty.get_Foo")]
+        [Fact]
         public void PrivatePropertyShouldFail()
         {
-            Compile<PrivateProperty>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateProperty>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateProperty.get_Foo", msg);
         }
         [ProtoContract]
         public class PrivatePropertyGet
@@ -83,10 +103,14 @@ namespace Examples
             [ProtoMember(1)]
             public int Foo { private get; set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivatePropertyGet.get_Foo")]
+        [Fact]
         public void PrivatePropertyGetShouldFail()
         {
-            Compile<PrivatePropertyGet>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivatePropertyGet>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivatePropertyGet.get_Foo", msg);
         }
         [ProtoContract]
         public class PrivatePropertySet
@@ -94,10 +118,14 @@ namespace Examples
             [ProtoMember(1)]
             public int Foo { get; private set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Cannot apply changes to property Examples.NonPublic_Compile+PrivatePropertySet.Foo")]
+        [Fact]
         public void PrivatePropertySetShouldFail()
         {
-            Compile<PrivatePropertySet>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivatePropertySet>();
+            }).Message;
+            Assert.Equal("Cannot apply changes to property Examples.NonPublic_Compile+PrivatePropertySet.Foo", msg);
         }
         [ProtoContract]
         public class PrivateConditional
@@ -107,10 +135,14 @@ namespace Examples
 
             private bool ShouldSerializeFoo() { return true; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateConditional.ShouldSerializeFoo")]
+        [Fact]
         public void PrivateConditionalSetShouldFail()
         {
-            Compile<PrivateConditional>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateConditional>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateConditional.ShouldSerializeFoo", msg);
         }
         [ProtoContract]
         public class PrivateConstructor
@@ -119,10 +151,14 @@ namespace Examples
             [ProtoMember(1)]
             public int Foo { get; set; }
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateConstructor..ctor")]
+        [Fact]
         public void PrivateConstructorShouldFail()
         {
-            Compile<PrivateConstructor>();
+            var msg = Assert.Throws<InvalidOperationException>(() =>
+            {
+                Compile<PrivateConstructor>();
+            }).Message;
+            Assert.Equal("Non-public member cannot be used with full dll compilation: Examples.NonPublic_Compile+PrivateConstructor..ctor", msg);
         }
     }
 }

@@ -24,7 +24,7 @@ using Serializer = ProtoBuf.Serializer;
 namespace Examples.SimpleStream
 {
 
-    [TestFixture]
+    
     public class SimpleStreamDemo
     {
 

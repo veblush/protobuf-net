@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 namespace Examples
 {
-    [TestFixture]
+    
     public class StupidlyComplexModel
     {
         [Fact]

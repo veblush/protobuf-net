@@ -4,7 +4,7 @@ using ProtoBuf;
 
 namespace Examples
 {
-    [TestFixture]
+    
     public class DataMemberOffset
     {
         [Fact]
@@ -48,7 +48,7 @@ namespace Examples
         [DataMember(Order = 2)]
         public int Bar { get; set; }
     }
-    [TestFixture]
+    
     public class TestWeCanTurnOffNonProtoMarkers
     {
         [Fact]

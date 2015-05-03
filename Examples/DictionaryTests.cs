@@ -47,7 +47,7 @@ namespace Examples.Dictionary
         }
     }
 
-    [TestFixture]
+    
     public class DictionaryTests
     {
         [Fact]
@@ -102,7 +102,7 @@ namespace Examples.Dictionary
             }
         }
     }
-    [TestFixture]
+    
     public class EmptyDictionaryTests
     {
         [Fact]
@@ -169,7 +169,7 @@ namespace Examples.Dictionary
             }
         }
     }
-    [TestFixture]
+    
     public class NestedDictionaryTests {
 
         [Fact]

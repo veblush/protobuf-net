@@ -102,7 +102,7 @@ namespace Examples.DesignIdeas
         bool? Bar { get; set; }
     }
 
-    [TestFixture]
+    
     public class EnumTests
     {
 
@@ -174,16 +174,21 @@ enum blah {
 ", proto);
         }
 
-        [Fact, ExpectedException(typeof(ProtoException))]
+        [Fact]
         public void TestConflictingKeys()
         {
-            Serializer.Serialize(Stream.Null, new TypeDuffKeys { Value = HasConflictingKeys.Foo });
+            Assert.Throws<ProtoException>(() =>
+            {
+                Serializer.Serialize(Stream.Null, new TypeDuffKeys { Value = HasConflictingKeys.Foo });
+            });
         }
 
-        [Fact, ExpectedException(typeof(ProtoException))]
+        [Fact]
         public void TestConflictingValues()
         {
+            Assert.Throws<ProtoException>(() => { 
             Serializer.Serialize(Stream.Null, new TypeDuffValues { Value = HasConflictingValues.Foo });
+            });
         }
 
         [Fact]
@@ -255,15 +260,21 @@ enum blah {
             TestNegEnum(NegEnum.B);
             TestNegEnum(NegEnum.C);
         }
-        [Fact, ExpectedException(typeof(ProtoException))]
+        [Fact]
         public void TestNegEnumnotDefinedNeg()
         {
-            TestNegEnum((NegEnum)(-2));
+            Assert.Throws<ProtoException>(() =>
+            {
+                TestNegEnum((NegEnum)(-2));
+            });
         }
-        [Fact, ExpectedException(typeof(ProtoException))]
+        [Fact]
         public void TestNegEnumnotDefinedPos()
         {
-            TestNegEnum((NegEnum) 2);
+            Assert.Throws<ProtoException>(() =>
+            {
+                TestNegEnum((NegEnum)2);
+            });
         }
         [Fact]
         public void ShouldBeAbleToSerializeExactDuplicatedEnumValues()

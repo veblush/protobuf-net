@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using System;
@@ -9,10 +9,10 @@ using System.Text;
 
 namespace Examples.Issues
 {
-    [TestFixture]
+    
     public class SO14020284
     {
-        [Test]
+        [Fact]
         public void Execute()
         {
             var model = RuntimeTypeModel.Create();
@@ -34,12 +34,12 @@ namespace Examples.Issues
                 model.Serialize(ms, new EncapsulatedOuter { X = 123, Inner = new EncapsulatedInner { Y = 456 } });
                 ms.Position = 0;
                 var obj = (InheritedChild)model.Deserialize(ms, null, typeof(InheritedBase));
-                Assert.AreEqual(123, obj.X, caption);
-                Assert.AreEqual(456, obj.Y, caption);
+                Assert.Equal(123, obj.X); //, caption);
+                Assert.Equal(456, obj.Y); //, caption);
             }
             catch (Exception ex)
             {
-                Assert.Fail(caption + ":" + ex.Message);
+                Assert.Equal("##fail##", caption + ":" + ex.Message);
             }
         }
         [ProtoContract]

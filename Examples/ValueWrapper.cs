@@ -103,7 +103,7 @@ namespace Examples
         public double Value { get; set; }
     }
 
-    [TestFixture]
+    
     public class ValueWrapperTests
     {
         static byte[] GetBytes<T>(T item)
@@ -145,7 +145,7 @@ namespace Examples
 
     }
 
-    [TestFixture]
+    
     public class ValueWrapperTestsViaNullable
     {
         static byte[] GetBytes<T>(T item)

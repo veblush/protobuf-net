@@ -11,7 +11,7 @@ namespace Examples
         [DataMember(Order=1)]
         public int Value {get;set;}
     }
-    [TestFixture]
+    
     public class NonGeneric
     {
         [Fact]

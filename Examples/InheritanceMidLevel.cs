@@ -11,7 +11,7 @@ namespace Examples
     /// Tests the scenario where a class exposes a property that isn't the root - i.e. Child : Parent, and has
     /// a Child property
     /// </summary>
-    [TestFixture]
+    
     public class InheritanceMidLevel
     {
         internal static IMLChild CreateChild(int rootProperty, int parentProperty, int childProperty)
@@ -54,17 +54,23 @@ namespace Examples
             CheckChild(test.Child, clone.Child);
         }
 
-        [Fact, ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void TestRoot()
         {
-            IMLTestRoot test = new IMLTestRoot {Root = CreateChild()},
-                        clone = Serializer.DeepClone(test);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                IMLTestRoot test = new IMLTestRoot { Root = CreateChild() },
+                            clone = Serializer.DeepClone(test);
+            });
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void TestRoots()
         {
-            IMLTestRoots test = new IMLTestRoots { Roots = {CreateChild()} },
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                IMLTestRoots test = new IMLTestRoots { Roots = { CreateChild() } },
                         clone = Serializer.DeepClone(test);
+            });
         }
 
         [Fact]
@@ -163,18 +169,24 @@ namespace Examples
             Assert.Equal(1, clone.Length);
             CheckParent(parents[0], clone[0]);
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void TestCloneAsRootArray()
         {
-            IMLRoot[] roots = { CreateChild() };
-            var clone = Serializer.DeepClone(roots);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                IMLRoot[] roots = { CreateChild() };
+                var clone = Serializer.DeepClone(roots);
+            });
 
         }
-        [Fact, ExpectedException(typeof(InvalidOperationException))]
+        [Fact]
         public void TestCloneAsRootList()
         {
-            var roots = new List<IMLRoot> { CreateChild() };
-            var clone = Serializer.DeepClone(roots);
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                var roots = new List<IMLRoot> { CreateChild() };
+                var clone = Serializer.DeepClone(roots);
+            });
         }
 
 
