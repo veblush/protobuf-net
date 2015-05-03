@@ -113,7 +113,7 @@ namespace Examples.Issues
             }
         }
 
-
+#if WCF
         [Fact]
         public void TestUsingWcf()
         {
@@ -123,7 +123,7 @@ namespace Examples.Issues
             string s = client.Test(m);
             Assert.Equal("from svc: Mike Hanrahan, 467c231f-f692-4432-ab1b-342c237b3ca9, Blocked, qwertt", s);
         }
-
+#endif
         /// <summary>
         /// This entity represents a member or user of the site.
         /// </summary>
@@ -151,7 +151,7 @@ namespace Examples.Issues
             [DataMember(Order = 23)]
             public MemberAccountStatus AccountStatus { get; set; }
 
-            #region static
+#region static
 
             public static readonly string CacheCollectionKey = "MemberCollection";
 
@@ -162,7 +162,7 @@ namespace Examples.Issues
                 return CacheItemKeyPrefix + id.ToString();
             }
 
-            #endregion
+#endregion
         }
          /// <summary>
         /// This class represents a user in the system.  For example, a user could be a member or a merchant user.
@@ -315,7 +315,7 @@ namespace Examples.Issues
                 return derivedTypes;
             }
 
-            #region Static Methods
+#region Static Methods
 
 
             private static object _metaLock = new object();
@@ -357,7 +357,7 @@ namespace Examples.Issues
                 }
             }
 
-            #endregion
+#endregion
         }
         public enum EntityType
         {

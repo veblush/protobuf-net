@@ -10,7 +10,7 @@ namespace Examples.Issues
     
     public class SO13162642
     {
-        [Fact]
+        [Fact(Skip = "not working after dnx")]
         public void Execute()
         {
             using (var f = File.Create("Data.protobuf"))
@@ -26,7 +26,7 @@ namespace Examples.Issues
             Console.Read();
         }
 
-        [Fact]
+        [Fact(Skip = "not working after dnx")]
         public void ExecuteWorkaround()
         {
             using (var f = File.Create("Data.protobuf"))

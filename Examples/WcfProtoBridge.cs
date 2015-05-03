@@ -1,4 +1,4 @@
-﻿#if !DNXCORE50
+﻿#if !DNXCORE50 && WCF
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

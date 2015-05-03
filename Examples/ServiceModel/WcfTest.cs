@@ -1,4 +1,4 @@
-﻿#if NET_3_0
+﻿#if NET_3_0 && WCF
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

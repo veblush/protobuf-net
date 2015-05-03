@@ -13,3 +13,5 @@ Protobuf.Tests/list.bin
 Protobuf.Tests/output.dump
 Protobuf.Tests/protoTest.txt
 Protobuf.Tests/things.bin
+Protobuf.Tests/test.bin
+Protobuf.Tests/sandbox.txt

@@ -13,7 +13,7 @@ namespace Examples.Issues
     
     public class SO18650486
     {
-        [Fact]
+        [Fact(Skip = "Breaking the test runner?")]
         public void Execute()
         {
             const int OuterLoop = 500;
