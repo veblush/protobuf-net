@@ -314,7 +314,10 @@ namespace Examples.SimpleStream
             string name = typeof(T).Name;
             Console.WriteLine("\t{0}", name);
             Stopwatch serializeWatch, deserializeWatch;
-            T pbClone, psClone = null;
+            T pbClone;
+#if NET_3_0
+            T psClone = null;
+#endif
             Console.WriteLine("\t(times based on {0} iterations ({1} for .proto))", count, protoCount);
             Console.WriteLine("||*Serializer*||*size*||*serialize*||*deserialize*||");
             byte[] pbnetBuffer;

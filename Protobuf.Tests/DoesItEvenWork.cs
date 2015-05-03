@@ -1,25 +1,59 @@
 ﻿using System;
 using ProtoBuf;
+using System.Linq;
 using ProtoBuf.Meta;
 using Xunit;
-
+using System.Reflection;
 sealed class TestFixtureAttribute : Attribute { }
+
+[Obsolete]
+sealed class ExpectedException : Attribute
+{
+    public ExpectedException(Type type) { }
+    public ExpectedException(string type) { }
+
+    public string ExpectedMessage { get; set; }
+}
+
 #if DNXCORE50
 namespace System
 {
+    [AttributeUsage(AttributeTargets.Field, Inherited = false)]
+    public sealed class NonSerializedAttribute : Attribute
+    {
+
+    }
     public sealed class SerializableAttribute : Attribute { }
 }
-namespace System.Runtime.Serialization
+namespace System.ComponentModel
 {
-    public class DataContractAttribute : Attribute { }
-
-    public class DataMemberAttribute : Attribute
+    public sealed class BrowsableAttribute : Attribute { public BrowsableAttribute(bool value) { } }
+}
+#endif
+static class FrameworkHelpers
+{
+    public static bool IsValueType(this Type type)
     {
-        public bool EmitDefaultValue { get; set; }
-        public bool IsRequired { get; set; }
-        public string Name { get; set; }
-        public int Order { get; set; }
+#if DNXCORE50
+        return type.GetTypeInfo().IsValueType;
+#else
+        return type.IsValueType;
+#endif
     }
+#if DNXCORE50
+    public static PropertyInfo GetProperty(this Type type, string name)
+    {
+        return type.GetRuntimeProperty(name);
+    }
+    public static MethodInfo GetMethod(this Type type, string name)
+    {
+        return type.GetRuntimeMethods().SingleOrDefault(x => x.Name == name);
+    }
+    public static PropertyInfo[] GetProperties(this Type type)
+    {
+        return type.GetRuntimeProperties().ToArray();
+    }
+#endif
 }
 public static class Helpers
 {
@@ -33,7 +67,7 @@ public static class Helpers
         return model;
     }
 }
-#endif
+
 namespace Protobuf.Tests
 {
 

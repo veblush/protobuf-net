@@ -3,7 +3,7 @@
 //using System.Linq;
 //using System.Net;
 //using System.Text;
-//using NUnit.Framework;
+//using Xunit;
 //using ProtoBuf.ServiceModel;
 //using System.Net.Sockets;
 //using System.Runtime.Serialization;
@@ -26,7 +26,7 @@
 //    [TestFixture]
 //    public class Rpc
 //    {
-//        [Test]
+//        [Fact]
 //        public void TestRpc()
 //        {
 //            TcpListener server = new TcpListener(IPAddress.Loopback, 8999);

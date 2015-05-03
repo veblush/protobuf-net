@@ -1,6 +1,7 @@
-﻿#if !DNXCORE50
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+#if !DNXCORE50
 using System.ServiceModel;
+#endif
 
 namespace Examples.Ppt
 {
@@ -17,7 +18,7 @@ namespace Examples.Ppt
         [DataMember(Name="c", Order=3, IsRequired=false)]
         public Test1 C {get;set;}
     }
-
+#if !DNXCORE50
     [ServiceContract]
     public interface ISearchService
     {
@@ -27,7 +28,6 @@ namespace Examples.Ppt
     
     public class SearchRequest {}
     public class SearchResponse { }
+#endif
   
 }
-
-#endif

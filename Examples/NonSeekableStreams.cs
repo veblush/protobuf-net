@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using DAL;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 
@@ -13,7 +13,8 @@ namespace Examples
     [TestFixture]
     public class NonSeekableStreams
     {
-        [Test]
+#if !DNXCORE50
+        [Fact]
         public void ShouldNotRequireSeeking()
         {
             var model = TypeModel.Create();
@@ -22,21 +23,22 @@ namespace Examples
             using(var fs = new FakeStream())
             {
                 var db = NWindTests.LoadDatabaseFromFile<Database>(model);
-                Assert.AreEqual(EXPECTED, db.Orders.Count);
+                Assert.Equal(EXPECTED, db.Orders.Count);
                 model.Serialize(fs, db);
                 raw = fs.ToArray();
             }
             using (var fs = new FakeStream(raw))
             {
                 var db = (Database)model.Deserialize(fs, null, typeof (Database));
-                Assert.AreEqual(EXPECTED, db.Orders.Count);
+                Assert.Equal(EXPECTED, db.Orders.Count);
             }
             using (var fs = new FakeStream(raw))
             {
                 var db = Serializer.Deserialize<Database>(fs);
-                Assert.AreEqual(EXPECTED, db.Orders.Count);
+                Assert.Equal(EXPECTED, db.Orders.Count);
             }
         }
+#endif
         private class FakeStream : MemoryStream
         {
             public FakeStream() : base()

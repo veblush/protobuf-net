@@ -4,7 +4,11 @@
   "projectFileDependencyGroups": {
     "": [],
     "DNX,Version=v4.5.1": [
-      "framework/System.Xml >= 4.0.0.0"
+      "framework/System.Xml >= 4.0.0.0",
+      "framework/System.Runtime.Serialization >= 4.0.0.0",
+      "framework/System.Runtime.Serialization.Xml >= 4.0.0.0",
+      "framework/System.ServiceModel >= 4.0.0.0",
+      "framework/System.Configuration >= 4.0.0.0"
     ],
     "DNXCore,Version=v5.0": [
       "System.Text.RegularExpressions >= 4.0.10-beta-*",
@@ -19,7 +23,8 @@
       "System.Runtime.Extensions >= 4.0.10-beta-*",
       "System.Globalization >= 4.0.10-beta-*",
       "System.Xml.ReaderWriter >= 4.0.10-beta-*",
-      "System.Diagnostics.Debug >= 4.0.10-beta-*"
+      "System.Diagnostics.Debug >= 4.0.10-beta-*",
+      "System.Runtime.Serialization.Xml >= 4.0.10-beta-*"
     ]
   },
   "libraries": {
@@ -596,6 +601,100 @@
         "lib/contract/System.Runtime.Extensions.dll",
         "lib/net45/System.Runtime.Extensions.dll",
         "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll"
+      ]
+    },
+    "System.Runtime.Serialization.Primitives/4.0.10-beta-22816": {
+      "serviceable": false,
+      "sha": "G1uYDQfNiMy76tAgR6HPEZuXTp0Dwl1BE682raw1AE+0E4c74mKXg0a5CteMNsVkrS4KMftNvdR+18FQM4dGgQ==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [
+            "mscorlib",
+            "System.Runtime.Serialization"
+          ],
+          "runtimeAssemblies": [
+            "lib/net45/System.Runtime.Serialization.Primitives.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/System.Runtime.Serialization.Primitives.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/aspnetcore50/System.Runtime.Serialization.Primitives.dll"
+          ],
+          "compileAssemblies": [
+            "lib/contract/System.Runtime.Serialization.Primitives.dll"
+          ]
+        }
+      },
+      "files": [
+        "License.rtf",
+        "System.Runtime.Serialization.Primitives.4.0.10-beta-22816.nupkg",
+        "System.Runtime.Serialization.Primitives.4.0.10-beta-22816.nupkg.sha512",
+        "System.Runtime.Serialization.Primitives.nuspec",
+        "lib/aspnetcore50/System.Runtime.Serialization.Primitives.dll",
+        "lib/contract/System.Runtime.Serialization.Primitives.dll",
+        "lib/net45/System.Runtime.Serialization.Primitives.dll",
+        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Serialization.Primitives.dll"
+      ]
+    },
+    "System.Runtime.Serialization.Xml/4.0.10-beta-22816": {
+      "serviceable": false,
+      "sha": "2+/ye1UplfaLaiCcFJwJ876RnFIZjgmDPRaZtokLocgSG9QqOdM5PIKDU56uC3pm8Mvzv16tKrwIMAjWYES0Uw==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "System.IO": "4.0.10-beta-22816",
+            "System.Runtime": "4.0.20-beta-22816",
+            "System.Runtime.Serialization.Primitives": "4.0.10-beta-22816",
+            "System.Text.Encoding": "4.0.10-beta-22816",
+            "System.Xml.ReaderWriter": "4.0.10-beta-22816"
+          },
+          "frameworkAssemblies": [
+            "mscorlib",
+            "System.Runtime.Serialization"
+          ],
+          "runtimeAssemblies": [
+            "lib/net45/System.Runtime.Serialization.Xml.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net45/System.Runtime.Serialization.Xml.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "System.IO": "4.0.10-beta-22816",
+            "System.Runtime": "4.0.20-beta-22816",
+            "System.Runtime.Serialization.Primitives": "4.0.10-beta-22816",
+            "System.Text.Encoding": "4.0.10-beta-22816",
+            "System.Xml.ReaderWriter": "4.0.10-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/aspnetcore50/System.Runtime.Serialization.Xml.dll"
+          ],
+          "compileAssemblies": [
+            "lib/contract/System.Runtime.Serialization.Xml.dll"
+          ]
+        }
+      },
+      "files": [
+        "License.rtf",
+        "System.Runtime.Serialization.Xml.4.0.10-beta-22816.nupkg",
+        "System.Runtime.Serialization.Xml.4.0.10-beta-22816.nupkg.sha512",
+        "System.Runtime.Serialization.Xml.nuspec",
+        "lib/aspnetcore50/System.Runtime.Serialization.Xml.dll",
+        "lib/contract/System.Runtime.Serialization.Xml.dll",
+        "lib/net45/System.Runtime.Serialization.Xml.dll",
+        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Serialization.Xml.dll"
       ]
     },
     "System.Text.Encoding/4.0.10-beta-22816": {

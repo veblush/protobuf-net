@@ -16,10 +16,14 @@
             "compilationOptions": {
                 "allowUnsafe": true,
                 "languageVersion": "csharp2",
-                "define": [ "FEAT_COMPILER", "PLAT_BINARYFORMATTER", "PLAT_XMLSERIALIZER" ]
+                "define": [ "FEAT_COMPILER", "PLAT_BINARYFORMATTER", "PLAT_XMLSERIALIZER", "FEAT_SERVICEMODEL" ]
             },
             "frameworkAssemblies": {
-                "System.Xml": "4.0.0.0"
+                "System.Xml": "4.0.0.0",
+                "System.Runtime.Serialization": "4.0.0.0",
+                "System.Runtime.Serialization.Xml": "4.0.0.0",
+                "System.ServiceModel": "4.0.0.0",
+                "System.Configuration": "4.0.0.0"
             }
 
         },
@@ -27,7 +31,7 @@
             "compilationOptions": {
                 "allowUnsafe": true,
                 "languageVersion": "csharp2",
-                "define": [ "PLAT_XMLSERIALIZER", "FEAT_COMPILER" ]
+                "define": [ "PLAT_XMLSERIALIZER", "FEAT_COMPILER", "FEAT_SERVICEMODEL" ]
             },
             "dependencies": {
                 "System.Text.RegularExpressions": "4.0.10-beta-*",
@@ -42,7 +46,8 @@
                 "System.Runtime.Extensions": "4.0.10-beta-*",
                 "System.Globalization": "4.0.10-beta-*",
                 "System.Xml.ReaderWriter": "4.0.10-beta-*",
-                "System.Diagnostics.Debug": "4.0.10-beta-*"
+                "System.Diagnostics.Debug": "4.0.10-beta-*",
+                "System.Runtime.Serialization.Xml": "4.0.10-beta-*"
             }
         }
     }

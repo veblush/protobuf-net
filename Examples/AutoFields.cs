@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ProtoBuf;
-using NUnit.Framework;
+using Xunit;
 
 namespace Examples
 {
@@ -29,7 +29,7 @@ namespace Examples
             public int IgnoreIndirect { get; set; }
         }
 
-        [Test]
+        [Fact]
         public void TestIgnore()
         {
             IgnorePOCO foo = new IgnorePOCO
@@ -40,10 +40,10 @@ namespace Examples
                                  IncludeIndirect = 4
                              },
                        bar = Serializer.DeepClone(foo);
-            Assert.AreEqual(0, bar.IgnoreDirect, "IgnoreDirect");
-            Assert.AreEqual(0, bar.IgnoreIndirect, "IgnoreIndirect");
-            Assert.AreEqual(foo.IncludeDirect, bar.IncludeDirect, "IncludeDirect");
-            Assert.AreEqual(foo.IncludeIndirect, bar.IncludeIndirect, "IncludeIndirect");
+            Assert.Equal(0, bar.IgnoreDirect); //, "IgnoreDirect");
+            Assert.Equal(0, bar.IgnoreIndirect); //, "IgnoreIndirect");
+            Assert.Equal(foo.IncludeDirect, bar.IncludeDirect); //, "IncludeDirect");
+            Assert.Equal(foo.IncludeIndirect, bar.IncludeIndirect); //, "IncludeIndirect");
         }
 
         [ProtoContract(ImplicitFields = ImplicitFields.AllFields, ImplicitFirstTag = 4)]
@@ -103,7 +103,7 @@ namespace Examples
 
         }
 
-        [Test]
+        [Fact]
         public void TestAllFields()
         {
             ImplicitFieldPOCO foo = new ImplicitFieldPOCO
@@ -117,28 +117,28 @@ namespace Examples
                                         Z_explicitProperty = 106
 
                                     };
-            Assert.AreEqual(100, foo.D_public, "D: pre");
-            Assert.AreEqual(101, foo.E_private, "E: pre");
-            Assert.AreEqual(102, foo.F_ignoreDirect, "F: pre");
-            Assert.AreEqual(103, foo.G_ignoreIndirect, "G: pre");
-            Assert.AreEqual(104, foo.H_nonSerialized, "H: pre");
-            Assert.AreEqual(105, foo.X_explicitField, "X: pre");
-            Assert.AreEqual(106, foo.Z_explicitProperty, "Z: pre");
+            Assert.Equal(100, foo.D_public); //, "D: pre");
+            Assert.Equal(101, foo.E_private); //, "E: pre");
+            Assert.Equal(102, foo.F_ignoreDirect); //, "F: pre");
+            Assert.Equal(103, foo.G_ignoreIndirect); //, "G: pre");
+            Assert.Equal(104, foo.H_nonSerialized); //, "H: pre");
+            Assert.Equal(105, foo.X_explicitField); //, "X: pre");
+            Assert.Equal(106, foo.Z_explicitProperty); //, "Z: pre");
 
             ImplicitFieldPOCO bar = Serializer.DeepClone(foo);
-            Assert.AreEqual(100, bar.D_public, "D: post");
-            Assert.AreEqual(101, bar.E_private, "E: post");
-            Assert.AreEqual(0, bar.F_ignoreDirect, "F: post");
-            Assert.AreEqual(0, bar.G_ignoreIndirect, "G: post");
-            Assert.AreEqual(0, bar.H_nonSerialized, "H: post");
-            Assert.AreEqual(105, bar.X_explicitField, "X: post");
-            Assert.AreEqual(106, bar.Z_explicitProperty, "Z: post");
+            Assert.Equal(100, bar.D_public); //, "D: post");
+            Assert.Equal(101, bar.E_private); //, "E: post");
+            Assert.Equal(0, bar.F_ignoreDirect); //, "F: post");
+            Assert.Equal(0, bar.G_ignoreIndirect); //, "G: post");
+            Assert.Equal(0, bar.H_nonSerialized); //, "H: post");
+            Assert.Equal(105, bar.X_explicitField); //, "X: post");
+            Assert.Equal(106, bar.Z_explicitProperty); //, "Z: post");
 
             ImplicitFieldPOCOEquiv equiv = Serializer.ChangeType<ImplicitFieldPOCO, ImplicitFieldPOCOEquiv>(foo);
-            Assert.AreEqual(100, equiv.D, "D: equiv");
-            Assert.AreEqual(101, equiv.E, "E: equiv");
-            Assert.AreEqual(105, equiv.X, "X: equiv");
-            Assert.AreEqual(106, equiv.Z, "Z: equiv");
+            Assert.Equal(100, equiv.D); //, "D: equiv");
+            Assert.Equal(101, equiv.E); //, "E: equiv");
+            Assert.Equal(105, equiv.X); //, "X: equiv");
+            Assert.Equal(106, equiv.Z); //, "Z: equiv");
 
 
         }
@@ -157,33 +157,33 @@ namespace Examples
         }
 
 
-        [Test]
+        [Fact]
         public void TestAllPublic()
         {
             ImplicitPublicPOCO foo = new ImplicitPublicPOCO
                                      { ImplicitField = 101, ExplicitNonPublic = 102, IgnoreDirect = 103,
                                      IgnoreIndirect = 104, ImplicitNonPublic = 105, ImplicitProperty = 106};
 
-            Assert.AreEqual(101, foo.ImplicitField, "ImplicitField: pre");
-            Assert.AreEqual(102, foo.ExplicitNonPublic, "ExplicitNonPublic: pre");
-            Assert.AreEqual(103, foo.IgnoreDirect, "IgnoreDirect: pre");
-            Assert.AreEqual(104, foo.IgnoreIndirect, "IgnoreIndirect: pre");
-            Assert.AreEqual(105, foo.ImplicitNonPublic, "ImplicitNonPublic: pre");
-            Assert.AreEqual(106, foo.ImplicitProperty, "ImplicitProperty: pre");
+            Assert.Equal(101, foo.ImplicitField); //, "ImplicitField: pre");
+            Assert.Equal(102, foo.ExplicitNonPublic); //, "ExplicitNonPublic: pre");
+            Assert.Equal(103, foo.IgnoreDirect); //, "IgnoreDirect: pre");
+            Assert.Equal(104, foo.IgnoreIndirect); //, "IgnoreIndirect: pre");
+            Assert.Equal(105, foo.ImplicitNonPublic); //, "ImplicitNonPublic: pre");
+            Assert.Equal(106, foo.ImplicitProperty); //, "ImplicitProperty: pre");
 
             ImplicitPublicPOCO bar = Serializer.DeepClone(foo);
 
-            Assert.AreEqual(101, bar.ImplicitField, "ImplicitField: post");
-            Assert.AreEqual(102, bar.ExplicitNonPublic, "ExplicitNonPublic: post");
-            Assert.AreEqual(0, bar.IgnoreDirect, "IgnoreDirect: post");
-            Assert.AreEqual(0, bar.IgnoreIndirect, "IgnoreIndirect: post");
-            Assert.AreEqual(0, bar.ImplicitNonPublic, "ImplicitNonPublic: post");
-            Assert.AreEqual(106, bar.ImplicitProperty, "ImplicitProperty: post");
+            Assert.Equal(101, bar.ImplicitField); //, "ImplicitField: post");
+            Assert.Equal(102, bar.ExplicitNonPublic); //, "ExplicitNonPublic: post");
+            Assert.Equal(0, bar.IgnoreDirect); //, "IgnoreDirect: post");
+            Assert.Equal(0, bar.IgnoreIndirect); //, "IgnoreIndirect: post");
+            Assert.Equal(0, bar.ImplicitNonPublic); //, "ImplicitNonPublic: post");
+            Assert.Equal(106, bar.ImplicitProperty); //, "ImplicitProperty: post");
 
             ImplicitPublicPOCOEquiv equiv = Serializer.ChangeType<ImplicitPublicPOCO, ImplicitPublicPOCOEquiv>(foo);
-            Assert.AreEqual(101, equiv.ImplicitField, "ImplicitField: equiv");
-            Assert.AreEqual(102, equiv.ExplicitNonPublic, "ExplicitNonPublic: equiv");
-            Assert.AreEqual(106, equiv.ImplicitProperty, "ImplicitProperty: equiv");
+            Assert.Equal(101, equiv.ImplicitField); //, "ImplicitField: equiv");
+            Assert.Equal(102, equiv.ExplicitNonPublic); //, "ExplicitNonPublic: equiv");
+            Assert.Equal(106, equiv.ImplicitProperty); //, "ImplicitProperty: equiv");
         }
 
         [ProtoContract]

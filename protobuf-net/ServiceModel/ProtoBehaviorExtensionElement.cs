@@ -1,4 +1,4 @@
-﻿#if FEAT_SERVICEMODEL && PLAT_XMLSERIALIZER
+﻿#if (FEAT_SERVICEMODEL && PLAT_XMLSERIALIZER) && !DNXCORE50
 using System;
 using System.ServiceModel.Configuration;
 

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using System.Runtime.Serialization;
 using System;
@@ -221,39 +221,39 @@ namespace Examples
                 mode = ":" + mode;
                 TCreate cs = new TCreate();
                 cs.Bar = "abc";
-                string ctorExpected = typeof (TCreate).IsValueType ? null : "ctor";
-                Assert.IsNotNull(cs, "orig" + mode);
-                Assert.AreEqual(ctorExpected, cs.History, "orig before" + mode);
-                Assert.AreEqual("abc", cs.Bar, "orig before" + mode);
+                string ctorExpected = typeof (TCreate).IsValueType() ? null : "ctor";
+                Assert.NotNull(cs); //, "orig" + mode);
+                Assert.Equal(ctorExpected, cs.History); //, "orig before" + mode);
+                Assert.Equal("abc", cs.Bar); //, "orig before" + mode);
 
                 TCreate clone = (TCreate) model.DeepClone(cs);
-                if (!typeof (TCreate).IsValueType)
+                if (!typeof (TCreate).IsValueType())
                 {
-                    Assert.AreEqual(ctorExpected + ";OnSerializing;OnSerialized", cs.History, "orig after" + mode);
+                    Assert.Equal(ctorExpected + ";OnSerializing;OnSerialized", cs.History); //, "orig after" + mode);
                 }
-                Assert.AreEqual("abc", cs.Bar, "orig after" + mode);
+                Assert.Equal("abc", cs.Bar); //, "orig after" + mode);
 
-                Assert.IsNotNull(clone, "clone" + mode);
-                Assert.AreNotSame(cs, clone, "clone" + mode);
-                Assert.AreEqual(ctorExpected + ";OnDeserializing;OnDeserialized", clone.History, "clone after" + mode);
-                Assert.AreEqual("abc", clone.Bar, "clone after" + mode);
+                Assert.NotNull(clone); //, "clone" + mode);
+                Assert.NotSame(cs, clone); //, "clone" + mode);
+                Assert.Equal(ctorExpected + ";OnDeserializing;OnDeserialized", clone.History); //, "clone after" + mode);
+                Assert.Equal("abc", clone.Bar); //, "clone after" + mode);
 
                 T clone2 = (T) model.DeepClone(cs);
-                if (!typeof (TCreate).IsValueType)
+                if (!typeof (TCreate).IsValueType())
                 {
-                    Assert.AreEqual(ctorExpected + ";OnSerializing;OnSerialized;OnSerializing;OnSerialized", cs.History,
-                                    "orig after" + mode);
+                    Assert.Equal(ctorExpected + ";OnSerializing;OnSerialized;OnSerializing;OnSerialized", cs.History
+                                    ); //, "orig after" + mode);
                 }
-                Assert.AreEqual("abc", cs.Bar, "orig after" + mode);
+                Assert.Equal("abc", cs.Bar); //, "orig after" + mode);
 
-                Assert.IsNotNull(clone2, "clone2" + mode);
-                Assert.AreNotSame(cs, clone2, "clone2" + mode);
-                Assert.AreEqual(ctorExpected + ";OnDeserializing;OnDeserialized", clone2.History, "clone2 after" + mode);
-                Assert.AreEqual("abc", clone2.Bar, "clone2 after" + mode);
+                Assert.NotNull(clone2); //, "clone2" + mode);
+                Assert.NotSame(cs, clone2); //, "clone2" + mode);
+                Assert.Equal(ctorExpected + ";OnDeserializing;OnDeserialized", clone2.History); //, "clone2 after" + mode);
+                Assert.Equal("abc", clone2.Bar); //, "clone2 after" + mode);
             } catch(Exception ex)
             {
                 Console.Error.WriteLine(ex.StackTrace);
-                Assert.Fail(ex.Message + mode);
+                Assert.Equal("##fail##", ex.Message + mode);
             }
         }
 
@@ -267,54 +267,54 @@ namespace Examples
             void Bar() { }
         }
 
-        [Test]
+        [Fact]
         public void TestSimple()
         {
             Test<CallbackSimple, CallbackSimple>();
         }
 
-        [Test]
+        [Fact]
         public void TestStructSimple()
         {
             int beforeSer = CallbackStructSimple.BeforeSerializeCount,
                 afterSer = CallbackStructSimple.AfterSerializeCount;
             Test<CallbackStructSimple, CallbackStructSimple>(true, typeof(CallbackStructSimpleNoCallbacks));
 
-            Assert.AreEqual(6, CallbackStructSimple.BeforeSerializeCount - beforeSer);
-            Assert.AreEqual(6, CallbackStructSimple.AfterSerializeCount - afterSer);
+            Assert.Equal(6, CallbackStructSimple.BeforeSerializeCount - beforeSer);
+            Assert.Equal(6, CallbackStructSimple.AfterSerializeCount - afterSer);
         } 
 
-        [Test]
+        [Fact]
         public void TestInheritedVirtualAtRoot()
         {
             Test<TestInheritedVirtualAtRoot, TestInheritedVirtualAtRootDerived>();
         }
 
-        [Test]
+        [Fact]
         public void TestInheritedVirtualAtRootProtoAttribs()
         {
             Test<TestInheritedVirtualAtRootProtoAttribs, TestInheritedVirtualAtRootDerivedProtoAttribs>();
         }
 
-        [Test]
+        [Fact]
         public void TestInheritedImplementedAtRoot()
         {
             Test<TestInheritedImplementedAtRoot, TestInheritedImplementedAtRootDerived>();
         }
 
-        [Test] /* now supported */
+        [Fact] /* now supported */
         public void TestInheritedImplementedAtChild()
         {
             Test<TestInheritedImplementedAtChild, TestInheritedImplementedAtChildDerived>();
         }
 
-        [Test, ExpectedException(typeof(ProtoException), ExpectedMessage = "Duplicate ProtoBuf.ProtoBeforeSerializationAttribute callbacks on Examples.Callbacks+DuplicateCallbacks")]
+        [Fact, ExpectedException(typeof(ProtoException), ExpectedMessage = "Duplicate ProtoBuf.ProtoBeforeSerializationAttribute callbacks on Examples.Callbacks+DuplicateCallbacks")]
         public void TestDuplicateCallbacks()
         {
             Serializer.Serialize(Stream.Null, new DuplicateCallbacks());
         }
 
-        [Test]
+        [Fact]
         public void CallbacksWithContext()
         {
             var model = TypeModel.Create();
@@ -336,30 +336,30 @@ namespace Examples
                 ,C = new CallbackWithRemotingContext()
 #endif
             }, clone;
-            Assert.IsNull(orig.B.ReadState);
-            Assert.IsNull(orig.B.WriteState);
+            Assert.Null(orig.B.ReadState);
+            Assert.Null(orig.B.WriteState);
 #if REMOTING
-            Assert.IsNull(orig.C.ReadState);
-            Assert.IsNull(orig.C.WriteState);
+            Assert.Null(orig.C.ReadState);
+            Assert.Null(orig.C.WriteState);
 #endif
             using (var ms = new MemoryStream())
             {
                 SerializationContext ctx = new SerializationContext { Context = new object()};
                 model.Serialize(ms, orig, ctx);
-                Assert.IsNull(orig.B.ReadState);
-                Assert.AreSame(ctx.Context, orig.B.WriteState);
+                Assert.Null(orig.B.ReadState);
+                Assert.Same(ctx.Context, orig.B.WriteState);
 #if REMOTING
-                Assert.IsNull(orig.C.ReadState);
-                Assert.AreSame(ctx.Context, orig.C.WriteState);
+                Assert.Null(orig.C.ReadState);
+                Assert.Same(ctx.Context, orig.C.WriteState);
 #endif
                 ms.Position = 0;
                 ctx = new SerializationContext { Context = new object() };
                 clone = (CallbackWrapper)model.Deserialize(ms, null, typeof(CallbackWrapper), -1, ctx);
-                Assert.AreSame(ctx.Context, clone.B.ReadState);
-                Assert.IsNull(clone.B.WriteState);
+                Assert.Same(ctx.Context, clone.B.ReadState);
+                Assert.Null(clone.B.WriteState);
 #if REMOTING
-                Assert.AreSame(ctx.Context, clone.C.ReadState);
-                Assert.IsNull(clone.C.WriteState);
+                Assert.Same(ctx.Context, clone.C.ReadState);
+                Assert.Null(clone.C.WriteState);
 #endif
             }
         }

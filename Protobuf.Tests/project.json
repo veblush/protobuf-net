@@ -10,22 +10,18 @@
         "protobuf-net": "2.1.0-alpha",
         "xunit": "2.1.0-*",
         "xunit.runner.dnx": "2.1.0-*"
-        // tried with and without this
-        //"xunit.runner.visualstudio": "2.1.0-*"
     },
-
     "commands": {
         "test": "xunit.runner.dnx"
     },
     "compile": [
-        "../Examples/Diction*.cs",
-        "../Examples/Extensi*.cs",
-        "../Examples/Program.cs",
+        "../Examples/*.cs",
         "../Examples/NWind/*.cs",
-        "../Examples/Ppt/*.cs",
-        "../Examples/SimpleStream/*.cs",
-        "../Examples/PEVerify.cs"
+        "../Examples/Ppt/Ppt.cs",
+        "../Examples/SimpleStream/*.cs"
     ],
+        //"../Examples/PEVerify.cs",
+        //"../Examples/Program.cs",
     "compilationOptions": { "define": [ "DNXRUNNER" ] },
     "frameworks": {
         "dnx451": {
@@ -45,7 +41,10 @@
                 "System.Collections": "4.0.10-beta-*",
                 "System.Linq": "4.0.0-beta-*",
                 "System.Threading": "4.0.10-beta-*",
-                "Microsoft.CSharp": "4.0.0-beta-*"
+                "Microsoft.CSharp": "4.0.0-beta-*",
+                "System.Runtime.Serialization.Xml": "4.0.10-beta-*",
+                "System.Data.Common": "4.0.0-beta-*",
+                "System.Data.SqlClient": "4.0.0-beta-*"
             }
         }
     }

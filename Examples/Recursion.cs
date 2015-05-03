@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples
@@ -13,7 +13,7 @@ namespace Examples
     [TestFixture]
     public class Recursion
     {
-        [Test, ExpectedException(typeof(ProtoException))]
+        [Fact, ExpectedException(typeof(ProtoException))]
         public void BlowUp()
         {
             RecursiveObject obj = new RecursiveObject();

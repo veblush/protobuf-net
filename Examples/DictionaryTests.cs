@@ -50,7 +50,7 @@ namespace Examples.Dictionary
     [TestFixture]
     public class DictionaryTests
     {
-        [Test]
+        [Fact]
         public void TestNestedDictionaryWithStrings()
         {
             var obj = new DataWithDictionary<string>();
@@ -63,7 +63,7 @@ namespace Examples.Dictionary
             AssertEqual(obj.Data, clone.Data);
         }
 
-        [Test]
+        [Fact]
         public void TestNestedDictionaryWithSimpleData()
         {
             var obj = new DataWithDictionary<SimpleData>();
@@ -76,7 +76,7 @@ namespace Examples.Dictionary
             AssertEqual(obj.Data, clone.Data);
         }
 
-        [Test]
+        [Fact]
         public void RoundtripDictionary()
         {
             var lookup = new Dictionary<int,string>();
@@ -105,7 +105,7 @@ namespace Examples.Dictionary
     [TestFixture]
     public class EmptyDictionaryTests
     {
-        [Test]
+        [Fact]
         public void EmptyDictionaryShouldDeserializeAsNonNull()
         {
             using (var ms = new MemoryStream())
@@ -120,7 +120,7 @@ namespace Examples.Dictionary
                 Assert.Equal(0, clone.Count);
             }
         }
-        [Test]
+        [Fact]
         public void NonEmptyDictionaryShouldDeserialize()
         {
             using (var ms = new MemoryStream())
@@ -136,7 +136,7 @@ namespace Examples.Dictionary
                 Assert.Equal(123, clone["abc"]);
             }
         }
-        [Test]
+        [Fact]
         public void EmptyDictionaryShouldDeserializeAsNonNullViaInterface()
         {
             using (var ms = new MemoryStream())
@@ -152,7 +152,7 @@ namespace Examples.Dictionary
             }
 
         }
-        [Test]
+        [Fact]
         public void NonEmptyDictionaryShouldDeserializeViaInterface()
         {
             using (var ms = new MemoryStream())
@@ -172,7 +172,7 @@ namespace Examples.Dictionary
     [TestFixture]
     public class NestedDictionaryTests {
 
-        [Test]
+        [Fact]
         public void TestNestedConcreteConcreteDictionary()
         {
             Dictionary<string, Dictionary<string, String>> data = new Dictionary<string, Dictionary<string, string>>
@@ -185,7 +185,7 @@ namespace Examples.Dictionary
             CheckNested(clone, "clone");
         }
 
-        [Test]
+        [Fact]
         public void TestNestedInterfaceInterfaceDictionary()
         {
             IDictionary<string, IDictionary<string, String>> data = new Dictionary<string, IDictionary<string, string>>
@@ -198,7 +198,7 @@ namespace Examples.Dictionary
             CheckNested(clone, "clone");
         }
 
-        [Test]
+        [Fact]
         public void TestNestedInterfaceConcreteDictionary()
         {
             IDictionary<string, Dictionary<string, String>> data = new Dictionary<string, Dictionary<string, string>>
@@ -210,7 +210,7 @@ namespace Examples.Dictionary
             var clone = Serializer.DeepClone(data);
             CheckNested(clone, "clone");
         }
-        [Test]
+        [Fact]
         public void TestNestedConcreteInterfaceDictionary()
         {
             Dictionary<string, IDictionary<string, String>> data = new Dictionary<string, IDictionary<string, string>>
@@ -238,7 +238,7 @@ namespace Examples.Dictionary
 
         }
 
-        [Test]
+        [Fact]
         public void CheckPerformanceNotInsanelyBad()
         {
             var model = TypeModel.Create();

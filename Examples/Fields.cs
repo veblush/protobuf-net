@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using System.Runtime.Serialization;
 using System.IO;
 using ProtoBuf;
@@ -12,7 +12,7 @@ namespace Examples
     [TestFixture]
     public class Fields
     {
-        [Test]
+        [Fact]
         public void TestWcfSerializesDataContractAsExpected()
         {
             WcfWithFields obj = new WcfWithFields { Foo = 123, Bar = "abc" }, clone;
@@ -23,26 +23,26 @@ namespace Examples
                 ms.Position = 0;
                 clone = (WcfWithFields)dcs.ReadObject(ms);
             }
-            Assert.AreEqual(obj.Foo, clone.Foo, "Foo");
-            Assert.AreEqual(obj.Bar, clone.Bar, "Bar");
+            Assert.Equal(obj.Foo, clone.Foo); //, "Foo");
+            Assert.Equal(obj.Bar, clone.Bar); //, "Bar");
         }
 
-        [Test]
+        [Fact]
         public void TestProtoSerializesDataContractAsExpected()
         {
             WcfWithFields obj = new WcfWithFields { Foo = 123, Bar = "abc" },
                 clone = Serializer.DeepClone(obj);
-            Assert.AreEqual(obj.Foo, clone.Foo, "Foo");
-            Assert.AreEqual(obj.Bar, clone.Bar, "Bar");
+            Assert.Equal(obj.Foo, clone.Foo); //, "Foo");
+            Assert.Equal(obj.Bar, clone.Bar); //, "Bar");
         }
 
-        [Test]
+        [Fact]
         public void TestProtoSerializesProtoContractAsExpected()
         {
             ProtoWithFields obj = new ProtoWithFields { Foo = 123, Bar = "abc" },
                 clone = Serializer.DeepClone(obj);
-            Assert.AreEqual(obj.Foo, clone.Foo, "Foo");
-            Assert.AreEqual(obj.Bar, clone.Bar, "Bar");
+            Assert.Equal(obj.Foo, clone.Foo); //, "Foo");
+            Assert.Equal(obj.Bar, clone.Bar); //, "Bar");
         }
     }
 

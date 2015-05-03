@@ -1,9 +1,9 @@
-﻿using System;
+﻿#if !DNXCORE50
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples
@@ -27,7 +27,7 @@ namespace Examples
             }
             return list;
         }
-        [Test]
+        [Fact]
         public void CompareBasicTypeForBandwidth()
         {
             var list = GetTestData();
@@ -44,8 +44,7 @@ namespace Examples
                 ndcs = ms.Length;
                 //Debug.WriteLine(ndcs);
             }
-            Assert.That(0, Is.LessThan(1)); // double check! (at least one test API has this reversed)
-            Assert.That(pb, Is.LessThan(ndcs / 5));
+            Assert.True(pb < (ndcs / 5));
         }
         [DataContract]
         public class BasicDto
@@ -57,3 +56,4 @@ namespace Examples
         }
     }
 }
+#endif

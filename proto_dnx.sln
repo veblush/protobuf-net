@@ -7,6 +7,68 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "protobuf_net", "protobuf-ne
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Protobuf.Tests", "Protobuf.Tests\Protobuf.Tests.xproj", "{5E189974-7F12-40BB-9E07-8B7CBE8B0D17}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{1FF7F481-F7EE-4AA5-A567-6211220F4DFC}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Arrays.cs = Examples\Arrays.cs
+		Examples\AutoFields.cs = Examples\AutoFields.cs
+		Examples\AutoTuple.cs = Examples\AutoTuple.cs
+		Examples\Callbacks.cs = Examples\Callbacks.cs
+		Examples\ComparisonToNDCS.cs = Examples\ComparisonToNDCS.cs
+		Examples\DataMemberOffset.cs = Examples\DataMemberOffset.cs
+		Examples\DetectMissing.cs = Examples\DetectMissing.cs
+		Examples\DictionaryTests.cs = Examples\DictionaryTests.cs
+		Examples\DynamicIFormatter.cs = Examples\DynamicIFormatter.cs
+		Examples\EnumTests.cs = Examples\EnumTests.cs
+		Examples\ExtendedTimeTests.cs = Examples\ExtendedTimeTests.cs
+		Examples\Extensibility.cs = Examples\Extensibility.cs
+		Examples\Fields.cs = Examples\Fields.cs
+		Examples\GuidTests.cs = Examples\GuidTests.cs
+		Examples\ImmutableCollections.cs = Examples\ImmutableCollections.cs
+		Examples\Inheritance.cs = Examples\Inheritance.cs
+		Examples\InheritanceMidLevel.cs = Examples\InheritanceMidLevel.cs
+		Examples\InternerTests.cs = Examples\InternerTests.cs
+		Examples\ItemsWithLengthPrefix.cs = Examples\ItemsWithLengthPrefix.cs
+		Examples\ListAsInterfaceTests.cs = Examples\ListAsInterfaceTests.cs
+		Examples\ListsWithInheritance.cs = Examples\ListsWithInheritance.cs
+		Examples\ListTests.cs = Examples\ListTests.cs
+		Examples\memcached.cs = Examples\memcached.cs
+		Examples\MultiTypesWithLengthPrefix.cs = Examples\MultiTypesWithLengthPrefix.cs
+		Examples\NetObjectOptions.cs = Examples\NetObjectOptions.cs
+		Examples\NonGeneric.cs = Examples\NonGeneric.cs
+		Examples\NonPublic_Compile.cs = Examples\NonPublic_Compile.cs
+		Examples\NonSeekableStreams.cs = Examples\NonSeekableStreams.cs
+		Examples\OldProgram.cs = Examples\OldProgram.cs
+		Examples\OptionalData.cs = Examples\OptionalData.cs
+		Examples\Parseable.cs = Examples\Parseable.cs
+		Examples\PartialClasses.cs = Examples\PartialClasses.cs
+		Examples\person.cs = Examples\person.cs
+		Examples\PEVerify.cs = Examples\PEVerify.cs
+		Examples\Pipeline.cs = Examples\Pipeline.cs
+		Examples\Primatives.cs = Examples\Primatives.cs
+		Examples\PrimativeSerializationTests.cs = Examples\PrimativeSerializationTests.cs
+		Examples\Program.cs = Examples\Program.cs
+		Examples\ProtoGeneration.cs = Examples\ProtoGeneration.cs
+		Examples\Recursion.cs = Examples\Recursion.cs
+		Examples\Remoting.cs = Examples\Remoting.cs
+		Examples\Rpc.cs = Examples\Rpc.cs
+		Examples\RpcTest.cs = Examples\RpcTest.cs
+		Examples\ShadowSetters.cs = Examples\ShadowSetters.cs
+		Examples\StupidlyComplexModel.cs = Examples\StupidlyComplexModel.cs
+		Examples\TagInference.cs = Examples\TagInference.cs
+		Examples\TraceError.cs = Examples\TraceError.cs
+		Examples\Tuples.cs = Examples\Tuples.cs
+		Examples\Type.cs = Examples\Type.cs
+		Examples\TypeFactory.cs = Examples\TypeFactory.cs
+		Examples\UnwrappedOuters.cs = Examples\UnwrappedOuters.cs
+		Examples\ValueWrapper.cs = Examples\ValueWrapper.cs
+		Examples\WcfProtoBridge.cs = Examples\WcfProtoBridge.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ppt", "Ppt", "{DD11DF36-DF52-4F81-9F03-2CB4FEC59F4E}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\Ppt\Ppt.cs = Examples\Ppt\Ppt.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +86,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD11DF36-DF52-4F81-9F03-2CB4FEC59F4E} = {1FF7F481-F7EE-4AA5-A567-6211220F4DFC}
 	EndGlobalSection
 EndGlobal

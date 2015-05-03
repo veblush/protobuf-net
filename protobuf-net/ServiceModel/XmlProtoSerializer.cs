@@ -126,7 +126,11 @@ namespace ProtoBuf.ServiceModel
                             model.Serialize(key, graph, protoWriter);
                         }
                     }
+#if DNXCORE50
+                    byte[] buffer = ms.ToArray();
+#else
                     byte[] buffer = ms.GetBuffer();
+#endif
                     writer.WriteBase64(buffer, 0, (int)ms.Length);
                 }
             }

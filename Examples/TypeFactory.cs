@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 using ProtoBuf.Meta;
 using System.Diagnostics;
@@ -13,7 +13,7 @@ namespace Examples
     [TestFixture]
     public class TypeFactory
     {
-        [Test]
+        [Fact]
         public void TestInternal()
         {
             var model = RuntimeTypeModel.Create();
@@ -25,7 +25,7 @@ namespace Examples
             Check(model, null, 42, "CompileInPlace");
             Check(model.Compile(), null, 42, "Compile");
         }
-        [Test]
+        [Fact]
         public void TestExternal()
         {
             var model = RuntimeTypeModel.Create();
@@ -49,15 +49,15 @@ namespace Examples
                     clone = (CanHazFactory) model.Deserialize(ms, null, typeof(CanHazFactory), ctx);
                 }
 
-                Assert.AreNotSame(orig, clone);
+                Assert.NotSame(orig, clone);
 
-                Assert.AreEqual(123, orig.Foo, caption);
-                Assert.AreEqual(456, orig.Bar, caption);
-                Assert.AreEqual(0, orig.MagicNumber, caption);
+                Assert.Equal(123, orig.Foo); //, caption);
+                Assert.Equal(456, orig.Bar); //, caption);
+                Assert.Equal(0, orig.MagicNumber); //, caption);
 
-                Assert.AreEqual(123, clone.Foo, caption);
-                Assert.AreEqual(456, clone.Bar, caption);
-                Assert.AreEqual(magicNumber, clone.MagicNumber, caption);
+                Assert.Equal(123, clone.Foo); //, caption);
+                Assert.Equal(456, clone.Bar); //, caption);
+                Assert.Equal(magicNumber, clone.MagicNumber); //, caption);
 
             } catch
             {

@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 using ProtoBuf;
 
 namespace Examples
@@ -18,7 +18,7 @@ namespace Examples
             [ProtoMember(1)]
             public A A { get; set; }
         }
-        [Test]
+        [Fact]
         [ExpectedException(typeof(InvalidOperationException), ExpectedMessage="Unexpected sub-type: Examples.Inheritance+B")]
         public void UnknownSubtypeMessage()
         {
@@ -26,26 +26,26 @@ namespace Examples
             Serializer.DeepClone(c);
         }
 
-        [Test]
+        [Fact]
         public void TestFooAsFoo()
         {
             Foo foo = new Foo { Value = 1 };
-            Assert.AreEqual(foo.Value, Serializer.DeepClone(foo).Value);
+            Assert.Equal(foo.Value, Serializer.DeepClone(foo).Value);
         }
-        [Test]
+        [Fact]
         public void TestBarAsBar()
         {
             Bar bar = new Bar { Value = 1 };
-            Assert.AreEqual(bar.Value, Serializer.DeepClone<Foo>(bar).Value);
+            Assert.Equal(bar.Value, Serializer.DeepClone<Foo>(bar).Value);
         }
 
-        [Test]
+        [Fact]
         public void TestBarAsFoo()
         {
             Foo foo = new Bar { Value = 1 };
             Foo clone = Serializer.DeepClone(foo);
-            Assert.AreEqual(foo.Value, clone.Value);
-            Assert.IsInstanceOfType(typeof(Bar), clone);
+            Assert.Equal(foo.Value, clone.Value);
+            Assert.IsType(typeof(Bar), clone);
         }
     }
     
