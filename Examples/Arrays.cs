@@ -119,20 +119,29 @@ namespace Examples
         [Fact]
         public void TestSkipConstructor()
         {
-            var orig = new WithSkipConstructor { Values = new[] { 4, 5 } };
-            var model = TypeModel.Create();
-            model.AutoCompile = false;
-            model.Add(typeof(WithSkipConstructor), true);
+            Action test = () =>
+            {
+                var orig = new WithSkipConstructor { Values = new[] { 4, 5 } };
+                var model = TypeModel.Create();
+                model.AutoCompile = false;
+                model.Add(typeof(WithSkipConstructor), true);
 
-            var clone = (WithSkipConstructor)model.DeepClone(orig);
-            Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "Runtime");
+                var clone = (WithSkipConstructor)model.DeepClone(orig);
+                Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "Runtime");
 
-            model.CompileInPlace();
-            clone = (WithSkipConstructor)model.DeepClone(orig);
-            Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "CompileInPlace");
+                model.CompileInPlace();
+                clone = (WithSkipConstructor)model.DeepClone(orig);
+                Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "CompileInPlace");
 
-            clone = (WithSkipConstructor)(model.Compile()).DeepClone(orig);
-            Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "Compile");
+                clone = (WithSkipConstructor)(model.Compile()).DeepClone(orig);
+                Assert.True(clone.Values.SequenceEqual(new[] { 4, 5 }), "Compile");
+            };
+#if DNXCORE50
+            var msg = Assert.Throws<NotSupportedException>(test).Message;
+            Assert.Equal("Constructor-skipping is not supported on this platform", msg);
+#else
+            test();
+#endif
         }
 
         [Fact]
