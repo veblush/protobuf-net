@@ -51,7 +51,8 @@ namespace Examples
             var testPath = Path.Combine(Environment.CurrentDirectory, path);
             var psi = new ProcessStartInfo(Path.GetFileName(fullPath), testPath);
             psi.WorkingDirectory = Path.GetDirectoryName(fullPath);
-
+            psi.CreateNoWindow = true;
+            psi.WindowStyle = ProcessWindowStyle.Hidden;
             using (Process proc = Process.Start(psi))
             {
                 if (proc.WaitForExit(10000))
