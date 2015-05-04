@@ -4,6 +4,8 @@ bin
 obj
 *.user
 Protobuf.Tests/*.dll
+Protobuf.Tests/*.pdb
+Protobuf.Tests/*.xml
 Protobuf.Tests/Data.protobuf
 Protobuf.Tests/antRules.bin
 Protobuf.Tests/big.file

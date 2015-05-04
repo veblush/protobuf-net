@@ -4,8 +4,8 @@
   "projectFileDependencyGroups": {
     "": [
       "protobuf-net >= 2.1.0-alpha",
-      "xunit >= 2.1.0-*",
-      "xunit.runner.dnx >= 2.1.0-*"
+      "xunit >= 2.1.0-beta2-build2981",
+      "xunit.runner.dnx >= 2.1.0-beta2-build79"
     ],
     "DNX,Version=v4.5.1": [
       "framework/System.Runtime.Serialization >= 4.0.0.0",
@@ -3189,14 +3189,14 @@
         "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "xunit/2.1.0-beta2-build2979": {
+    "xunit/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "FqJpYRJPlQC8iCKavcyhHhKIIbDOq5UWWmCf4sBMAneod7KWb76rvCZr8frwGYnIMNgd/LEMMzB+VKJYrgf5fw==",
+      "sha": "qTzY4x9uJ+CXDpS7/mm+rmz4YvpwY4IwTgRs6bk9R71G2yXneuuSJ+XaZ5V8ytGHgXeIWfwp3h4sg8uRi2GNxw==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
-            "xunit.core": "[2.1.0-beta2-build2979]",
-            "xunit.assert": "[2.1.0-beta2-build2979]"
+            "xunit.core": "[2.1.0-beta2-build2981]",
+            "xunit.assert": "[2.1.0-beta2-build2981]"
           },
           "frameworkAssemblies": [],
           "runtimeAssemblies": [],
@@ -3204,8 +3204,8 @@
         },
         "DNXCore,Version=v5.0": {
           "dependencies": {
-            "xunit.core": "[2.1.0-beta2-build2979]",
-            "xunit.assert": "[2.1.0-beta2-build2979]"
+            "xunit.core": "[2.1.0-beta2-build2981]",
+            "xunit.assert": "[2.1.0-beta2-build2981]"
           },
           "frameworkAssemblies": [],
           "runtimeAssemblies": [],
@@ -3213,8 +3213,8 @@
         }
       },
       "files": [
-        "xunit.2.1.0-beta2-build2979.nupkg",
-        "xunit.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.2.1.0-beta2-build2981.nupkg",
+        "xunit.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.nuspec"
       ]
     },
@@ -3253,9 +3253,9 @@
         "lib/portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.abstractions.xml"
       ]
     },
-    "xunit.assert/2.1.0-beta2-build2979": {
+    "xunit.assert/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "vTMSQojnfHPv7mbAMTZXSXSVwrOaKIU9+4YisSRGjPuRfudvIhAVrZsj297yy6h4GCl8xrbhXBxJwR584edW9Q==",
+      "sha": "jxJ7novf8W3LJweqThxddbS1burh8ptXu7mhSHbu4irVKuRWJ6hZpmXX9aIKhvfbBlm7b6HLtTR0WK0VOwaHXg==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {},
@@ -3279,22 +3279,22 @@
         }
       },
       "files": [
-        "xunit.assert.2.1.0-beta2-build2979.nupkg",
-        "xunit.assert.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.assert.2.1.0-beta2-build2981.nupkg",
+        "xunit.assert.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.assert.nuspec",
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.assert.dll",
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.assert.pdb",
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.assert.xml"
       ]
     },
-    "xunit.core/2.1.0-beta2-build2979": {
+    "xunit.core/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "p9rFvqnF279Gqhb5qbfw36677esZ3HIkIJOlI8N2eVpIAlmBEub/Xr69uB7UX6cxTlkHHRIMcEJFxrZJf+aCRA==",
+      "sha": "yxaLG6iKjRxx6UlY1XM0uUshzBb9vVHf9rBnHext1bjS3nG7C2C2To+jQYyR8iwvLOq1HyKi3e/KBlgEgSkxyA==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
-            "xunit.extensibility.core": "[2.1.0-beta2-build2979]",
-            "xunit.extensibility.execution": "[2.1.0-beta2-build2979]"
+            "xunit.extensibility.core": "[2.1.0-beta2-build2981]",
+            "xunit.extensibility.execution": "[2.1.0-beta2-build2981]"
           },
           "frameworkAssemblies": [],
           "runtimeAssemblies": [],
@@ -3302,8 +3302,8 @@
         },
         "DNXCore,Version=v5.0": {
           "dependencies": {
-            "xunit.extensibility.core": "[2.1.0-beta2-build2979]",
-            "xunit.extensibility.execution": "[2.1.0-beta2-build2979]"
+            "xunit.extensibility.core": "[2.1.0-beta2-build2981]",
+            "xunit.extensibility.execution": "[2.1.0-beta2-build2981]"
           },
           "frameworkAssemblies": [],
           "runtimeAssemblies": [],
@@ -3311,8 +3311,8 @@
         }
       },
       "files": [
-        "xunit.core.2.1.0-beta2-build2979.nupkg",
-        "xunit.core.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.core.2.1.0-beta2-build2981.nupkg",
+        "xunit.core.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.core.nuspec",
         "build/monoandroid/xunit.core.props",
         "build/monoandroid/xunit.execution.MonoAndroid.dll",
@@ -3334,9 +3334,9 @@
         "build/_Desktop/xunit.execution.desktop.dll"
       ]
     },
-    "xunit.extensibility.core/2.1.0-beta2-build2979": {
+    "xunit.extensibility.core/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "jnOTvmKwVkWnNXfXWR+X5FrCznzL427BYT0wkjyemo8ZVX/c2wNNZvJmQP7UGkPi0INuWdCV+7HRZ3ydwIfCIg==",
+      "sha": "Q6ilaa1rwI1S8R+/5bxiWPIFCsqRfz63XFMJz1AAUDWdw4nL2MIDjQzbUvFJ77KWocQVDyqasVo679s2+Ex8dQ==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -3364,8 +3364,8 @@
         }
       },
       "files": [
-        "xunit.extensibility.core.2.1.0-beta2-build2979.nupkg",
-        "xunit.extensibility.core.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.extensibility.core.2.1.0-beta2-build2981.nupkg",
+        "xunit.extensibility.core.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.extensibility.core.nuspec",
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.core.dll",
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.core.dll.tdnet",
@@ -3375,13 +3375,13 @@
         "lib/portable-net45+dnxcore50+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS/xunit.runner.utility.desktop.dll"
       ]
     },
-    "xunit.extensibility.execution/2.1.0-beta2-build2979": {
+    "xunit.extensibility.execution/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "gPNELS6TNYgDXKrVimbgPgMfwy8FjFvBsJZxc4cKHOAqyiTAfaPxA/DujDX1b3R3Oeoj5RK0Z2OQUfolfxRAxQ==",
+      "sha": "FCD7WyGybb/svGjuGfjs+Gqb5EYeP5LKyO+YZRxmSrWvHw55+T3P/kdmqO/84Rx0DAMmnh83CBifk51p9NrD4A==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
-            "xunit.extensibility.core": "[2.1.0-beta2-build2979]"
+            "xunit.extensibility.core": "[2.1.0-beta2-build2981]"
           },
           "frameworkAssemblies": [
             "Microsoft.CSharp",
@@ -3402,7 +3402,7 @@
         },
         "DNXCore,Version=v5.0": {
           "dependencies": {
-            "xunit.extensibility.core": "[2.1.0-beta2-build2979]",
+            "xunit.extensibility.core": "[2.1.0-beta2-build2981]",
             "System.Collections.Concurrent": "4.0.0-beta-22605",
             "System.Diagnostics.Debug": "4.0.10-beta-22605",
             "System.Diagnostics.Tools": "4.0.0-beta-22605",
@@ -3426,8 +3426,8 @@
         }
       },
       "files": [
-        "xunit.extensibility.execution.2.1.0-beta2-build2979.nupkg",
-        "xunit.extensibility.execution.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.extensibility.execution.2.1.0-beta2-build2981.nupkg",
+        "xunit.extensibility.execution.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.extensibility.execution.nuspec",
         "lib/dnx451/xunit.execution.dnx.dll",
         "lib/dnx451/xunit.execution.dnx.pdb",
@@ -3459,16 +3459,16 @@
         "lib/Xamarin.iOS/xunit.execution.iOS-Universal.xml"
       ]
     },
-    "xunit.runner.dnx/2.1.0-beta2-build78": {
+    "xunit.runner.dnx/2.1.0-beta2-build79": {
       "serviceable": false,
-      "sha": "9d140jYnrwZnY6W/AQQfJimmYz8HQVWps2KijqXrVISXialby+iGKebai/7UpEPVvFisnZQ0Uz0m1VXWDFGj1w==",
+      "sha": "RXeHTGiII/oOYLhFdNygRbspjV+PprxIosHOO/1fv3VBrLqqpPyOHnJWKG4hLYK2v4p0BT+KhrRduLorS8YLSQ==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
             "Microsoft.Framework.Runtime.Interfaces": "1.0.0-beta4",
             "Microsoft.Framework.TestAdapter": "1.0.0-beta4",
             "Microsoft.Framework.TestHost": "1.0.0-beta4",
-            "xunit.runner.utility": "2.1.0-beta2-build2979"
+            "xunit.runner.utility": "2.1.0-beta2-build2981"
           },
           "frameworkAssemblies": [
             "System.Collections",
@@ -3495,7 +3495,7 @@
             "Microsoft.Framework.Runtime.Interfaces": "1.0.0-beta4",
             "Microsoft.Framework.TestAdapter": "1.0.0-beta4",
             "Microsoft.Framework.TestHost": "1.0.0-beta4",
-            "xunit.runner.utility": "2.1.0-beta2-build2979",
+            "xunit.runner.utility": "2.1.0-beta2-build2981",
             "System.Collections.Concurrent": "4.0.10-beta-22816",
             "System.Console": "4.0.0-beta-22816",
             "System.Diagnostics.Tools": "4.0.0-beta-22816",
@@ -3520,8 +3520,8 @@
         }
       },
       "files": [
-        "xunit.runner.dnx.2.1.0-beta2-build78.nupkg",
-        "xunit.runner.dnx.2.1.0-beta2-build78.nupkg.sha512",
+        "xunit.runner.dnx.2.1.0-beta2-build79.nupkg",
+        "xunit.runner.dnx.2.1.0-beta2-build79.nupkg.sha512",
         "xunit.runner.dnx.nuspec",
         "app/project.json",
         "app/xunit",
@@ -3532,9 +3532,9 @@
         "lib/dnxcore50/xunit.runner.dnx.xml"
       ]
     },
-    "xunit.runner.utility/2.1.0-beta2-build2979": {
+    "xunit.runner.utility/2.1.0-beta2-build2981": {
       "serviceable": false,
-      "sha": "ldOWFWAWKSnPOrU6Iu1VyM0q7BAh5TjJpZasHtfH2L0V/LZCkLKev9QmGqROxpSDOtsgFf1Sr/jhsHWOp9Bq6g==",
+      "sha": "g7jIEcA3ghXVwPAqy55sqbLXnpqEjmCoup5DnqpRVdz7JL2vEQlO4ERJyGx7zRO46iJnwdVWHbHVT4N1bHbeiQ==",
       "frameworks": {
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -3578,8 +3578,8 @@
         }
       },
       "files": [
-        "xunit.runner.utility.2.1.0-beta2-build2979.nupkg",
-        "xunit.runner.utility.2.1.0-beta2-build2979.nupkg.sha512",
+        "xunit.runner.utility.2.1.0-beta2-build2981.nupkg",
+        "xunit.runner.utility.2.1.0-beta2-build2981.nupkg.sha512",
         "xunit.runner.utility.nuspec",
         "lib/dnx451/xunit.runner.utility.dnx.dll",
         "lib/dnx451/xunit.runner.utility.dnx.pdb",

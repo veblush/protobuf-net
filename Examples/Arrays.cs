@@ -18,7 +18,7 @@ namespace Examples
     }
 
     [ProtoContract]
-    class Prim
+    public class Prim
     {
         [ProtoMember(1)]
         public string[] Values { get; set; }
@@ -144,6 +144,14 @@ namespace Examples
 #endif
         }
 
+        [Fact]
+        public void PrecompilePrimitiveArray()
+        {
+            var model = RuntimeTypeModel.Create();
+            model.Add(typeof(Prim), true);
+            model.Compile("PrecompilePrimitiveArray", "PrecompilePrimitiveArray.dll");
+            PEVerify.AssertValid("PrecompilePrimitiveArray.dll");
+        }
         [Fact]
         public void TestPrimativeArray()
         {
