@@ -22,7 +22,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Test(model, "CompileInPlace");
             Test(model.Compile(), "CompileInPlace");
-            model.Compile("SO14532116", "SO14532116.dll");
+            model.CompileIntoTestFolder("SO14532116", "SO14532116.dll");
             PEVerify.AssertValid("SO14532116.dll");
 
             int newCount = Count;

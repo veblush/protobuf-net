@@ -478,7 +478,7 @@ namespace Examples
             UriData clone = (UriData) model.DeepClone(test);
             Assert.Equal(test.Foo, clone.Foo); //, "Runtime");
 
-            var compiled = model.Compile("TestNonEmptyUriAllCompilationModes", "TestNonEmptyUriAllCompilationModes.dll");
+            var compiled = model.CompileIntoTestFolder("TestNonEmptyUriAllCompilationModes", "TestNonEmptyUriAllCompilationModes.dll");
             PEVerify.AssertValid("TestNonEmptyUriAllCompilationModes.dll");
             model.CompileInPlace();
             clone = (UriData)model.DeepClone(test);
@@ -501,7 +501,7 @@ namespace Examples
             clone = (UriDataWithDefault)model.DeepClone(defaulted);
             Assert.Equal(defaulted.Foo, clone.Foo); //, "Runtime");
 
-            var compiled = model.Compile("TestNonEmptyUriWithDefaultAllCompilationModes", "TestNonEmptyUriWithDefaultAllCompilationModes.dll");
+            var compiled = model.CompileIntoTestFolder("TestNonEmptyUriWithDefaultAllCompilationModes", "TestNonEmptyUriWithDefaultAllCompilationModes.dll");
             PEVerify.AssertValid("TestNonEmptyUriWithDefaultAllCompilationModes.dll");
             model.CompileInPlace();
             clone = (UriDataWithDefault)model.DeepClone(test);

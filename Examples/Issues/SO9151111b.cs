@@ -27,7 +27,7 @@ namespace Examples.Issues
 
             var s = new ProtoBufModalSerializer(1);
 
-            using (var f = new FileStream("protoTest.txt", FileMode.OpenOrCreate))
+            using (var f = new FileStream("TestFiles/protoTest.txt", FileMode.OpenOrCreate))
             {
                 buf = s.Serialize(p);
 
@@ -39,7 +39,7 @@ namespace Examples.Issues
 
             Console.WriteLine("Deserializing...");
 
-            using (var f = new FileStream("protoTest.txt", FileMode.OpenOrCreate))
+            using (var f = new FileStream("TestFiles/protoTest.txt", FileMode.OpenOrCreate))
             {
                 f.Read(buf, 0, buf.Length);
 

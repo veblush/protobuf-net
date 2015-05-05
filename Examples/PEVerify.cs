@@ -35,12 +35,13 @@ namespace Examples
                 );
             foreach (var file in Directory.GetFiles(path))
             {
-                File.Copy(file, Path.GetFileName(file), true);
+                File.Copy(file, Path.Combine("TestFiles", Path.GetFileName(file)), true);
             }
         }
         public static bool AssertValid(string path)
         {
 #if DNXCORE50
+            Assert.True(true);
             return true;
 #else
             // note; PEVerify can be found %ProgramFiles%\Microsoft SDKs\Windows\v6.0A\bin
@@ -48,7 +49,7 @@ namespace Examples
             string fullPath = Environment.ExpandEnvironmentVariables(exePath);
             if (!File.Exists(fullPath))
                 Assert.Equal("peverify exists", "peverify does not exist");
-            var testPath = Path.Combine(Environment.CurrentDirectory, path);
+            var testPath = Path.Combine(Environment.CurrentDirectory, "TestFiles", path);
             var psi = new ProcessStartInfo(Path.GetFileName(fullPath), testPath);
             psi.WorkingDirectory = Path.GetDirectoryName(fullPath);
             psi.CreateNoWindow = true;

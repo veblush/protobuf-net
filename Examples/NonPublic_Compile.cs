@@ -16,7 +16,7 @@ namespace Examples
             var model = TypeModel.Create();
             model.Add(typeof(T), true);
             string name = typeof(T).Name + "Serializer", path = name + ".dll";
-            model.Compile(name, path);
+            model.CompileIntoTestFolder(name, path);
             PEVerify.AssertValid(path);
             Assert.Equal("##fail##", "Should have failed");
         }

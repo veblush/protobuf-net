@@ -184,7 +184,7 @@ namespace Examples.Issues
             if (standalone)
             {
                 Execute_WithDefaultRef(model.Compile(), "Compile");
-                model.Compile(caller, caller + ".dll");
+                model.CompileIntoTestFolder(caller, caller + ".dll");
                 PEVerify.AssertValid(caller + ".dll");
             }
         }
@@ -195,7 +195,7 @@ namespace Examples.Issues
             if (standalone)
             {
                 Execute(model.Compile(), "Compile");
-                model.Compile(caller, caller + ".dll");
+                model.CompileIntoTestFolder(caller, caller + ".dll");
                 PEVerify.AssertValid(caller + ".dll");
             }
         }

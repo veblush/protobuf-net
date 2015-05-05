@@ -149,7 +149,7 @@ namespace Examples
         {
             var model = RuntimeTypeModel.Create();
             model.Add(typeof(Prim), true);
-            model.Compile("PrecompilePrimitiveArray", "PrecompilePrimitiveArray.dll");
+            model.CompileIntoTestFolder("PrecompilePrimitiveArray", "PrecompilePrimitiveArray.dll");
             PEVerify.AssertValid("PrecompilePrimitiveArray.dll");
         }
         [Fact]

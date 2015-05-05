@@ -23,7 +23,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute(OuterLoop, model, "CIP");
             Execute(OuterLoop, model.Compile(), "C");
-            var ext = model.Compile("SO18650486", "SO18650486.dll");
+            var ext = model.CompileIntoTestFolder("SO18650486", "SO18650486.dll");
             PEVerify.AssertValid("SO18650486.dll");
             Execute(OuterLoop, ext, "EXT");
         }

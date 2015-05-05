@@ -18,7 +18,7 @@ namespace Examples.Issues
             var clone = (Foo)model.DeepClone(foo);
             Assert.Equal(StateEnum.Deleted, clone.Value); //, "Runtime");
 
-            model.Compile("Issue302", "Issue302.dll");
+            model.CompileIntoTestFolder("Issue302", "Issue302.dll");
             PEVerify.AssertValid("Issue302.dll");
 
             model.CompileInPlace();

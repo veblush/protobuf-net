@@ -35,7 +35,7 @@ namespace Examples.Issues
         {
             var list = GetListOfThings();
 
-            using (var fs = File.Create(@"things.bin"))
+            using (var fs = File.Create(@"TestFiles/things.bin"))
             {
                 ProtoBuf.Serializer.Serialize(fs, list);
 
@@ -44,7 +44,7 @@ namespace Examples.Issues
 #endif
             }
 
-            using (var fs = File.OpenRead(@"things.bin"))
+            using (var fs = File.OpenRead(@"TestFiles/things.bin"))
             {
                 list = ProtoBuf.Serializer.Deserialize<MyDto>(fs);
 

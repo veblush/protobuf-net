@@ -82,7 +82,7 @@ namespace Examples.Issues
         public void TestCompile_PEVerify_DerivedFirst()
         {
             var model = CreateModel(false);
-            model.Compile("Issue331_DerivedFirst", "Issue331_DerivedFirst.dll");
+            model.CompileIntoTestFolder("Issue331_DerivedFirst", "Issue331_DerivedFirst.dll");
             PEVerify.AssertValid("Issue331_DerivedFirst.dll");
             var type = Type.GetType("Issue331_DerivedFirst, Issue331_DerivedFirst");
             Assert.NotNull(type); //, "resolve type");
@@ -118,7 +118,7 @@ namespace Examples.Issues
         public void TestCompile_PEVerify_BaseFirst()
         {
             var model = CreateModel(true);
-            model.Compile("Issue331_BaseFirst", "Issue331_BaseFirst.dll");
+            model.CompileIntoTestFolder("Issue331_BaseFirst", "Issue331_BaseFirst.dll");
             PEVerify.AssertValid("Issue331_BaseFirst.dll");
             var type = Type.GetType("Issue331_BaseFirst, Issue331_BaseFirst");
             Assert.NotNull(type); //, "resolve type");

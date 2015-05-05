@@ -38,7 +38,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute(model, "CompileInPlace");
             Execute(model.Compile(), "Compile");
-            model.Compile("SO17040488", "SO17040488.dll");
+            model.CompileIntoTestFolder("SO17040488", "SO17040488.dll");
             PEVerify.AssertValid("SO17040488.dll");
 
         }

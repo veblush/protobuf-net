@@ -78,7 +78,7 @@ namespace Examples
             Test(model, "CompileInPlace");
             Test(model.Compile(), "Compile");
 
-            model.Compile("TestStupidlyComplexModel", "TestStupidlyComplexModel.dll");
+            model.CompileIntoTestFolder("TestStupidlyComplexModel", "TestStupidlyComplexModel.dll");
             PEVerify.AssertValid("TestStupidlyComplexModel.dll");
         }
 

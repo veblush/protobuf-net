@@ -24,7 +24,7 @@ namespace Examples
 
             Check(model.Compile());
 
-            model.Compile("TestComplexNestedTupleWithCrazyMovingParts", "TestComplexNestedTupleWithCrazyMovingParts.dll");
+            model.CompileIntoTestFolder("TestComplexNestedTupleWithCrazyMovingParts", "TestComplexNestedTupleWithCrazyMovingParts.dll");
             PEVerify.AssertValid("TestComplexNestedTupleWithCrazyMovingParts.dll");
         }
         void Check(TypeModel model)

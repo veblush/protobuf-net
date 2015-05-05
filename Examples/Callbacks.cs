@@ -200,7 +200,7 @@ namespace Examples
             if(compile)
             {
                 string name = typeof (TCreate).FullName + "Ser";
-                model.Compile(name, name + ".dll");
+                model.CompileIntoTestFolder(name, name + ".dll");
                 PEVerify.AssertValid(name + ".dll");
             }
 

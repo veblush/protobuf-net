@@ -17,7 +17,7 @@ namespace Examples.Issues
             Parent parent = new Parent(new List<Child>() {child1, child2});
             family.Add(parent);
 
-            string file = "sandbox.txt";
+            string file = "TestFiles/sandbox.txt";
 
             try
             {

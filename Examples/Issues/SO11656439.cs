@@ -46,7 +46,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             CheckContractSubclass(model, "CompileInPlace");
             CheckContractSubclass(model.Compile(), "CompileInPlace");
-            model.Compile("ContractListSubclassShouldRoundTrip", "ContractListSubclassShouldRoundTrip.dll");
+            model.CompileIntoTestFolder("ContractListSubclassShouldRoundTrip", "ContractListSubclassShouldRoundTrip.dll");
             PEVerify.AssertValid("ContractListSubclassShouldRoundTrip.dll");
         }
 
@@ -124,7 +124,7 @@ message ListWrapper {
    repeated string MyContractList = 3;
 }
 ", schema);
-            model.Compile("SanityCheckListWrapper", "SanityCheckListWrapper.dll");
+            model.CompileIntoTestFolder("SanityCheckListWrapper", "SanityCheckListWrapper.dll");
             PEVerify.AssertValid("SanityCheckListWrapper.dll");
         }
 

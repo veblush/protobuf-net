@@ -22,7 +22,7 @@ namespace Examples
             Assert.Equal(123, clone.Value.Foo); //, "runtime");
             Assert.Equal("abc", clone.Value.Bar); //, "runtime");
 
-            model.Compile("TestHasTuplesWrapped", "TestHasTuplesWrapped.dll");
+            model.CompileIntoTestFolder("TestHasTuplesWrapped", "TestHasTuplesWrapped.dll");
             PEVerify.AssertValid("TestHasTuplesWrapped.dll");
 
             model.CompileInPlace();
@@ -58,7 +58,7 @@ namespace Examples
             Assert.Equal(123, clone.Foo); //, "runtime");
             Assert.Equal("abc", clone.Bar); //, "runtime");
 
-            model.Compile("TestHasTuplesNaked", "TestHasTuplesNaked.dll");
+            model.CompileIntoTestFolder("TestHasTuplesNaked", "TestHasTuplesNaked.dll");
             PEVerify.AssertValid("TestHasTuplesNaked.dll");
 
             model.CompileInPlace();
@@ -86,7 +86,7 @@ namespace Examples
             Assert.Equal(123, clone.Foo); //, "runtime");
             Assert.Equal("abc", clone.Bar); //, "runtime");
 
-            model.Compile("BasicTupleReversedOrder", "BasicTupleReversedOrder.dll");
+            model.CompileIntoTestFolder("BasicTupleReversedOrder", "BasicTupleReversedOrder.dll");
             PEVerify.AssertValid("BasicTupleReversedOrder.dll");
 
             model.CompileInPlace();
@@ -116,7 +116,7 @@ namespace Examples
             Assert.Equal(123, clone.Item1); //, "runtime");
             Assert.Equal("abc", clone.Item2); //, "runtime");
 
-            model.Compile("TestInbuiltTupleNaked", "TestInbuiltTupleNaked.dll");
+            model.CompileIntoTestFolder("TestInbuiltTupleNaked", "TestInbuiltTupleNaked.dll");
             PEVerify.AssertValid("TestInbuiltTupleNaked.dll");
 
             model.CompileInPlace();

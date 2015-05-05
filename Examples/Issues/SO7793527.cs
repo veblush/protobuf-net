@@ -154,7 +154,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Verify(obj, model, "CompileInPlace");
             Verify(obj, model.Compile(), "Compile");
-            var dll = model.Compile("TestPlanningModelWithEnumerables", "TestPlanningModelWithEnumerables.dll");
+            var dll = model.CompileIntoTestFolder("TestPlanningModelWithEnumerables", "TestPlanningModelWithEnumerables.dll");
             Verify(obj, dll, "dll");
             PEVerify.AssertValid("TestPlanningModelWithEnumerables.dll");
         }
@@ -172,7 +172,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Verify(obj, model, "CompileInPlace");
             Verify(obj, model.Compile(), "Compile");
-            var dll = model.Compile("TestPlanningModelWithLists", "TestPlanningModelWithLists.dll");
+            var dll = model.CompileIntoTestFolder("TestPlanningModelWithLists", "TestPlanningModelWithLists.dll");
             Verify(obj, dll, "dll");
             PEVerify.AssertValid("TestPlanningModelWithLists.dll");
         }

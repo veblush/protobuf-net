@@ -75,7 +75,7 @@ namespace Examples.Issues
 
             RunTest(model.Compile(), "Compile");
 
-            model.Compile("SO7719000", "SO7719000.dll");
+            model.CompileIntoTestFolder("SO7719000", "SO7719000.dll");
             PEVerify.AssertValid("SO7719000.dll");
         }
         private void RunTest(TypeModel typeModel, string caption)

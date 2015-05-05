@@ -32,7 +32,7 @@ namespace Examples.Issues
             var model = TypeModel.Create();
             model.AutoCompile = false;
             TestMember(model);
-            model.Compile("ShouldSerializeEnumArrayMember", "ShouldSerializeEnumArrayMember.dll");
+            model.CompileIntoTestFolder("ShouldSerializeEnumArrayMember", "ShouldSerializeEnumArrayMember.dll");
             PEVerify.AssertValid("ShouldSerializeEnumArrayMember.dll");
             model.CompileInPlace();
             TestMember(model);
@@ -65,7 +65,7 @@ namespace Examples.Issues
             var model = TypeModel.Create();
             model.AutoCompile = false;
             TestIndividual(model);
-            model.Compile("ShouldSerializeIndividualEnum", "ShouldSerializeIndividualEnum.dll");
+            model.CompileIntoTestFolder("ShouldSerializeIndividualEnum", "ShouldSerializeIndividualEnum.dll");
             PEVerify.AssertValid("ShouldSerializeIndividualEnum.dll");
             model.CompileInPlace();
             TestIndividual(model);
@@ -85,7 +85,7 @@ namespace Examples.Issues
             var model = TypeModel.Create();
             model.AutoCompile = false;
             TestArray(model);
-            model.Compile("ShouldSerializeArrayOfEnums", "ShouldSerializeArrayOfEnums.dll");
+            model.CompileIntoTestFolder("ShouldSerializeArrayOfEnums", "ShouldSerializeArrayOfEnums.dll");
             PEVerify.AssertValid("ShouldSerializeArrayOfEnums.dll");
             model.CompileInPlace();
             TestArray(model);

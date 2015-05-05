@@ -114,7 +114,7 @@ namespace Examples.Issues
             catRules.Add(new CatRule1());
             catRules.Add(new CatRule2());
 
-            using (var fs = File.Create(@"antRules.bin"))
+            using (var fs = File.Create(@"TestFiles/antRules.bin"))
             {
                 ProtoBuf.Serializer.Serialize(fs, antRules);
 #if !DNXCORE50
@@ -122,7 +122,7 @@ namespace Examples.Issues
 #endif
             }
 
-            using (var fs = File.OpenRead(@"antRules.bin"))
+            using (var fs = File.OpenRead(@"TestFiles/antRules.bin"))
             {
                 List<IRule<Ant>> list;
                 list = ProtoBuf.Serializer.Deserialize<List<IRule<Ant>>>(fs);
@@ -131,7 +131,7 @@ namespace Examples.Issues
 #endif
             }
 
-            using (var fs = File.Create(@"catRules.bin"))
+            using (var fs = File.Create(@"TestFiles/catRules.bin"))
             {
                 ProtoBuf.Serializer.Serialize(fs, catRules);
 
@@ -140,7 +140,7 @@ namespace Examples.Issues
 #endif
             }
 
-            using (var fs = File.OpenRead(@"catRules.bin"))
+            using (var fs = File.OpenRead(@"TestFiles/catRules.bin"))
             {
                 List<IRule<Cat>> list;
                 list = ProtoBuf.Serializer.Deserialize<List<IRule<Cat>>>(fs);

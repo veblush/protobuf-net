@@ -74,13 +74,13 @@ namespace Examples.Issues
                 new B {Property1 = 2, Property2 = 2, Property3 = 400, Property4 = "Test2", Property5 = DateTime.Now, Property6 = "yyyy"},
                 new A {Property1 = 3, Property2 = 3, Property3 = 600, Property4 = "Test3", Property5 = new Decimal(200)},
             };
-            using (var file = new FileStream("list.bin", FileMode.Create))
+            using (var file = new FileStream("TestFiles/list.bin", FileMode.Create))
             {
                 Serializer.Serialize(file, list);
             }
 
             IList<A> list2;
-            using (var file = File.OpenRead("list.bin"))
+            using (var file = File.OpenRead("TestFiles/list.bin"))
             {
                 list2 = Serializer.Deserialize<IList<A>>(file);
             }

@@ -95,7 +95,7 @@ namespace DAL
             db = LoadDatabaseFromFile<Database>(model.Compile());
             DbMetrics("Database", db);
 
-            db = LoadDatabaseFromFile<Database>(model.Compile("NWindModel", "NWindModel.dll"));
+            db = LoadDatabaseFromFile<Database>(model.CompileIntoTestFolder("NWindModel", "NWindModel.dll"));
             PEVerify.AssertValid("NWindModel.dll");
             DbMetrics("Database", db);
         }

@@ -52,19 +52,19 @@ namespace Examples.Issue29
         public void TestToDisk()
         {
             Person person = Person.Create(), clone;
-            using(FileStream fs = File.Create("issue29.dat"))
+            using(FileStream fs = File.Create("TestFiles/issue29.dat"))
             {
                 Serializer.Serialize(fs, person);
 #if !DNXCORE50
                 fs.Close();
 #endif
             }
-            using (FileStream fs = File.OpenRead("issue29.dat"))
+            using (FileStream fs = File.OpenRead("TestFiles/issue29.dat"))
             {
                 EchoStream("SaveToDisk", fs);
             }
 
-            using(FileStream fs = File.OpenRead("issue29.dat"))
+            using(FileStream fs = File.OpenRead("TestFiles/issue29.dat"))
             {
                 clone = Serializer.Deserialize<Person>(fs);
             }

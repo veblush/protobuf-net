@@ -96,7 +96,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute(model, "CompileInPlace");
             Execute(model.Compile(), "Compile");
-            model.Compile("SO11705351", "SO11705351.dll");
+            model.CompileIntoTestFolder("SO11705351", "SO11705351.dll");
             PEVerify.AssertValid("SO11705351.dll");
         }
         private static void Execute(TypeModel model, string caption)

@@ -35,7 +35,7 @@ namespace Examples.Issues
         public void VerifyCompile()
         {
             var model = GetModel();
-            model.Compile("SO16838287", "SO16838287.dll");
+            model.CompileIntoTestFolder("SO16838287", "SO16838287.dll");
             PEVerify.AssertValid("SO16838287.dll");
         }
 

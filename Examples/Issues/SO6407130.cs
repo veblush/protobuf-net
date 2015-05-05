@@ -87,7 +87,7 @@ namespace Examples.Issues
 
             TestModel(m.Compile(), "Compile");
 
-            m.Compile("SO6407130", "SO6407130.dll");
+            m.CompileIntoTestFolder("SO6407130", "SO6407130.dll");
             PEVerify.AssertValid("SO6407130.dll");
         }
         static void TestModel(TypeModel model, string caption)

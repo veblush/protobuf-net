@@ -144,7 +144,7 @@ namespace Examples
 
             TestDictionaryImpl<T>(model, "Runtime");
 
-            var external = model.Compile(name, name + ".dll");
+            var external = model.CompileIntoTestFolder(name, name + ".dll");
             PEVerify.AssertValid(name + ".dll");
             TestDictionaryImpl<T>(external, "External");
 
@@ -194,7 +194,7 @@ namespace Examples
             model.AutoCompile = false;
             TestListImpl<T>(model, "Runtime");
 
-            var external = model.Compile(name, name + ".dll");
+            var external = model.CompileIntoTestFolder(name, name + ".dll");
             PEVerify.AssertValid(name + ".dll");
             TestListImpl<T>(external, "External");
 
@@ -319,7 +319,7 @@ namespace Examples
             model.AutoCompile = false;
             TestHashSetImpl<T>(model, "Runtime");
 
-            var external = model.Compile(name, name + ".dll");
+            var external = model.CompileIntoTestFolder(name, name + ".dll");
             PEVerify.AssertValid(name + ".dll");
             TestHashSetImpl<T>(external, "External");
 
@@ -365,7 +365,7 @@ namespace Examples
             model.AutoCompile = false;
             TestSortedSetImpl<T>(model, "Runtime");
 
-            var external = model.Compile(name, name + ".dll");
+            var external = model.CompileIntoTestFolder(name, name + ".dll");
             PEVerify.AssertValid(name + ".dll");
             TestSortedSetImpl<T>(external, "External");
 
@@ -408,7 +408,7 @@ namespace Examples
             model.AutoCompile = false;
             TestSortedDictionaryImpl<T>(model, "Runtime");
 
-            var external = model.Compile(name, name + ".dll");
+            var external = model.CompileIntoTestFolder(name, name + ".dll");
             PEVerify.AssertValid(name + ".dll");
             TestSortedDictionaryImpl<T>(external, "External");
 

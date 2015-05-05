@@ -82,7 +82,7 @@ namespace Examples.Issues
                 ms.Position = 0;
                 var list2 = (List<object>)m.Deserialize(ms, null, typeof(List<object>));
                 Debug.Assert(list.SequenceEqual(list2));
-                File.WriteAllBytes(@"output.dump", ms.ToArray());
+                File.WriteAllBytes(@"TestFiles/output.dump", ms.ToArray());
             }
         }
     }

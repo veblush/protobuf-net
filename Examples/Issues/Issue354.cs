@@ -22,7 +22,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute(model, "CompileInPlace");
             Execute(model.Compile(), "Compile");
-            model.Compile("Issue354", "Issue354.dll");
+            model.CompileIntoTestFolder("Issue354", "Issue354.dll");
             PEVerify.AssertValid("Issue354.dll");
         }
 

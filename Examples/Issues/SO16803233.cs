@@ -28,7 +28,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute_Vanilla(model, "CompileInPlace");
             Execute_Vanilla(model.Compile(), "Compile");
-            model.Compile("SO16803233a", "SO16803233a.dll");
+            model.CompileIntoTestFolder("SO16803233a", "SO16803233a.dll");
             PEVerify.AssertValid("SO16803233a.dll");
         }
         [Fact]
@@ -40,7 +40,7 @@ namespace Examples.Issues
             model.CompileInPlace();
             Execute_WithLengthPrefix(model, "CompileInPlace");
             Execute_WithLengthPrefix(model.Compile(), "Compile");
-            model.Compile("SO16803233b", "SO16803233b.dll");
+            model.CompileIntoTestFolder("SO16803233b", "SO16803233b.dll");
             PEVerify.AssertValid("SO16803233b.dll");
         }
 

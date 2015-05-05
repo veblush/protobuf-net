@@ -54,7 +54,7 @@ namespace Examples.Issues
 
             Test(model, obj1, obj2, "Runtime");
 
-            model.Compile("SO9408133_TestImplicitSetup", "SO9408133_TestImplicitSetup.dll");
+            model.CompileIntoTestFolder("SO9408133_TestImplicitSetup", "SO9408133_TestImplicitSetup.dll");
             PEVerify.AssertValid("SO9408133_TestImplicitSetup.dll");
 
             model.CompileInPlace();
@@ -87,7 +87,7 @@ namespace Examples.Issues
 
             Test(model, obj1, obj2, "Runtime");
 
-            model.Compile("SO9408133_TestExplicitSetup", "SO9408133_TestExplicitSetup.dll");
+            model.CompileIntoTestFolder("SO9408133_TestExplicitSetup", "SO9408133_TestExplicitSetup.dll");
             PEVerify.AssertValid("SO9408133_TestExplicitSetup.dll");
 
             model.CompileInPlace();

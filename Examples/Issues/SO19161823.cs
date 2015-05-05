@@ -16,12 +16,12 @@ namespace Examples.Issues
 
             var container = new Container { Data = new Dummy { Positive = 3 } };
 
-            using (var file = File.Create("test.bin"))
+            using (var file = File.Create("TestFiles/test.bin"))
             {
                 Serializer.Serialize(file, container);
             }
 
-            using (var file = File.OpenRead("test.bin"))
+            using (var file = File.OpenRead("TestFiles/test.bin"))
             {
                 container = Serializer.Deserialize<Container>(file);
                 Assert.Equal(3, container.Data.Positive);

@@ -59,18 +59,18 @@ namespace Examples.Issues
             Console.WriteLine("{0}ms", watch.ElapsedMilliseconds);
             Console.WriteLine("Serializing...");
             watch = Stopwatch.StartNew();
-            using (var file = File.Create(@"big.file"))
+            using (var file = File.Create(@"TestFiles/big.file"))
             {
                 model.Serialize(file, orig);
             }
             watch.Stop();
             Console.WriteLine("{0}ms", watch.ElapsedMilliseconds);
-            var len = new FileInfo(@"big.file").Length;
+            var len = new FileInfo(@"TestFiles/big.file").Length;
             Console.WriteLine("{0} bytes", len);
             Console.WriteLine("Deserializing...");
             watch = Stopwatch.StartNew();
             A clone;
-            using (var file = File.OpenRead(@"big.file"))
+            using (var file = File.OpenRead(@"TestFiles/big.file"))
             {
                 clone = (A) model.Deserialize(file, null, typeof(A));
             }

@@ -155,7 +155,7 @@ namespace Examples
             Assert.False(dm3.FooSpecified, "FooSpecified:Compile");
             Assert.False(dm3.BarSpecified, "BarSpecified:Compile");
 
-            model.Compile("TestViaXmlProtoNotSet", "TestViaXmlProtoNotSet.dll");
+            model.CompileIntoTestFolder("TestViaXmlProtoNotSet", "TestViaXmlProtoNotSet.dll");
             PEVerify.AssertValid("TestViaXmlProtoNotSet.dll");
         }
         [Fact]
@@ -176,7 +176,7 @@ namespace Examples
             Assert.True(dm3.FooSpecified, "FooSpecified:Compile");
             Assert.True(dm3.BarSpecified, "BarSpecified:Compile");
 
-            model.Compile("TestViaXmlProtoSet", "TestViaXmlProtoSet.dll");
+            model.CompileIntoTestFolder("TestViaXmlProtoSet", "TestViaXmlProtoSet.dll");
             PEVerify.AssertValid("TestViaXmlProtoSet.dll");
         }
 

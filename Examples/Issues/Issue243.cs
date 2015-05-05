@@ -72,7 +72,7 @@ namespace Examples.Issues
         public void CompilesCleanly()
         {
             var model = GetModel();
-            model.Compile("Issue243_a", "Issue243_a.dll");
+            model.CompileIntoTestFolder("Issue243_a", "Issue243_a.dll");
             PEVerify.AssertValid("Issue243_a.dll");
         }
 
@@ -121,7 +121,7 @@ namespace Examples.Issues
         public void TestWithSupportForNullsCompilesCleanly()
         {
             var model = GetModelWithSupportForNulls();
-            model.Compile("Issue243_b", "Issue243_b.dll");
+            model.CompileIntoTestFolder("Issue243_b", "Issue243_b.dll");
             PEVerify.AssertValid("Issue243_b.dll");
         }
         [Fact]

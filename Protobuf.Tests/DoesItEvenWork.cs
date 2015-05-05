@@ -4,6 +4,7 @@ using System.Linq;
 using ProtoBuf.Meta;
 using Xunit;
 using System.Reflection;
+using System.IO;
 
 #if DNXCORE50
 namespace System
@@ -96,9 +97,17 @@ static class FrameworkHelpers
 }
 public static class Helpers
 {
-    public static TypeModel Compile(this RuntimeTypeModel model, string x, string y)
+    public static TypeModel CompileIntoTestFolder(this RuntimeTypeModel model, string name, string path)
     {
+#if DNXCORE50
         return Compile(model);
+#else
+        var final = System.IO.Path.Combine("TestFiles", path);
+        var result = model.Compile(name, path);
+        if (File.Exists(final)) File.Delete(final);
+        File.Move(path, final);
+        return result;
+#endif
     }
     public static TypeModel Compile(this RuntimeTypeModel model)
     {
