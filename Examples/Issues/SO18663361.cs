@@ -61,7 +61,7 @@ namespace Examples.Issues
 
         [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MarketDataEntry")]
         [ProtoInclude(1, typeof(CreditMarketDataEntry_Float))]
-        public partial class MarketDataEntry_Float : global::ProtoBuf.Extensible
+        public partial class MarketDataEntry_Float //: global::ProtoBuf.Extensible
         {
             // some other properties
 
@@ -75,7 +75,7 @@ namespace Examples.Issues
         }
         [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MarketDataEntry")]
         [ProtoInclude(1, typeof(CreditMarketDataEntry_Double))]
-        public partial class MarketDataEntry_Double : global::ProtoBuf.Extensible
+        public partial class MarketDataEntry_Double //: global::ProtoBuf.Extensible
         {
             // some other properties
 
@@ -89,7 +89,7 @@ namespace Examples.Issues
         }
         [global::System.Serializable, global::ProtoBuf.ProtoContract(Name = @"MarketDataEntry")]
         [ProtoInclude(1, typeof(CreditMarketDataEntry_Decimal))]
-        public partial class MarketDataEntry_Decimal : global::ProtoBuf.Extensible
+        public partial class MarketDataEntry_Decimal // : global::ProtoBuf.Extensible
         {
             // some other properties
 
