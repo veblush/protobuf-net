@@ -111,6 +111,11 @@ namespace ProtoBuf.Precompile
         /// </summary>
         [CommandLine("publickey")]
         public string PublicKey { get; set; }
+        /// <summary>
+        /// Find surrogate and use it automatically.
+        /// </summary>
+        [CommandLine("autosurrogate")]
+        public bool AutoSurrogate { get; set; }
 
         /// <summary>
         /// Create a new instance of PreCompileContext
@@ -405,8 +410,17 @@ namespace ProtoBuf.Precompile
             {
                 Console.WriteLine("Adding " + type.FullName + "...");
             }
+            // find surrogates
+            foreach (MetaType type in model.GetTypes())
+            {
+                var sourceType = FindSurrogateSourceType(type.Type, model.Universe);
+                if (sourceType != null)
+                {
+                    Console.WriteLine("Adding " + sourceType.FullName + " with surrogate " + type.Type.FullName + "...");
+                    model.Add(sourceType, false).SetSurrogate(type.Type);
+                }
+            }
 
-            
             // configure the output file/serializer name, and borrow the framework particulars from
             // the type we loaded
             var options = new RuntimeTypeModel.CompilerOptions
@@ -434,9 +448,8 @@ namespace ProtoBuf.Precompile
             Console.WriteLine("All done");
 
             return true;
-
         }
-        
+
         private IKVM.Reflection.Assembly ResolveNewAssembly(IKVM.Reflection.Universe uni, string fileName)
         {
             foreach (var match in ProbeForFiles(fileName))
@@ -446,6 +459,30 @@ namespace ProtoBuf.Precompile
                 {
                     Console.WriteLine("Resolved " + match);
                     return asm;
+                }
+            }
+            return null;
+        }
+
+        private IKVM.Reflection.Type FindSurrogateSourceType(IKVM.Reflection.Type type, IKVM.Reflection.Universe universe)
+        {
+            var attributeType = universe.GetType("System.Attribute, mscorlib");
+
+            const IKVM.Reflection.BindingFlags flags = IKVM.Reflection.BindingFlags.Static |
+                                                       IKVM.Reflection.BindingFlags.Public |
+                                                       IKVM.Reflection.BindingFlags.NonPublic;
+            foreach (var m in type.GetMethods(flags))
+            {
+                var parameters = m.GetParameters();
+                if (parameters.Length == 1 && m.ReturnType.Name != "Void" && m.ReturnType != type)
+                {
+                    foreach (var attrib in m.__GetCustomAttributes(attributeType, true))
+                    {
+                        if (attrib.Constructor.DeclaringType.FullName == "ProtoBuf.ProtoConverterAttribute")
+                            return m.ReturnType;
+                    }
+                    if (m.Name == "op_Implicit" || m.Name == "op_Explicit")
+                        return m.ReturnType;
                 }
             }
             return null;
@@ -490,6 +527,8 @@ Options:
            Sign with the container specified
     -publickey:<key>
            Sign with the public key specified (as hex)
+    -autosurrogate
+           Find surrogates and use these automatically
     <file>
            Input file to analyse
 
