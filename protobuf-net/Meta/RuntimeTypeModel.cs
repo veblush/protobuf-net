@@ -912,9 +912,12 @@ namespace ProtoBuf.Meta
         {
             return Compile(null, null);
         }
+
         static ILGenerator Override(TypeBuilder type, string name)
         {
             MethodInfo baseMethod = type.BaseType.GetMethod(name, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (baseMethod == null)
+                return null;
 
             ParameterInfo[] parameters = baseMethod.GetParameters();
             Type[] paramTypes = new Type[parameters.Length];
@@ -1156,8 +1159,11 @@ namespace ProtoBuf.Meta
 
             // trivial flags
             il = Override(type, "SerializeDateTimeKind");
-            il.Emit(IncludeDateTimeKind ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
-            il.Emit(OpCodes.Ret);
+            if (il != null)
+            {
+                il.Emit(IncludeDateTimeKind ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
+                il.Emit(OpCodes.Ret);
+            }
             // end: trivial flags
 
             Compiler.CompilerContext ctx = WriteSerializeDeserialize(assemblyName, type, methodPairs, ilVersion, ref il);
