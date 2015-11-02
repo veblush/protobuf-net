@@ -390,13 +390,53 @@ namespace ProtoBuf.Precompile
                 return false;
             }
 
+            // find surrogate directives
+            for (int i = 0; i < toAdd.Count; i++)
+            {
+                var type = toAdd[i];
+                if (type.Name.ToLower().Contains("surrogatedirectives"))
+                {
+                    foreach (var field in type.GetFields())
+                    {
+                        var sourceType = FindSurrogateSourceType(field.FieldType, model.Universe);
+                        if (sourceType != null)
+                        {
+                            Console.WriteLine("Adding " + sourceType.FullName + " with surrogate " + field.FieldType + "...");
+                            model.Add(sourceType, false).SetSurrogate(field.FieldType);
+                        }
+                    }
+                    toAdd.RemoveAt(i);
+                    i -= 1;
+                }
+            }
             // add everything we explicitly know about
-            toAdd.Sort((x, y) => string.Compare(x.FullName, y.FullName));            
+            toAdd.Sort((x, y) => string.Compare(x.FullName, y.FullName));
             foreach (var type in toAdd)
             {
                 Console.WriteLine("Adding " + type.FullName + "...");
                 var tmp = model.Add(type, true);
                 if (metaType == null) metaType = tmp; // use this as the template for the framework version
+            }
+            // find surrogates from toAdd
+            if (AutoSurrogate)
+            {
+                foreach (var type in toAdd)
+                {
+                    if (!type.Name.ToLower().Contains("surrogate")) continue;
+                    var sourceType = FindSurrogateSourceType(type, model.Universe);
+                    if (sourceType != null)
+                    {
+                        try
+                        {
+                            model.Add(sourceType, false).SetSurrogate(type);
+                            Console.WriteLine("Adding " + sourceType.FullName + " with surrogate " + type.FullName + "...");
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // Ignore InvalidOperationException that can be caused by modification frozen type
+                        }
+                    }
+                }
             }
             // add everything else we can find
             model.Cascade();
@@ -410,14 +450,25 @@ namespace ProtoBuf.Precompile
             {
                 Console.WriteLine("Adding " + type.FullName + "...");
             }
-            // find surrogates
-            foreach (MetaType type in model.GetTypes())
+            // find surrogates from cascaded ones
+            if (AutoSurrogate)
             {
-                var sourceType = FindSurrogateSourceType(type.Type, model.Universe);
-                if (sourceType != null)
+                foreach (MetaType type in model.GetTypes())
                 {
-                    Console.WriteLine("Adding " + sourceType.FullName + " with surrogate " + type.Type.FullName + "...");
-                    model.Add(sourceType, false).SetSurrogate(type.Type);
+                    if (!type.Type.Name.ToLower().Contains("surrogate")) continue;
+                    var sourceType = FindSurrogateSourceType(type.Type, model.Universe);
+                    if (sourceType != null)
+                    {
+                        try
+                        {
+                            model.Add(sourceType, false).SetSurrogate(type.Type);
+                            Console.WriteLine("Adding " + sourceType.FullName + " with surrogate " + type.Type.FullName + "...");
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // Ignore InvalidOperationException that can be caused by modification frozen type
+                        }
+                    }
                 }
             }
 
