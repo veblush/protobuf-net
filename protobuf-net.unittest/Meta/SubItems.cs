@@ -60,7 +60,6 @@ namespace ProtoBuf.unittest.Meta
             Assert.IsInstanceOfType(typeof(OuterVal), compiled.Deserialize(Stream.Null, null, typeof(OuterVal)));
             Assert.IsInstanceOfType(typeof(InnerRef), compiled.Deserialize(Stream.Null, null, typeof(InnerRef)));
             Assert.IsInstanceOfType(typeof(InnerVal), compiled.Deserialize(Stream.Null, null, typeof(InnerVal)));
-
         }
 
 
@@ -169,19 +168,17 @@ namespace ProtoBuf.unittest.Meta
             model.CompileInPlace();
             var clone2 = (TypeWithNulls)model.DeepClone(obj);
 
-            
             TypeModel compiled = model.Compile("TestTypeWithNullableProps", "TestTypeWithNullableProps.dll");
             PEVerify.Verify("TestTypeWithNullableProps.dll");
             var clone3 = (TypeWithNulls)compiled.DeepClone(obj);
             Assert.AreEqual(123, clone1.First);
-            Assert.AreEqual(456.789, clone1.Second);
+            Assert.AreEqual(456.789M, clone1.Second);
 
             Assert.AreEqual(123, clone2.First);
-            Assert.AreEqual(456.789, clone2.Second);
+            Assert.AreEqual(456.789M, clone2.Second);
 
             Assert.AreEqual(123, clone3.First);
-            Assert.AreEqual(456.789, clone3.Second);
-
+            Assert.AreEqual(456.789M, clone3.Second);
         }
 
         [ProtoContract]

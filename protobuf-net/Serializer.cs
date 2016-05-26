@@ -77,6 +77,16 @@ namespace ProtoBuf
             return (T) RuntimeTypeModel.Default.Deserialize(source, null, typeof(T));
         }
         /// <summary>
+		/// Creates a new instance from a protocol-buffer stream
+		/// </summary>
+		/// <param name="type">The type to be created.</param>
+		/// <param name="source">The binary stream to apply to the new instance (cannot be null).</param>
+		/// <returns>A new, initialized instance.</returns>
+		public static object Deserialize(System.Type type, Stream source)
+		{
+			return RuntimeTypeModel.Default.Deserialize(source, null, type);
+		}
+        /// <summary>
         /// Writes a protocol-buffer representation of the given instance to the supplied stream.
         /// </summary>
         /// <param name="instance">The existing instance to be serialized (cannot be null).</param>
@@ -107,7 +117,7 @@ namespace ProtoBuf
                 return Deserialize<TTo>(ms);
             }
         }
-#if PLAT_BINARYFORMATTER && !(WINRT || PHONE8)
+#if PLAT_BINARYFORMATTER && !(WINRT || PHONE8 || COREFX)
         /// <summary>
         /// Writes a protocol-buffer representation of the given instance to the supplied SerializationInfo.
         /// </summary>
@@ -153,7 +163,7 @@ namespace ProtoBuf
             using (MemoryStream ms = new MemoryStream())
             {
                 Serializer.Serialize(ms, instance);
-                writer.WriteBase64(ms.GetBuffer(), 0, (int)ms.Length);
+                writer.WriteBase64(Helpers.GetBuffer(ms), 0, (int)ms.Length);
             }
         }
         /// <summary>
@@ -191,7 +201,7 @@ namespace ProtoBuf
 #endif
 
         private const string ProtoBinaryField = "proto";
-#if PLAT_BINARYFORMATTER && !NO_GENERICS && !(WINRT || PHONE8)
+#if PLAT_BINARYFORMATTER && !NO_GENERICS && !(WINRT || PHONE8 || COREFX)
         /// <summary>
         /// Applies a protocol-buffer from a SerializationInfo to an existing instance.
         /// </summary>
@@ -240,7 +250,7 @@ namespace ProtoBuf
 #endif
         }
 
-#if PLAT_BINARYFORMATTER && !(WINRT || PHONE8)
+#if PLAT_BINARYFORMATTER && !(WINRT || PHONE8 || COREFX)
         /// <summary>
         /// Creates a new IFormatter that uses protocol-buffer [de]serialization.
         /// </summary>
@@ -262,7 +272,7 @@ namespace ProtoBuf
         /// (use the <see cref="ListItemTag"/> tag to emulate the implicit behavior
         /// when serializing a list/array). When a tag is
         /// specified, any records with different tags are silently omitted. The
-        /// tag is ignored. The tag is ignores for fixed-length prefixes.
+        /// tag is ignored. The tag is ignored for fixed-length prefixes.
         /// </summary>
         /// <typeparam name="T">The type of object to deserialize.</typeparam>
         /// <param name="source">The binary stream containing the serialized records.</param>

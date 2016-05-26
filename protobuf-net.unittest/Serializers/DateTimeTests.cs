@@ -37,13 +37,13 @@ namespace ProtoBuf.unittest.Serializers
             Assert.AreEqual(obj.When, clone.When);
         }
 
-
         [Test]
         public void TestDateTimeCanCompileFully()
         {
             var model = CreateModel().Compile("TestDateTimeCanCompileFully", "TestDateTimeCanCompileFully.dll");
             PEVerify.Verify("TestDateTimeCanCompileFully.dll");
         }
+
         [Test]
         public void TestDateTimeCompiled()
         {

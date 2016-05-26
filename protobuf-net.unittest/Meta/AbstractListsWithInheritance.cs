@@ -36,6 +36,7 @@ namespace ProtoBuf.unittest.Meta
                 .Add(4, "AbstractAList", null, typeof(AList));
             return model;
         }
+
         [Test]
         public void CanBuildAndCompileModel()
         {

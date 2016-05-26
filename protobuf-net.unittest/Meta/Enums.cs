@@ -48,6 +48,7 @@ namespace ProtoBuf.unittest.Meta
             model.Add(typeof(AllTheEnums), true);
             return model;
         }
+
         [Test]
         public void CanCompileEnumsAsPassthru()
         {
@@ -55,6 +56,7 @@ namespace ProtoBuf.unittest.Meta
             model.Compile("AllTheEnumsPassThru", "AllTheEnumsPassThru.dll");
             PEVerify.Verify("AllTheEnumsPassThru.dll");
         }
+
         [Test]
         public void CanCompileEnumsAsMapped()
         {
@@ -161,6 +163,7 @@ namespace ProtoBuf.unittest.Meta
             model.Add(typeof(MappedValuesB), true);
             return model;
         }
+
         [Test]
         public void RemappingCanCompile()
         {
@@ -168,6 +171,7 @@ namespace ProtoBuf.unittest.Meta
             model.Compile("CreateRemappingModel", "CreateRemappingModel.dll");
             PEVerify.Verify("CreateRemappingModel.dll");
         }
+
         TTo ChangeType<TTo>(TypeModel model, object value)
         {
             using (var ms = new MemoryStream())

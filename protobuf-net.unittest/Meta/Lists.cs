@@ -46,10 +46,11 @@ namespace ProtoBuf.unittest.Meta
             meta.Add(8, "IListInt32Untyped", typeof(int), null);
 
             model.CompileInPlace();
-            model.Compile("EmitModelWithEverything", "EmitModelWithEverything.dll");
 
+            model.Compile("EmitModelWithEverything", "EmitModelWithEverything.dll");
             PEVerify.Verify("EmitModelWithEverything.dll");
-            
+
+
         }
 
         [Test]
@@ -335,40 +336,59 @@ namespace ProtoBuf.unittest.Meta
 
             public List<byte[]> Blobs{ get; set; }
         }
-        [Test, ExpectedException(typeof(NotSupportedException))]
+        [Test]
         public void JaggedListShouldThrow()
         {
-            var model = RuntimeTypeModel.Create();
-            model.Add(typeof(NastyType), true).Add(1, "JaggedList");
-            model.CompileInPlace();
+            try {
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(NastyType), true).Add(1, "JaggedList");
+                model.CompileInPlace();
+                Assert.Fail();
+            } catch(NotSupportedException) {  }
         }
-        [Test, ExpectedException(typeof(NotSupportedException))]
+        [Test]
         public void ListOfArrayShouldThrow()
         {
-            var model = RuntimeTypeModel.Create();
-            model.Add(typeof(NastyType), true).Add(1, "ListOfArray");
-            model.CompileInPlace();
+            try {
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(NastyType), true).Add(1, "ListOfArray");
+                model.CompileInPlace();
+                Assert.Fail();
+            }
+            catch (NotSupportedException) { }
         }
-        [Test, ExpectedException(typeof(NotSupportedException))]
+        [Test]
         public void MultiDimArrayShouldThrow()
         {
-            var model = RuntimeTypeModel.Create();
-            model.Add(typeof(NastyType), true).Add(1, "MultiDimArray");
-            model.CompileInPlace();
+            try {
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(NastyType), true).Add(1, "MultiDimArray");
+                model.CompileInPlace();
+                Assert.Fail();
+            }
+            catch (NotSupportedException) { }
         }
-        [Test, ExpectedException(typeof(NotSupportedException))]
+        [Test]
         public void JaggedArrayShouldThrow()
         {
-            var model = RuntimeTypeModel.Create();
-            model.Add(typeof(NastyType), true).Add(1, "JaggedArray");
-            model.CompileInPlace();
+            try {
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(NastyType), true).Add(1, "JaggedArray");
+                model.CompileInPlace();
+                Assert.Fail();
+            }
+            catch (NotSupportedException) { }
         }
-        [Test, ExpectedException(typeof(NotSupportedException))]
+        [Test]
         public void ArrayOfListShouldThrow()
         {
-            var model = RuntimeTypeModel.Create();
-            model.Add(typeof(NastyType), true).Add(1, "ArrayOfList");
-            model.CompileInPlace();
+            try {
+                var model = RuntimeTypeModel.Create();
+                model.Add(typeof(NastyType), true).Add(1, "ArrayOfList");
+                model.CompileInPlace();
+                    Assert.Fail();
+            }
+            catch (NotSupportedException) { }
         }
         [Test]
         public void BasicListIsFine()
@@ -427,6 +447,7 @@ namespace ProtoBuf.unittest.Meta
             model.Compile("PEVerifyPackedLists", "PEVerifyPackedLists.dll");
             PEVerify.Verify("PEVerifyPackedLists.dll");
         }
+
         [Test]
         public void TestNullRoundTrip()
         {
@@ -569,7 +590,6 @@ namespace ProtoBuf.unittest.Meta
             model.Compile("PEVerifyPackedArrays", "PEVerifyPackedArrays.dll");
             PEVerify.Verify("PEVerifyPackedArrays.dll");
         }
-
 
         [Test]
         public void TestEmptyRoundTrip()

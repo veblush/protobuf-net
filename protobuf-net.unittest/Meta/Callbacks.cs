@@ -54,6 +54,7 @@ namespace ProtoBuf.unittest.Meta
         {
             var model = BuildModel();
             model.CompileInPlace();
+
             model.Compile("Callbacks", "Callbacks.dll");
             PEVerify.Verify("Callbacks.dll");
         }
